@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import WordsScreen from "./screens/WordsScreen";
+import WordsListScreen from "./screens/WordsListScreen";
+import WordScreen from "./screens/WordScreen";
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       <Header />
       <main className="py-4">
         <Container>
-          <Route path="/words" component={WordsScreen} />
+          <Route path="/words" component={WordsListScreen} />
+          <Route path="/word/:id" component={WordScreen} />
         </Container>
       </main>
       <Footer />

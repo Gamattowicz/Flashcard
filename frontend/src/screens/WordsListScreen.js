@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import Word from "../components/Word";
 
-const WordsScreen = () => {
+const WordsListScreen = () => {
   return (
     <div>
       <h1>Words</h1>
@@ -15,4 +15,4 @@ const WordsScreen = () => {
   );
 };
 
-export default WordsScreen;
+export default WordsListScreen;
