@@ -8,7 +8,7 @@ const WordsListScreen = () => {
 
   useEffect(() => {
     async function fetchWords() {
-      const { data } = await axios.get("http://127.0.0.1:8000/words/");
+      const { data } = await axios.get("/words/");
       setWords(data);
     }
     fetchWords();
