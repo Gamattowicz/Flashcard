@@ -5,7 +5,7 @@ import {
   WORD_LIST_FAIL,
 } from "../constants/wordConstants";
 
-const listWords = () => async (dispatch) => {
+export const listWords = () => async (dispatch) => {
   try {
     dispatch({ type: WORD_LIST_REQUEST });
     const { data } = await axios.get("/words/");
