@@ -7,6 +7,11 @@ class WordSerializer(serializers.ModelSerializer):
         model = Word
         fields = '__all__'
 
+    def to_representation(self, instance):
+        rep = super(WordSerializer, self).to_representation(instance)
+        rep['category'] = instance.category.name
+        return rep
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
