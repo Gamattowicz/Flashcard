@@ -1,12 +1,20 @@
+import {
+  WORD_LIST_REQUEST,
+  WORD_LIST_SUCCESS,
+  WORD_LIST_FAIL,
+} from "../constants/wordConstants";
+
 export const wordListReducer = (state = { words: [] }, action) => {
   switch (action.type) {
-    case "WORD_LIST_REQUEST":
+    case WORD_LIST_REQUEST:
       return { loading: true, words: [] };
 
-    case "WORD_LIST_SUCCESS":
+    case WORD_LIST_SUCCESS:
       return { loading: false, words: action.payload };
-    case "WORD_LIST_FAIL":
+
+    case WORD_LIST_FAIL:
       return { loading: false, error: action.payload };
+
     default:
       return state;
   }
