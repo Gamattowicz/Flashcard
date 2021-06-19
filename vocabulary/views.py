@@ -7,3 +7,10 @@ from .serializers import WordSerializer
 @api_view(['GET'])
 def home(request):
     return Response('Hello World!')
+
+
+@api_view(['GET'])
+def get_words(request):
+    words = Word.objects.all()
+    serializer = WordSerializer(words, many=True)
+    return Response(serializer.data)
