@@ -13,21 +13,27 @@ const WordScreen = () => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <Row>
-                <Col>Name</Col>
+                <Col>
+                  <strong>Name</strong>
+                </Col>
                 <Col>Word</Col>
               </Row>
             </ListGroup.Item>
 
             <ListGroup.Item>
               <Row>
-                <Col>Definition</Col>
+                <Col>
+                  <strong>Definition</strong>
+                </Col>
                 <Col>Słowo</Col>
               </Row>
             </ListGroup.Item>
 
             <ListGroup.Item>
               <Row>
-                <Col>Category</Col>
+                <Col>
+                  <strong>Category</strong>
+                </Col>
                 <Col>Home</Col>
               </Row>
             </ListGroup.Item>

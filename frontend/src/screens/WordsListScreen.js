@@ -19,7 +19,7 @@ const WordsListScreen = () => {
       <Row>
         {words.map((word) => (
           <Col key={word.id} sm={12} md={6} lg={4} xl={3}>
-            <Word />
+            <Word word={word} />
           </Col>
         ))}
       </Row>
