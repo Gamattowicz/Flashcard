@@ -1,10 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { wordListReducer } from "./reducers/wordReducers";
+import { wordListReducer, wordDetailsReducer } from "./reducers/wordReducers";
 
 const reducer = combineReducers({
   wordList: wordListReducer,
+  wordDetails: wordDetailsReducer,
 });
 
 const initialState = {};
