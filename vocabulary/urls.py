@@ -1,9 +1,8 @@
 from django.urls import path
-from .views import home, get_words, get_word, get_categories, get_category
-from rest_framework_simplejwt.views import TokenObtainPairView
+from .views import home, get_words, get_word, get_categories, get_category, MyTokenObtainPairView
 
 urlpatterns = [
-    path('api/users/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/users/login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('', home, name='home'),
     path('words/', get_words, name='words'),
     path('words/<str:pk>/', get_word, name='word'),
