@@ -21,6 +21,13 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 
 @api_view(['GET'])
+def get_user_profile(request):
+    user = request.user
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
 def home(request):
     return Response('Hello World!')
 
