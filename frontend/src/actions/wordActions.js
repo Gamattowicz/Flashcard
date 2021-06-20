@@ -3,6 +3,9 @@ import {
   WORD_LIST_REQUEST,
   WORD_LIST_SUCCESS,
   WORD_LIST_FAIL,
+  WORD_DETAILS_REQUEST,
+  WORD_DETAILS_SUCCESS,
+  WORD_DETAILS_FAIL,
 } from "../constants/wordConstants";
 
 export const listWords = () => async (dispatch) => {
@@ -16,6 +19,25 @@ export const listWords = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: WORD_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listWordDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: WORD_DETAILS_REQUEST });
+    const { data } = await axios.get(`/words/${id}`);
+    dispatch({
+      type: WORD_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: WORD_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
