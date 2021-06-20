@@ -6,6 +6,7 @@ from .models import Word, Category
 from .serializers import WordSerializer, CategorySerializer, UserSerializer, UserSerializerWithToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from django.contrib.auth.hashers import make_password
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -21,6 +22,18 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
+
+@api_view(['POST'])
+def register_user(request):
+    data = request.data
+    user = User.objects.create(
+        username=data['name'],
+        email=data['email'],
+        password=make_password(data['password'])
+    )
+    serializer = UserSerializerWithToken(user, many=False)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
