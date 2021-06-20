@@ -7,6 +7,7 @@ from .serializers import WordSerializer, CategorySerializer, UserSerializer, Use
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
+from rest_framework import status
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -27,13 +28,18 @@ class MyTokenObtainPairView(TokenObtainPairView):
 @api_view(['POST'])
 def register_user(request):
     data = request.data
-    user = User.objects.create(
-        username=data['name'],
-        email=data['email'],
-        password=make_password(data['password'])
-    )
-    serializer = UserSerializerWithToken(user, many=False)
-    return Response(serializer.data)
+
+    try:
+        user = User.objects.create(
+            username=data['name'],
+            email=data['email'],
+            password=make_password(data['password'])
+        )
+        serializer = UserSerializerWithToken(user, many=False)
+        return Response(serializer.data)
+    except:
+        message = {'detail': 'User with this email already exists'}
+        return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])
