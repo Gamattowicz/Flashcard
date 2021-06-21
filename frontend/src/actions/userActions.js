@@ -6,12 +6,12 @@ import {
 } from "../constants/userConstants";
 import axios from "axios";
 
-export const Login = (username, password) => async (dispatch) => {
+export const login = (username, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
     const config = {
       headers: {
-        "Content-type": "application",
+        "Content-type": "application/json",
       },
     };
     const { data } = await axios.post(
@@ -27,10 +27,6 @@ export const Login = (username, password) => async (dispatch) => {
       payload: data,
     });
     localStorage.setItem("userInfo", JSON.stringify(data));
-    dispatch({
-      type: USER_LOGOUT,
-      payload: [],
-    });
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,

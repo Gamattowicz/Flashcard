@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import WordsListScreen from "./screens/WordsListScreen";
 import WordScreen from "./screens/WordScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Container>
           <Route path="/words" component={WordsListScreen} />
           <Route path="/word/:id" component={WordScreen} />
+          <Route path="/login" component={LoginScreen} />
         </Container>
       </main>
       <Footer />
