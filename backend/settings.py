@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
-    'vocabulary.apps.VocabularyConfig',
+    'words.apps.WordsConfig',
     'category.apps.CategoryConfig',
     'users.apps.UsersConfig',
 
