@@ -39,8 +39,8 @@ export const listWordDetails = (id) => async (dispatch) => {
     dispatch({
       type: WORD_DETAILS_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
+        error.response && error.response.data.detail
+          ? error.response.data.detail
           : error.message,
     });
   }
