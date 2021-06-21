@@ -59,11 +59,6 @@ def get_users(request):
 
 
 @api_view(['GET'])
-def home(request):
-    return Response('Hello World!')
-
-
-@api_view(['GET'])
 def get_words(request):
     words = Word.objects.all()
     serializer = WordSerializer(words, many=True)

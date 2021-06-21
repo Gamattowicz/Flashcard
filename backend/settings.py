@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'vocabulary.apps.VocabularyConfig',
+    'category.apps.CategoryConfig',
+    'users.apps.UsersConfig',
 
 ]
 
