@@ -2,8 +2,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from .models import Word, Category
-from .serializers import WordSerializer, CategorySerializer, UserSerializer, UserSerializerWithToken
+from .models import Word
+from .serializers import WordSerializer, UserSerializer, UserSerializerWithToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
@@ -74,18 +74,4 @@ def get_words(request):
 def get_word(request, pk):
     word = Word.objects.get(id=pk)
     serializer = WordSerializer(word, many=False)
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
-def get_categories(request):
-    categories = Category.objects.all()
-    serializer = CategorySerializer(categories, many=True)
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
-def get_category(request, pk):
-    category = Category.objects.get(id=pk)
-    serializer = CategorySerializer(category, many=False)
     return Response(serializer.data)
