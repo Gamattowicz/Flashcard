@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import MyTokenObtainPairView, get_user_profile, \
-    get_users, register_user
+from .views import MyTokenObtainPairView, get_user_profile, get_users, register_user
 
 urlpatterns = [
     path('', get_users, name='users'),

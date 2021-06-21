@@ -30,7 +30,7 @@ def register_user(request):
 
     try:
         user = User.objects.create(
-            username=data['name'],
+            username=data['username'],
             email=data['email'],
             password=make_password(data['password'])
         )
