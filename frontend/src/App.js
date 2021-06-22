@@ -10,6 +10,7 @@ import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import CategoryListScreen from "./screens/CategoryListScreen";
+import CategoryScreen from "./screens/CategoryScreen";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/register" component={RegisterScreen} />
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/admin/category" component={CategoryListScreen} />
+          <Route path="/category/:id" component={CategoryScreen} />
         </Container>
       </main>
       <Footer />
