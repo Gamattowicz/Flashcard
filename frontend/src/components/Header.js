@@ -19,13 +19,17 @@ const Header = () => {
             <Navbar.Brand>FLASHCARD</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <LinkContainer to="/admin/words">
-                <Nav.Link>
-                  <i class="fas fa-book-open"></i> Vocabulary
-                </Nav.Link>
-              </LinkContainer>
+            <Nav className="ml-auto">
+              <NavDropdown title="VOCABULARY" id="vocabulary">
+                <LinkContainer to="/admin/words">
+                  <NavDropdown.Item>List of words</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/admin/category">
+                  <NavDropdown.Item>List of categories</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
 
               {userInfo ? (
                 <NavDropdown title={userInfo.username} id="username">
