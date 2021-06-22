@@ -6,6 +6,9 @@ import {
   CATEGORY_DETAILS_REQUEST,
   CATEGORY_DETAILS_SUCCESS,
   CATEGORY_DETAILS_FAIL,
+  CATEGORY_CREATE_REQUEST,
+  CATEGORY_CREATE_SUCCESS,
+  CATEGORY_CREATE_FAIL,
 } from "../constants/categoryConstants";
 
 export const listCategories = () => async (dispatch) => {
@@ -38,6 +41,37 @@ export const listCategoryDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CATEGORY_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const createCategory = (name, color) => async (dispatch) => {
+  try {
+    dispatch({ type: CATEGORY_CREATE_REQUEST });
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    const { data } = await axios.post(
+      "/category/create/",
+      {
+        name: name,
+        color: color,
+      },
+      config
+    );
+    dispatch({
+      type: CATEGORY_CREATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: CATEGORY_CREATE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
