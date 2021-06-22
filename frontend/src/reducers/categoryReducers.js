@@ -5,6 +5,9 @@ import {
   CATEGORY_DETAILS_REQUEST,
   CATEGORY_DETAILS_SUCCESS,
   CATEGORY_DETAILS_FAIL,
+  CATEGORY_CREATE_REQUEST,
+  CATEGORY_CREATE_SUCCESS,
+  CATEGORY_CREATE_FAIL,
 } from "../constants/categoryConstants";
 
 export const categoryListReducer = (state = { categories: [] }, action) => {
@@ -32,6 +35,22 @@ export const categoryDetailsReducer = (state = { category: {} }, action) => {
       return { loading: false, category: action.payload };
 
     case CATEGORY_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const categoryCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CATEGORY_CREATE_REQUEST:
+      return { loading: true };
+
+    case CATEGORY_CREATE_SUCCESS:
+      return { loading: false, categoryInfo: action.payload };
+
+    case CATEGORY_CREATE_FAIL:
       return { loading: false, error: action.payload };
 
     default:
