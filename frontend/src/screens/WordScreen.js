@@ -17,7 +17,7 @@ const WordScreen = ({ match }) => {
 
   return (
     <div>
-      <Link to="/words" className="btn btn-outline-primary my-3">
+      <Link to="/admin/words" className="btn btn-outline-primary my-3">
         GO BACK
       </Link>
       {loading ? (

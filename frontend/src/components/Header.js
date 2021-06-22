@@ -21,7 +21,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <LinkContainer to="/words">
+              <LinkContainer to="/admin/words">
                 <Nav.Link>
                   <i class="fas fa-book-open"></i> Vocabulary
                 </Nav.Link>
