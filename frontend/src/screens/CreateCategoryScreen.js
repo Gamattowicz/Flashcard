@@ -6,10 +6,12 @@ import Message from "../components/Message";
 import FormContainer from "../components/FormContainer";
 import { createCategory } from "../actions/categoryActions";
 import { CATEGORY_CREATE_RESET } from "../constants/categoryConstants";
+import { ChromePicker } from "react-color";
 
 const CreateCategoryScreen = () => {
   const [name, setName] = useState("");
   const [color, setColor] = useState("");
+  const [showColorPicker, setShowColorPicker] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -27,6 +29,19 @@ const CreateCategoryScreen = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(createCategory(name, color));
+  };
+
+  const popover = {
+    position: "absolute",
+    zIndex: "2",
+  };
+
+  const cover = {
+    position: "fixed",
+    top: "0px",
+    right: "0px",
+    bottom: "0px",
+    left: "0px",
   };
 
   return (
@@ -48,14 +63,21 @@ const CreateCategoryScreen = () => {
         </Form.Group>
 
         <Form.Group controlId="color">
-          <Form.Label>Color</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            placeholder="Enter color"
-            value={color}
-            onChange={(e) => setColor(e.target.value)}
-          ></Form.Control>
+          <Button
+            type="submmit"
+            variant="warning my-3"
+            onClick={() =>
+              setShowColorPicker((showColorPicker) => !showColorPicker)
+            }
+          >
+            {showColorPicker ? "Close color picker" : "Pick a color"}
+          </Button>
+          {showColorPicker && (
+            <ChromePicker
+              color={color}
+              onChange={(updatedColor) => setColor(updatedColor.hex)}
+            />
+          )}
         </Form.Group>
 
         <Button type="submmit" variant="primary mt-3">
