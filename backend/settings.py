@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'words.apps.WordsConfig',
     'category.apps.CategoryConfig',
     'users.apps.UsersConfig',
+    'decks.apps.DecksConfig',
 
 ]
 
