@@ -19,14 +19,18 @@ function App() {
       <Header />
       <main className="py-4">
         <Container>
-          <Route path="/words/:id" component={WordScreen} />
-          <Route path="/admin/words" component={WordsListScreen} />
+          <Route path="/words" component={WordsListScreen} exact />
           <Route path="/words/create" component={CreateWordScreen} />
           <Route path="/login" component={LoginScreen} />
+          <Route path="/words/:id" component={WordScreen} />
           <Route path="/register" component={RegisterScreen} />
           <Route path="/profile" component={ProfileScreen} />
-          <Route path="/admin/category" component={CategoryListScreen} />
-          <Route path="/new/category/create" component={CreateCategoryScreen} />
+          <Route path="/category" component={CategoryListScreen} exact />
+          <Route
+            path="/admin/category/create"
+            component={CreateCategoryScreen}
+          />
+
           <Route path="/category/:id" component={CategoryScreen} />
         </Container>
       </main>

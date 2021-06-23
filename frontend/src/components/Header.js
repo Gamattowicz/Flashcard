@@ -23,14 +23,14 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               <NavDropdown title="VOCABULARY" id="vocabulary">
-                <LinkContainer to="/admin/words">
+                <LinkContainer to="/words">
                   <NavDropdown.Item>List of words</NavDropdown.Item>
                 </LinkContainer>
                 <NavDropdown.Divider />
-                <LinkContainer to="/admin/category">
+                <LinkContainer to="/category">
                   <NavDropdown.Item>List of categories</NavDropdown.Item>
                 </LinkContainer>
-                <LinkContainer to="/new/category/create">
+                <LinkContainer to="/admin/category/create">
                   <NavDropdown.Item>Create category</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
