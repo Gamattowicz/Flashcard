@@ -49,14 +49,21 @@ export const listCategoryDetails = (id) => async (dispatch) => {
   }
 };
 
-export const createCategory = (name, color) => async (dispatch) => {
+export const createCategory = (name, color) => async (dispatch, getState) => {
   try {
     dispatch({ type: CATEGORY_CREATE_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
       },
     };
+
     const { data } = await axios.post(
       "/category/create/",
       {
@@ -65,6 +72,7 @@ export const createCategory = (name, color) => async (dispatch) => {
       },
       config
     );
+
     dispatch({
       type: CATEGORY_CREATE_SUCCESS,
       payload: data,
