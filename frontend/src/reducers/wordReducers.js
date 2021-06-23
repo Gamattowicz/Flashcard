@@ -5,6 +5,10 @@ import {
   WORD_DETAILS_REQUEST,
   WORD_DETAILS_SUCCESS,
   WORD_DETAILS_FAIL,
+  WORD_CREATE_REQUEST,
+  WORD_CREATE_SUCCESS,
+  WORD_CREATE_FAIL,
+  WORD_CREATE_RESET,
 } from "../constants/wordConstants";
 
 export const wordListReducer = (state = { words: [] }, action) => {
@@ -33,6 +37,25 @@ export const wordDetailsReducer = (state = { word: {} }, action) => {
 
     case WORD_DETAILS_FAIL:
       return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const wordCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case WORD_CREATE_REQUEST:
+      return { loading: true };
+
+    case WORD_CREATE_SUCCESS:
+      return { loading: false, success: true };
+
+    case WORD_CREATE_FAIL:
+      return { loading: false, error: action.payload };
+
+    case WORD_CREATE_RESET:
+      return {};
 
     default:
       return state;
