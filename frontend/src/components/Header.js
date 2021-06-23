@@ -30,7 +30,7 @@ const Header = () => {
                 <LinkContainer to="/category">
                   <NavDropdown.Item>List of categories</NavDropdown.Item>
                 </LinkContainer>
-                <LinkContainer to="/admin/category/create">
+                <LinkContainer to="/category/create">
                   <NavDropdown.Item>Create category</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>

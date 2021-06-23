@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -26,12 +26,10 @@ function App() {
           <Route path="/register" component={RegisterScreen} />
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/category" component={CategoryListScreen} exact />
-          <Route
-            path="/admin/category/create"
-            component={CreateCategoryScreen}
-          />
-
-          <Route path="/category/:id" component={CategoryScreen} />
+          <Switch>
+            <Route path="/category/create" component={CreateCategoryScreen} />
+            <Route path="/category/:id" component={CategoryScreen} />
+          </Switch>
         </Container>
       </main>
       <Footer />
