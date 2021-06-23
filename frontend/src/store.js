@@ -17,6 +17,7 @@ import {
   categoryDetailsReducer,
   categoryCreateReducer,
 } from "./reducers/categoryReducers";
+import { deckListReducer } from "./reducers/deckReducers";
 
 const reducer = combineReducers({
   wordList: wordListReducer,
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   categoryList: categoryListReducer,
   categoryDetails: categoryDetailsReducer,
   categoryCreate: categoryCreateReducer,
+  deckList: deckListReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
