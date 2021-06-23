@@ -26,6 +26,9 @@ const Header = () => {
                 <LinkContainer to="/words">
                   <NavDropdown.Item>List of words</NavDropdown.Item>
                 </LinkContainer>
+                <LinkContainer to="/words/create">
+                  <NavDropdown.Item>Create word</NavDropdown.Item>
+                </LinkContainer>
                 <NavDropdown.Divider />
                 <LinkContainer to="/category">
                   <NavDropdown.Item>List of categories</NavDropdown.Item>

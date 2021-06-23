@@ -20,9 +20,11 @@ function App() {
       <main className="py-4">
         <Container>
           <Route path="/words" component={WordsListScreen} exact />
-          <Route path="/words/create" component={CreateWordScreen} />
+          <Switch>
+            <Route path="/words/create" component={CreateWordScreen} />
+            <Route path="/words/:id" component={WordScreen} />
+          </Switch>
           <Route path="/login" component={LoginScreen} />
-          <Route path="/words/:id" component={WordScreen} />
           <Route path="/register" component={RegisterScreen} />
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/category" component={CategoryListScreen} exact />
