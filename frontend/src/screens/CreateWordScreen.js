@@ -26,9 +26,10 @@ const CreateWordScreen = () => {
     if (success) {
       setName("");
       setDefinition("");
+      setCategory("");
       dispatch({ type: WORD_CREATE_RESET });
     }
-  }, [dispatch]);
+  }, [dispatch, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
