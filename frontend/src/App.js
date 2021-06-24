@@ -14,6 +14,7 @@ import CategoryScreen from "./screens/CategoryScreen";
 import CreateCategoryScreen from "./screens/CreateCategoryScreen";
 import DecksListScreen from "./screens/DecksListScreen";
 import DeckScreen from "./screens/DeckScreen";
+import CreateDeckScreen from "./screens/CreateDeckScreen";
 
 function App() {
   return (
@@ -35,7 +36,11 @@ function App() {
             <Route path="/category/:id" component={CategoryScreen} />
           </Switch>
           <Route path="/decks" component={DecksListScreen} exact />
-          <Route path="/decks/:id" component={DeckScreen} />
+
+          <Switch>
+            <Route path="/decks/create" component={CreateDeckScreen} />
+            <Route path="/decks/:id" component={DeckScreen} />
+          </Switch>
         </Container>
       </main>
       <Footer />

@@ -67,8 +67,8 @@ export const createCategory = (name, color) => async (dispatch, getState) => {
     const { data } = await axios.post(
       "/category/create/",
       {
-        name: name,
-        color: color,
+        name,
+        color,
       },
       config
     );
