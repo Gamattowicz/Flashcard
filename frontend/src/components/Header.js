@@ -36,6 +36,13 @@ const Header = () => {
                 <LinkContainer to="/category/create">
                   <NavDropdown.Item>Create category</NavDropdown.Item>
                 </LinkContainer>
+                <NavDropdown.Divider />
+                <LinkContainer to="/decks">
+                  <NavDropdown.Item>List of decks</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/decks/create">
+                  <NavDropdown.Item>Create deck</NavDropdown.Item>
+                </LinkContainer>
               </NavDropdown>
 
               {userInfo ? (
