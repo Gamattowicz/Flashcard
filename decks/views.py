@@ -17,3 +17,17 @@ def get_deck(request, pk):
     deck = Deck.objects.get(id=pk)
     serializer = DeckSerializer(deck, many=False)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_deck(request):
+    user = request.user
+    data = request.data
+
+    deck = Deck.objects.create(
+        user=user,
+        name=data['name'],
+    )
+    serializer = DeckSerializer(deck, many=False)
+    return Response(serializer.data)
