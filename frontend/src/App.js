@@ -12,7 +12,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import CategoryListScreen from "./screens/CategoryListScreen";
 import CategoryScreen from "./screens/CategoryScreen";
 import CreateCategoryScreen from "./screens/CreateCategoryScreen";
-import DeckListScreen from "./screens/DeckListScreen";
+import DecksListScreen from "./screens/DecksListScreen";
 
 function App() {
   return (
@@ -33,7 +33,7 @@ function App() {
             <Route path="/category/create" component={CreateCategoryScreen} />
             <Route path="/category/:id" component={CategoryScreen} />
           </Switch>
-          <Route path="/decks" component={DeckListScreen} exact />
+          <Route path="/decks" component={DecksListScreen} exact />
         </Container>
       </main>
       <Footer />

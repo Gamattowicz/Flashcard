@@ -6,7 +6,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { listDecks } from "../actions/deckActions";
 
-const DeckListScreen = () => {
+const DecksListScreen = () => {
   const dispatch = useDispatch();
   const deckList = useSelector((state) => state.deckList);
   const { error, loading, decks } = deckList;
@@ -36,4 +36,4 @@ const DeckListScreen = () => {
   );
 };
 
-export default DeckListScreen;
+export default DecksListScreen;
