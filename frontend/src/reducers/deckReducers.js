@@ -5,6 +5,10 @@ import {
   DECK_DETAILS_REQUEST,
   DECK_DETAILS_SUCCESS,
   DECK_DETAILS_FAIL,
+  DECK_CREATE_REQUEST,
+  DECK_CREATE_SUCCESS,
+  DECK_CREATE_FAIL,
+  DECK_CREATE_RESET,
 } from "../constants/deckConstants";
 
 export const deckListReducer = (state = { decks: [] }, action) => {
@@ -33,6 +37,25 @@ export const deckDetailsReducer = (state = { deck: {} }, action) => {
 
     case DECK_DETAILS_FAIL:
       return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const deckCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DECK_CREATE_REQUEST:
+      return { loading: true };
+
+    case DECK_CREATE_SUCCESS:
+      return { loading: false, succcess: true };
+
+    case DECK_CREATE_FAIL:
+      return { loading: false, error: action.payload };
+
+    case DECK_CREATE_RESET:
+      return {};
 
     default:
       return state;
