@@ -10,3 +10,10 @@ def get_decks(request):
     decks = Deck.objects.all()
     serializer = DeckSerializer(decks, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_deck(request, pk):
+    deck = Deck.objects.get(id=pk)
+    serializer = DeckSerializer(deck, many=False)
+    return Response(serializer.data)
