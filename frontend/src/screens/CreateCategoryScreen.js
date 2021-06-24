@@ -31,19 +31,6 @@ const CreateCategoryScreen = () => {
     dispatch(createCategory(name, color));
   };
 
-  const popover = {
-    position: "absolute",
-    zIndex: "2",
-  };
-
-  const cover = {
-    position: "fixed",
-    top: "0px",
-    right: "0px",
-    bottom: "0px",
-    left: "0px",
-  };
-
   return (
     <FormContainer>
       <h1>CREATE NEW CATEGORY</h1>
