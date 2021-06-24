@@ -12,7 +12,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import CategoryListScreen from "./screens/CategoryListScreen";
 import CategoryScreen from "./screens/CategoryScreen";
 import CreateCategoryScreen from "./screens/CreateCategoryScreen";
-import DeckListScreen from "../screens/DeckListScreen";
+import DeckListScreen from "./screens/DeckListScreen";
 
 function App() {
   return (
