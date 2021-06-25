@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, ListGroup, Card } from "react-bootstrap";
+import { Row, Col, ListGroup, Card, Button } from "react-bootstrap";
 import { drawWord } from "../actions/wordActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -13,6 +13,11 @@ const DrawWordScreen = () => {
   useEffect(() => {
     dispatch(drawWord());
   }, [dispatch]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(drawWord());
+  };
 
   return (
     <div>
@@ -69,6 +74,10 @@ const DrawWordScreen = () => {
               </ListGroup.Item>
             </ListGroup>
           </Card>
+
+          <Button type="submit" variant="primary mt-3" onClick={submitHandler}>
+            DRAW
+          </Button>
         </Col>
       )}
     </div>
