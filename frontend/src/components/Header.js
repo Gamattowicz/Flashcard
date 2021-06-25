@@ -22,6 +22,12 @@ const Header = () => {
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
+              <LinkContainer to="/practice">
+                <Nav.Link>
+                  <i class="fab fa-leanpub"></i>PRACTICE
+                </Nav.Link>
+              </LinkContainer>
+
               <NavDropdown title="VOCABULARY" id="vocabulary">
                 <LinkContainer to="/words">
                   <NavDropdown.Item>List of words</NavDropdown.Item>
