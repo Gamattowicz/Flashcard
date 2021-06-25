@@ -1,11 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, ListGroup, Card, Button } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  ListGroup,
+  Card,
+  Button,
+  Form,
+  Alert,
+} from "react-bootstrap";
 import { drawWord } from "../actions/wordActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 
 const DrawWordScreen = () => {
+  const [definition, setDefinition] = useState("");
   const dispatch = useDispatch();
   const wordDraw = useSelector((state) => state.wordDraw);
   const { error, loading, words } = wordDraw;
@@ -16,7 +25,13 @@ const DrawWordScreen = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(drawWord());
+    if (definition === words[0].definition) {
+      console.log("CORRECT");
+      dispatch(drawWord());
+    } else {
+      console.log("WRONG");
+      dispatch(drawWord());
+    }
   };
 
   return (
@@ -36,18 +51,6 @@ const DrawWordScreen = () => {
                   </Col>
                   {words[0] &&
                     words.map((word) => <Col key={word.id}>{word.name}</Col>)}
-                </Row>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <Row>
-                  <Col>
-                    <strong>Definition</strong>
-                  </Col>
-                  {words[0] &&
-                    words.map((word) => (
-                      <Col key={word.id}>{word.definition}</Col>
-                    ))}
                 </Row>
               </ListGroup.Item>
 
@@ -75,9 +78,22 @@ const DrawWordScreen = () => {
             </ListGroup>
           </Card>
 
-          <Button type="submit" variant="primary mt-3" onClick={submitHandler}>
-            DRAW
-          </Button>
+          <Form onSubmit={submitHandler}>
+            <Form.Group controlId="definition">
+              <Form.Label>Definition</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="Enter definition"
+                value={definition}
+                onChange={(e) => setDefinition(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Button type="submit" variant="primary mt-3">
+              CONFIRM
+            </Button>
+          </Form>
         </Col>
       )}
     </div>
