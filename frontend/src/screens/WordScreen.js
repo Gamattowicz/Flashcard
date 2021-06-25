@@ -63,6 +63,33 @@ const WordScreen = ({ match, history }) => {
                   <Col>{word.deck}</Col>
                 </Row>
               </ListGroup.Item>
+
+              <ListGroup.Item>
+                <Row>
+                  <Col>
+                    <strong>Exercises</strong>
+                  </Col>
+                  <Col>{word.studied}</Col>
+                </Row>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                <Row>
+                  <Col>
+                    <strong>Correct answers</strong>
+                  </Col>
+                  <Col>{word.correct_answers}</Col>
+                </Row>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                <Row>
+                  <Col>
+                    <strong>Wrong answers</strong>
+                  </Col>
+                  <Col>{word.wrong_answers}</Col>
+                </Row>
+              </ListGroup.Item>
             </ListGroup>
           </Card>
         </Col>
