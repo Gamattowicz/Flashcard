@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import Word
 from category.models import Category
+from decks.models import Deck
 from .serializers import WordSerializer
 
 
@@ -22,9 +23,10 @@ def get_word(request, pk):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def create_word(request, pk):
+def create_word(request, pk, pk2):
     user = request.user
     category = Category.objects.get(id=pk)
+    deck = Deck.objects.get(id=pk2)
     data = request.data
 
     word = Word.objects.create(
@@ -32,6 +34,7 @@ def create_word(request, pk):
         name=data['name'],
         definition=data['definition'],
         category=category,
+        deck=deck
     )
 
     serializer = WordSerializer(word, many=False)
