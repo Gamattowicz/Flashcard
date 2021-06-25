@@ -9,6 +9,9 @@ import {
   WORD_CREATE_SUCCESS,
   WORD_CREATE_FAIL,
   WORD_CREATE_RESET,
+  WORD_DRAW_REQUEST,
+  WORD_DRAW_SUCCESS,
+  WORD_DRAW_FAIL,
 } from "../constants/wordConstants";
 
 export const wordListReducer = (state = { words: [] }, action) => {
@@ -56,6 +59,22 @@ export const wordCreateReducer = (state = {}, action) => {
 
     case WORD_CREATE_RESET:
       return {};
+
+    default:
+      return state;
+  }
+};
+
+export const wordDrawReducer = (state = { word: {} }, action) => {
+  switch (action.type) {
+    case WORD_DRAW_REQUEST:
+      return { loading: true, ...state };
+
+    case WORD_DRAW_SUCCESS:
+      return { loading: false, word: action.payload };
+
+    case WORD_DRAW_FAIL:
+      return { loading: false, error: action.payload };
 
     default:
       return state;

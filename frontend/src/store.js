@@ -5,6 +5,7 @@ import {
   wordListReducer,
   wordDetailsReducer,
   wordCreateReducer,
+  wordDrawReducer,
 } from "./reducers/wordReducers";
 import {
   userLoginReducer,
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   wordList: wordListReducer,
   wordDetails: wordDetailsReducer,
   wordCreate: wordCreateReducer,
+  wordDraw: wordDrawReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
