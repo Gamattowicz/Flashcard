@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import WordsListScreen from "./screens/WordsListScreen";
 import WordScreen from "./screens/WordScreen";
 import CreateWordScreen from "./screens/CreateWordScreen";
+import DrawWordScreen from "./screens/DrawWordScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
@@ -25,6 +26,7 @@ function App() {
           <Route path="/words" component={WordsListScreen} exact />
           <Switch>
             <Route path="/words/create" component={CreateWordScreen} />
+            <Route path="/words/practice" component={DrawWordScreen} />
             <Route path="/words/:id" component={WordScreen} />
           </Switch>
           <Route path="/login" component={LoginScreen} />

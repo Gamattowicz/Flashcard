@@ -65,13 +65,13 @@ export const wordCreateReducer = (state = {}, action) => {
   }
 };
 
-export const wordDrawReducer = (state = { word: {} }, action) => {
+export const wordDrawReducer = (state = { words: {} }, action) => {
   switch (action.type) {
     case WORD_DRAW_REQUEST:
       return { loading: true, ...state };
 
     case WORD_DRAW_SUCCESS:
-      return { loading: false, word: action.payload };
+      return { loading: false, words: action.payload };
 
     case WORD_DRAW_FAIL:
       return { loading: false, error: action.payload };
