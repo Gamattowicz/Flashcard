@@ -6,7 +6,7 @@ import { listWordDetails } from "../actions/wordActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 
-const WordScreen = ({ match }) => {
+const WordScreen = ({ match, history }) => {
   const dispatch = useDispatch();
   const wordDetails = useSelector((state) => state.wordDetails);
   const { error, loading, word } = wordDetails;
@@ -17,7 +17,7 @@ const WordScreen = ({ match }) => {
 
   return (
     <div>
-      <Link to="/words" className="btn btn-outline-primary my-3">
+      <Link onClick={history.goBack} className="btn btn-outline-primary my-3">
         GO BACK
       </Link>
       {loading ? (
