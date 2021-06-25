@@ -36,6 +36,26 @@ const DeckScreen = ({ match }) => {
                   <Col>{deck.name}</Col>
                 </Row>
               </ListGroup.Item>
+
+              <ListGroup.Item>
+                <Row>
+                  <Col>
+                    <strong>Words</strong>
+                  </Col>
+                  <Col>
+                    {deck.words
+                      ? deck.words.map((word, index) => {
+                          const wordLink = deck.words_id[index];
+                          return (
+                            <Row>
+                              <Link to={`/words/${wordLink}`}>{word}</Link>
+                            </Row>
+                          );
+                        })
+                      : ""}
+                  </Col>
+                </Row>
+              </ListGroup.Item>
             </ListGroup>
           </Card>
         </Col>
