@@ -9,6 +9,9 @@ import {
   WORD_CREATE_REQUEST,
   WORD_CREATE_SUCCESS,
   WORD_CREATE_FAIL,
+  WORD_DRAW_REQUEST,
+  WORD_DRAW_SUCCESS,
+  WORD_DRAW_FAIL,
 } from "../constants/wordConstants";
 
 export const listWords = () => async (dispatch) => {
@@ -85,3 +88,35 @@ export const createWord =
       });
     }
   };
+
+export const drawWord = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: WORD_DRAW_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get("/words/practice/", config);
+
+    dispatch({
+      type: WORD_DRAW_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: WORD_DRAW_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
