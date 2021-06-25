@@ -54,6 +54,15 @@ const WordScreen = ({ match }) => {
                   <Col>{word.category}</Col>
                 </Row>
               </ListGroup.Item>
+
+              <ListGroup.Item>
+                <Row>
+                  <Col>
+                    <strong>Deck</strong>
+                  </Col>
+                  <Col>{word.deck}</Col>
+                </Row>
+              </ListGroup.Item>
             </ListGroup>
           </Card>
         </Col>

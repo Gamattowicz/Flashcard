@@ -7,11 +7,13 @@ import FormContainer from "../components/FormContainer";
 import { createWord } from "../actions/wordActions";
 import { WORD_CREATE_RESET } from "../constants/wordConstants";
 import { listCategories } from "../actions/categoryActions";
+import { listDecks } from "../actions/deckActions";
 
 const CreateWordScreen = () => {
   const [name, setName] = useState("");
   const [definition, setDefinition] = useState("");
   const [category, setCategory] = useState("");
+  const [deck, setDeck] = useState("");
 
   const dispatch = useDispatch();
 
@@ -21,19 +23,24 @@ const CreateWordScreen = () => {
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
 
+  const deckList = useSelector((state) => state.deckList);
+  const { decks } = deckList;
+
   useEffect(() => {
     dispatch(listCategories());
+    dispatch(listDecks());
     if (success) {
       setName("");
       setDefinition("");
       setCategory("");
+      setDeck("");
       dispatch({ type: WORD_CREATE_RESET });
     }
   }, [dispatch, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createWord(category, { name, definition }));
+    dispatch(createWord(category, deck, { name, definition }));
   };
 
   return (
@@ -76,6 +83,22 @@ const CreateWordScreen = () => {
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="deck">
+          <Form.Label>Deck</Form.Label>
+          <Form.Control
+            as="select"
+            value={deck}
+            onChange={(e) => setDeck(e.target.value)}
+          >
+            <option value="">Select...</option>
+            {decks.map((deck) => (
+              <option key={deck.id} value={deck.id}>
+                {deck.name}
               </option>
             ))}
           </Form.Control>

@@ -49,38 +49,39 @@ export const listWordDetails = (id) => async (dispatch) => {
   }
 };
 
-export const createWord = (categoryId, word) => async (dispatch, getState) => {
-  try {
-    dispatch({ type: WORD_CREATE_REQUEST });
+export const createWord =
+  (categoryId, deckId, word) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: WORD_CREATE_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+      const {
+        userLogin: { userInfo },
+      } = getState();
 
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
 
-    const { data } = await axios.post(
-      `/words/${categoryId}/create/`,
-      word,
-      config
-    );
+      const { data } = await axios.post(
+        `/words/${categoryId}/create/${deckId}/`,
+        word,
+        config
+      );
 
-    dispatch({
-      type: WORD_CREATE_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: WORD_CREATE_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    });
-  }
-};
+      dispatch({
+        type: WORD_CREATE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: WORD_CREATE_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      });
+    }
+  };
