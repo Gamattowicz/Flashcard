@@ -10,4 +10,5 @@ class WordSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         rep = super(WordSerializer, self).to_representation(instance)
         rep['category'] = instance.category.name
+        rep['deck'] = instance.deck.name
         return rep
