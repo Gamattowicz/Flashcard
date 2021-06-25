@@ -17,7 +17,7 @@ const CategoryScreen = ({ match }) => {
 
   return (
     <div>
-      <Link to="/admin/category" className="btn btn-outline-primary my-3">
+      <Link to="/category" className="btn btn-outline-primary my-3">
         GO BACK
       </Link>
       {loading ? (
