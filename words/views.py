@@ -5,6 +5,7 @@ from .models import Word
 from category.models import Category
 from decks.models import Deck
 from .serializers import WordSerializer
+from random import sample
 
 
 @api_view(['GET'])
@@ -38,4 +39,15 @@ def create_word(request, pk, pk2):
     )
 
     serializer = WordSerializer(word, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def draw_word(request):
+    user = request.user
+    words = list(Word.objects.filter(user=user))
+    word = sample(words, 1)
+
+    serializer = WordSerializer(word, many=True)
     return Response(serializer.data)
