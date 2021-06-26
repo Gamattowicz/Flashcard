@@ -62,3 +62,14 @@ def add_exercise(request, pk):
 
     serializer = WordSerializer(word, many=False)
     return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def add_correct_answer(request, pk):
+    word = Word.objects.get(id=pk)
+    word.correct_answers += 1
+    word.save()
+
+    serializer = WordSerializer(word, many=False)
+    return Response(serializer.data)
