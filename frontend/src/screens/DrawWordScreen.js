@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, ListGroup, Card, Button, Form } from "react-bootstrap";
-import { drawWord, addExerciseWord } from "../actions/wordActions";
+import {
+  drawWord,
+  addExerciseWord,
+  addCorrectAnswerWord,
+} from "../actions/wordActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 
@@ -13,9 +17,6 @@ const DrawWordScreen = () => {
   const wordDraw = useSelector((state) => state.wordDraw);
   const { error, loading, words } = wordDraw;
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
   useEffect(() => {
     dispatch(drawWord());
   }, [dispatch]);
@@ -23,6 +24,7 @@ const DrawWordScreen = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (definition === words[0].definition) {
+      dispatch(addCorrectAnswerWord(words[0]));
       setAnswer(true);
     } else {
       setAnswer(false);

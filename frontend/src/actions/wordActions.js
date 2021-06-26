@@ -15,6 +15,9 @@ import {
   WORD_ADD_EXERCISE_REQUEST,
   WORD_ADD_EXERCISE_SUCCESS,
   WORD_ADD_EXERCISE_FAIL,
+  WORD_ADD_CORRECT_ANSWER_REQUEST,
+  WORD_ADD_CORRECT_ANSWER_SUCCESS,
+  WORD_ADD_CORRECT_ANSWER_FAIL,
 } from "../constants/wordConstants";
 
 export const listWords = () => async (dispatch) => {
@@ -120,6 +123,42 @@ export const addExerciseWord = (word) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: WORD_ADD_EXERCISE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const addCorrectAnswerWord = (word) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: WORD_ADD_CORRECT_ANSWER_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/words/${word.id}/correct-answer/`,
+      word,
+      config
+    );
+
+    dispatch({
+      type: WORD_ADD_CORRECT_ANSWER_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: WORD_ADD_CORRECT_ANSWER_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
