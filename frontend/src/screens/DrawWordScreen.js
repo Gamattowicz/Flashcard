@@ -5,6 +5,7 @@ import {
   drawWord,
   addExerciseWord,
   addCorrectAnswerWord,
+  addWrongAnswerWord,
 } from "../actions/wordActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -27,12 +28,12 @@ const DrawWordScreen = () => {
       dispatch(addCorrectAnswerWord(words[0]));
       setAnswer(true);
     } else {
+      dispatch(addWrongAnswerWord(words[0]));
       setAnswer(false);
     }
     dispatch(addExerciseWord(words[0]));
     dispatch(drawWord());
     setDefinition("");
-    console.log(answer);
   };
 
   return (
