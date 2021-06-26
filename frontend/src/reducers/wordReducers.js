@@ -12,6 +12,9 @@ import {
   WORD_DRAW_REQUEST,
   WORD_DRAW_SUCCESS,
   WORD_DRAW_FAIL,
+  WORD_ADD_EXERCISE_REQUEST,
+  WORD_ADD_EXERCISE_SUCCESS,
+  WORD_ADD_EXERCISE_FAIL,
 } from "../constants/wordConstants";
 
 export const wordListReducer = (state = { words: [] }, action) => {
@@ -74,6 +77,22 @@ export const wordDrawReducer = (state = { words: {} }, action) => {
       return { loading: false, words: action.payload };
 
     case WORD_DRAW_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const wordAddExerciseReducer = (state = {}, action) => {
+  switch (action.type) {
+    case WORD_ADD_EXERCISE_REQUEST:
+      return { loading: true };
+
+    case WORD_ADD_EXERCISE_SUCCESS:
+      return { loading: false, success: true };
+
+    case WORD_ADD_EXERCISE_FAIL:
       return { loading: false, error: action.payload };
 
     default:
