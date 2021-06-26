@@ -51,3 +51,14 @@ def draw_word(request):
 
     serializer = WordSerializer(word, many=True)
     return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def add_exercise(request, pk):
+    word = Word.objects.get(id=pk)
+    word.studied += 1
+    word.save()
+
+    serializer = WordSerializer(word, many=False)
+    return Response(serializer.data)
