@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'category.apps.CategoryConfig',
     'users.apps.UsersConfig',
     'decks.apps.DecksConfig',
+    'exercises.apps.ExercisesConfig',
 
 ]
 

@@ -21,5 +21,6 @@ urlpatterns = [
     path('words/', include('words.urls')),
     path('category/', include('category.urls')),
     path('decks/', include('decks.urls')),
+    path('exercises/', include('exercises.urls')),
     path('users/', include('users.urls')),
 ]
