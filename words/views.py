@@ -73,3 +73,14 @@ def add_correct_answer(request, pk):
 
     serializer = WordSerializer(word, many=False)
     return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def add_wrong_answer(request, pk):
+    word = Word.objects.get(id=pk)
+    word.wrong_answers += 1
+    word.save()
+
+    serializer = WordSerializer(word, many=False)
+    return Response(serializer.data)
