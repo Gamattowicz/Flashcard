@@ -28,6 +28,12 @@ const Header = () => {
                 </Nav.Link>
               </LinkContainer>
 
+              <LinkContainer to="/exercises">
+                <Nav.Link>
+                  <i class="fas fa-book"></i>EXERCISE
+                </Nav.Link>
+              </LinkContainer>
+
               <NavDropdown title="VOCABULARY" id="vocabulary">
                 <LinkContainer to="/words">
                   <NavDropdown.Item>List of words</NavDropdown.Item>
