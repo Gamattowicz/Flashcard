@@ -15,6 +15,7 @@ import Message from "../components/Message";
 
 const DrawWordScreen = () => {
   const [definition, setDefinition] = useState("");
+  const [answer, setAnswer] = useState(null);
   const dispatch = useDispatch();
   const wordDraw = useSelector((state) => state.wordDraw);
   const { error, loading, words } = wordDraw;
@@ -26,13 +27,13 @@ const DrawWordScreen = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (definition === words[0].definition) {
-      console.log("CORRECT");
-      dispatch(drawWord());
+      setAnswer(true);
     } else {
-      console.log("WRONG");
-      dispatch(drawWord());
+      setAnswer(false);
     }
+    dispatch(drawWord());
     setDefinition("");
+    console.log(answer);
   };
 
   return (
@@ -91,10 +92,19 @@ const DrawWordScreen = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Button type="submit" variant="primary mt-3">
+            <Button type="submit" variant="primary my-3">
               CONFIRM
             </Button>
           </Form>
+          {answer !== null ? (
+            answer ? (
+              <Message variant="success">CORRECT ANSWER</Message>
+            ) : (
+              <Message variant="danger">WRONG ANSWER</Message>
+            )
+          ) : (
+            ""
+          )}
         </Col>
       )}
     </div>
