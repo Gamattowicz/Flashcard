@@ -12,6 +12,9 @@ import {
   WORD_DRAW_REQUEST,
   WORD_DRAW_SUCCESS,
   WORD_DRAW_FAIL,
+  WORD_ADD_EXERCISE_REQUEST,
+  WORD_ADD_EXERCISE_SUCCESS,
+  WORD_ADD_EXERCISE_FAIL,
 } from "../constants/wordConstants";
 
 export const listWords = () => async (dispatch) => {
@@ -88,6 +91,42 @@ export const createWord =
       });
     }
   };
+
+export const addExerciseWord = (word) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: WORD_ADD_EXERCISE_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/words/${word.id}/add-exercise/`,
+      word,
+      config
+    );
+
+    dispatch({
+      type: WORD_ADD_EXERCISE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: WORD_ADD_EXERCISE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
 
 export const drawWord = () => async (dispatch, getState) => {
   try {
