@@ -32,6 +32,7 @@ const DrawWordScreen = () => {
       console.log("WRONG");
       dispatch(drawWord());
     }
+    setDefinition("");
   };
 
   return (
