@@ -22,13 +22,12 @@ const DrawWordScreen = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(addExerciseWord(words[0]));
-    console.log(words[0].id);
     if (definition === words[0].definition) {
       setAnswer(true);
     } else {
       setAnswer(false);
     }
+    dispatch(addExerciseWord(words[0]));
     dispatch(drawWord());
     setDefinition("");
     console.log(answer);

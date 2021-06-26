@@ -7,6 +7,7 @@ import {
   wordCreateReducer,
   wordDrawReducer,
   wordAddExerciseReducer,
+  wordAddCorrectAnswerReducer,
 } from "./reducers/wordReducers";
 import {
   userLoginReducer,
@@ -31,6 +32,7 @@ const reducer = combineReducers({
   wordCreate: wordCreateReducer,
   wordDraw: wordDrawReducer,
   wordAddExercise: wordAddExerciseReducer,
+  wordAddCorrectAnswer: wordAddCorrectAnswerReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
