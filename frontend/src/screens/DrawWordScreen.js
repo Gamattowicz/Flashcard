@@ -24,7 +24,7 @@ const DrawWordScreen = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (definition === words[0].definition) {
+    if (definition.toUpperCase() === words[0].definition.toUpperCase()) {
       dispatch(addCorrectAnswerWord(words[0]));
       setAnswer(true);
     } else {
