@@ -16,6 +16,7 @@ import CreateCategoryScreen from "./screens/CreateCategoryScreen";
 import DecksListScreen from "./screens/DecksListScreen";
 import DeckScreen from "./screens/DeckScreen";
 import CreateDeckScreen from "./screens/CreateDeckScreen";
+import CreateExerciseScreen from "./screens/CreateExerciseScreen";
 
 function App() {
   return (
@@ -43,6 +44,8 @@ function App() {
             <Route path="/decks/create" component={CreateDeckScreen} />
             <Route path="/decks/:id" component={DeckScreen} />
           </Switch>
+
+          <Route path="/exercises/create" component={CreateExerciseScreen} />
         </Container>
       </main>
       <Footer />
