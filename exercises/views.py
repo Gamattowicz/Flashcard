@@ -15,9 +15,9 @@ def create_exercise(request, pk):
 
     exercise = Exercise.objects.create(
         user=user,
-        words_num=data['words_num'],
-        correct_answers=data['correct_answers'],
-        wrong_answers=data['wrong_answers'],
+        words_num=data['wordNumber'],
+        correct_answers=data['correctAnswers'],
+        wrong_answers=data['wrongAnswers'],
         deck=deck
     )
 
