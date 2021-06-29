@@ -28,7 +28,7 @@ const Header = () => {
                 </Nav.Link>
               </LinkContainer>
 
-              <LinkContainer to="/exercises">
+              <LinkContainer to="/exercises/create">
                 <Nav.Link>
                   <i class="fas fa-book"></i>EXERCISE
                 </Nav.Link>
