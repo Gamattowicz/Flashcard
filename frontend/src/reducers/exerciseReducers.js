@@ -32,7 +32,7 @@ export const exerciseUpdateReducer = (state = {}, actions) => {
     case EXERCISE_UPDATE_REQUEST:
       return { loading: true };
 
-    case EXERCISE_CREATE_SUCCESS:
+    case EXERCISE_UPDATE_SUCCESS:
       return { loading: false, success: true, userInfo: actions.payload };
 
     case EXERCISE_UPDATE_FAIL:
