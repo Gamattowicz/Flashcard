@@ -27,7 +27,10 @@ import {
   deckCreateReducer,
 } from "./reducers/deckReducers";
 
-import { exerciseCreateReducer } from "./reducers/exerciseReducers";
+import {
+  exerciseCreateReducer,
+  exerciseUpdateReducer,
+} from "./reducers/exerciseReducers";
 
 const reducer = combineReducers({
   wordList: wordListReducer,
@@ -48,6 +51,7 @@ const reducer = combineReducers({
   deckDetails: deckDetailsReducer,
   deckCreate: deckCreateReducer,
   exerciseCreate: exerciseCreateReducer,
+  exerciseUpdate: exerciseUpdateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

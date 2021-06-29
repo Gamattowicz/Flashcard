@@ -71,7 +71,7 @@ const CreateExerciseScreen = () => {
         </Form.Group>
 
         <Button type="submmit" variant="primary mt-3">
-          CREATE
+          START
         </Button>
       </Form>
     </FormContainer>
