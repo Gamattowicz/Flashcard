@@ -61,7 +61,7 @@ export const updateExercise = (exercise) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `/exercises/${exerciseId}/update/`,
+      `/exercises/${exercise.id}/update/`,
       exercise,
       config
     );

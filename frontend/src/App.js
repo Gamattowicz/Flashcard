@@ -17,6 +17,7 @@ import DecksListScreen from "./screens/DecksListScreen";
 import DeckScreen from "./screens/DeckScreen";
 import CreateDeckScreen from "./screens/CreateDeckScreen";
 import CreateExerciseScreen from "./screens/CreateExerciseScreen";
+import ExerciseScreen from "./screens/ExerciseScreen";
 
 function App() {
   return (
@@ -45,7 +46,10 @@ function App() {
             <Route path="/decks/:id" component={DeckScreen} />
           </Switch>
 
-          <Route path="/exercises/create" component={CreateExerciseScreen} />
+          <Switch>
+            <Route path="/exercises/create" component={CreateExerciseScreen} />
+            <Route path="/exercises/:id/update" component={ExerciseScreen} />
+          </Switch>
         </Container>
       </main>
       <Footer />
