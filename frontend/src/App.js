@@ -18,6 +18,7 @@ import DeckScreen from "./screens/DeckScreen";
 import CreateDeckScreen from "./screens/CreateDeckScreen";
 import CreateExerciseScreen from "./screens/CreateExerciseScreen";
 import ExerciseScreen from "./screens/ExerciseScreen";
+import ExercisesListScreen from "./screens/ExercisesListScreen";
 
 function App() {
   return (
@@ -39,13 +40,14 @@ function App() {
             <Route path="/category/create" component={CreateCategoryScreen} />
             <Route path="/category/:id" component={CategoryScreen} />
           </Switch>
-          <Route path="/decks" component={DecksListScreen} exact />
 
+          <Route path="/decks" component={DecksListScreen} exact />
           <Switch>
             <Route path="/decks/create" component={CreateDeckScreen} />
             <Route path="/decks/:id" component={DeckScreen} />
           </Switch>
 
+          <Route path="/exercises" component={ExercisesListScreen} exact />
           <Switch>
             <Route path="/exercises/create" component={CreateExerciseScreen} />
             <Route path="/exercises/:id/update" component={ExerciseScreen} />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -74,6 +75,7 @@ const CreateExerciseScreen = () => {
           START
         </Button>
       </Form>
+      <Link to={`/exercises/`}>Exercises list</Link>
     </FormContainer>
   );
 };
