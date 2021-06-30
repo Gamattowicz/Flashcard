@@ -25,6 +25,15 @@ def create_exercise(request, pk):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_exercises(request):
+    user = request.user
+    exercises = Exercise.objects.filter(user=user.id)
+    serializer = ExerciseSerializer(exercises, many=True)
+    return Response(serializer.data)
+
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def update_exercise(request, pk):
