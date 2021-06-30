@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Exercise from "../components/Exercise";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -18,7 +19,9 @@ const ExercisesListScreen = () => {
   return (
     <div>
       <h1>Exercises</h1>
-
+      <Link to="/exercises/create" className="btn btn-outline-primary my-3">
+        GO BACK
+      </Link>
       {loading ? (
         <Loader />
       ) : error ? (
