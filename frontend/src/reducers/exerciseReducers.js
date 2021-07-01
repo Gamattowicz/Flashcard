@@ -11,16 +11,16 @@ import {
   EXERCISE_LIST_FAIL,
 } from "../constants/exerciseConstants";
 
-export const exerciseCreateReducer = (state = {}, actions) => {
-  switch (actions.type) {
+export const exerciseCreateReducer = (state = {}, action) => {
+  switch (action.type) {
     case EXERCISE_CREATE_REQUEST:
       return { loading: true };
 
     case EXERCISE_CREATE_SUCCESS:
-      return { loading: false, succes: true };
+      return { loading: false, success: true, exerciseInfo: action.payload };
 
     case EXERCISE_CREATE_FAIL:
-      return { loading: false, error: actions.payload };
+      return { loading: false, error: action.payload };
 
     case EXERCISE_CREATE_RESET:
       return {};
@@ -30,16 +30,16 @@ export const exerciseCreateReducer = (state = {}, actions) => {
   }
 };
 
-export const exerciseUpdateReducer = (state = {}, actions) => {
-  switch (actions.type) {
+export const exerciseUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
     case EXERCISE_UPDATE_REQUEST:
       return { loading: true };
 
     case EXERCISE_UPDATE_SUCCESS:
-      return { loading: false, success: true, userInfo: actions.payload };
+      return { loading: false, success: true, userInfo: action.payload };
 
     case EXERCISE_UPDATE_FAIL:
-      return { loading: false, error: actions.payload };
+      return { loading: false, error: action.payload };
 
     default:
       return state;
