@@ -34,6 +34,14 @@ def get_exercises(request):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_exercise(request, pk):
+    exercises = Exercise.objects.get(id=pk)
+    serializer = ExerciseSerializer(exercises, many=False)
+    return Response(serializer.data)
+
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def update_exercise(request, pk):
