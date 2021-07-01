@@ -44,13 +44,21 @@ def get_exercise(request, pk):
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def update_exercise(request, pk):
+def add_correct_answer(request, pk):
     exercise = Exercise.objects.get(id=pk)
-    serializer = ExerciseSerializer(exercise, many=False)
-
-    data = request.data
-    exercise.correct_answers = data['correctAnswers']
-    exercise.wrong_answers = data['wrongAnswers']
-
+    exercise.correct_answers += 1
     exercise.save()
+
+    serializer = ExerciseSerializer(exercise, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def add_wrong_answer(request, pk):
+    exercise = Exercise.objects.get(id=pk)
+    exercise.wrong_answers += 1
+    exercise.save()
+
+    serializer = ExerciseSerializer(exercise, many=False)
     return Response(serializer.data)
