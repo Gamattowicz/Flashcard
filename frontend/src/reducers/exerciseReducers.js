@@ -73,7 +73,7 @@ export const exerciseDetailsReducer = (state = { exercise: {} }, action) => {
     case EXERCISE_DETAILS_SUCCESS:
       return { loading: false, exercise: action.payload };
 
-    case EXERCISE_DETAILS_SUCCESS:
+    case EXERCISE_DETAILS_FAIL:
       return { loading: false, error: action.payload };
 
     default:
