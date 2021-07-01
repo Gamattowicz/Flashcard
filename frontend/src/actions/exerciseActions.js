@@ -9,6 +9,9 @@ import {
   EXERCISE_LIST_REQUEST,
   EXERCISE_LIST_SUCCESS,
   EXERCISE_LIST_FAIL,
+  EXERCISE_DETAILS_REQUEST,
+  EXERCISE_DETAILS_SUCCESS,
+  EXERCISE_DETAILS_FAIL,
 } from "../constants/exerciseConstants";
 
 export const createExercise =
@@ -105,6 +108,35 @@ export const listExercises = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: EXERCISE_LIST_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const listExerciseDetails = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: EXERCISE_DETAILS_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/exercises/${id}/`, config);
+
+    dispatch({ type: EXERCISE_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: EXERCISE_DETAILS_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
