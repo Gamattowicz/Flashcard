@@ -9,6 +9,9 @@ import {
   EXERCISE_LIST_REQUEST,
   EXERCISE_LIST_SUCCESS,
   EXERCISE_LIST_FAIL,
+  EXERCISE_DETAILS_REQUEST,
+  EXERCISE_DETAILS_SUCCESS,
+  EXERCISE_DETAILS_FAIL,
 } from "../constants/exerciseConstants";
 
 export const exerciseCreateReducer = (state = {}, action) => {
@@ -55,6 +58,22 @@ export const exerciseListReducer = (state = { exercises: [] }, action) => {
       return { loading: false, exercises: action.payload };
 
     case EXERCISE_LIST_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const exerciseDetailsReducer = (state = { exercise: {} }, action) => {
+  switch (action.type) {
+    case EXERCISE_DETAILS_REQUEST:
+      return { loading: true, ...state };
+
+    case EXERCISE_DETAILS_SUCCESS:
+      return { loading: false, exercise: action.payload };
+
+    case EXERCISE_DETAILS_SUCCESS:
       return { loading: false, error: action.payload };
 
     default:

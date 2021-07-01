@@ -29,7 +29,7 @@ const CreateExerciseScreen = ({ history }) => {
       setWordNumber(0);
       setDeck("");
       dispatch({ type: EXERCISE_CREATE_RESET });
-      history.push(`/exercises/${exerciseInfo.id}`);
+      history.push(`/exercises/${exerciseInfo.id}/update`);
     }
   }, [dispatch, success]);
 

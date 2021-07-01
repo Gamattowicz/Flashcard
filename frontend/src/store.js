@@ -31,6 +31,7 @@ import {
   exerciseCreateReducer,
   exerciseListReducer,
   exerciseUpdateReducer,
+  exerciseDetailsReducer,
 } from "./reducers/exerciseReducers";
 
 const reducer = combineReducers({
@@ -54,6 +55,7 @@ const reducer = combineReducers({
   exerciseCreate: exerciseCreateReducer,
   exerciseList: exerciseListReducer,
   exerciseUpdate: exerciseUpdateReducer,
+  exerciseDetails: exerciseDetailsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
