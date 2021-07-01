@@ -3,9 +3,9 @@ import {
   EXERCISE_CREATE_SUCCESS,
   EXERCISE_CREATE_FAIL,
   EXERCISE_CREATE_RESET,
-  EXERCISE_UPDATE_REQUEST,
-  EXERCISE_UPDATE_SUCCESS,
-  EXERCISE_UPDATE_FAIL,
+  EXERCISE_ADD_CORRECT_ANSWER_REQUEST,
+  EXERCISE_ADD_CORRECT_ANSWER_SUCCESS,
+  EXERCISE_ADD_CORRECT_ANSWER_FAIL,
   EXERCISE_LIST_REQUEST,
   EXERCISE_LIST_SUCCESS,
   EXERCISE_LIST_FAIL,
@@ -33,15 +33,15 @@ export const exerciseCreateReducer = (state = {}, action) => {
   }
 };
 
-export const exerciseUpdateReducer = (state = {}, action) => {
+export const exerciseAddCorrectAnswerReducer = (state = {}, action) => {
   switch (action.type) {
-    case EXERCISE_UPDATE_REQUEST:
+    case EXERCISE_ADD_CORRECT_ANSWER_REQUEST:
       return { loading: true };
 
-    case EXERCISE_UPDATE_SUCCESS:
+    case EXERCISE_ADD_CORRECT_ANSWER_SUCCESS:
       return { loading: false, success: true, userInfo: action.payload };
 
-    case EXERCISE_UPDATE_FAIL:
+    case EXERCISE_ADD_CORRECT_ANSWER_FAIL:
       return { loading: false, error: action.payload };
 
     default:
