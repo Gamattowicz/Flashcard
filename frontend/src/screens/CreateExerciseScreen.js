@@ -9,7 +9,7 @@ import { createExercise } from "../actions/exerciseActions";
 import { EXERCISE_CREATE_RESET } from "../constants/exerciseConstants";
 import { listDecks } from "../actions/deckActions";
 
-const CreateExerciseScreen = ({ location, history, match }) => {
+const CreateExerciseScreen = ({ history }) => {
   const [wordNumber, setWordNumber] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState(0);
@@ -18,26 +18,23 @@ const CreateExerciseScreen = ({ location, history, match }) => {
   const dispatch = useDispatch();
 
   const exerciseCreate = useSelector((state) => state.exerciseCreate);
-  const { error, loading, success } = exerciseCreate;
+  const { error, loading, success, exerciseInfo } = exerciseCreate;
 
   const deckList = useSelector((state) => state.deckList);
   const { decks } = deckList;
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
-  const exerciseId = match.params.id;
-
   useEffect(() => {
     dispatch(listDecks());
-    console.log(exerciseId);
     if (success) {
-      history.push(redirect);
+      setWordNumber(0);
+      setDeck("");
+      dispatch({ type: EXERCISE_CREATE_RESET });
+      history.push(`/exercises/${exerciseInfo.id}`);
     }
-  }, [history, success, redirect]);
+  }, [dispatch, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(match.params.id);
-    console.log(location.search);
     dispatch(
       createExercise(deck, { wordNumber, correctAnswers, wrongAnswers })
     );
