@@ -19,6 +19,7 @@ import CreateDeckScreen from "./screens/CreateDeckScreen";
 import CreateExerciseScreen from "./screens/CreateExerciseScreen";
 import ExerciseScreen from "./screens/ExerciseScreen";
 import ExercisesListScreen from "./screens/ExercisesListScreen";
+import ExerciseDetailsScreen from "./screens/ExerciseDetailsScreen";
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
           <Switch>
             <Route path="/exercises/create" component={CreateExerciseScreen} />
             <Route path="/exercises/:id/update" component={ExerciseScreen} />
+            <Route path="/exercises/:id/" component={ExerciseDetailsScreen} />
           </Switch>
         </Container>
       </main>
