@@ -21,6 +21,7 @@ import ExerciseScreen from './screens/ExerciseScreen'
 import ExercisesListScreen from './screens/ExercisesListScreen'
 import ExerciseDetailsScreen from './screens/ExerciseDetailsScreen'
 import EndExerciseScreen from './screens/EndExerciseScreen'
+import UsersListScreen from './screens/UsersListScreen'
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
             <Route path="/exercises/:id/update" component={ExerciseScreen} />
             <Route path="/exercises/:id/" component={ExerciseDetailsScreen} />
           </Switch>
+          <Route path="/admin/usersList" component={UsersListScreen} />
         </Container>
       </main>
       <Footer />
