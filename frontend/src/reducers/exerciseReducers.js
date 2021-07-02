@@ -6,6 +6,9 @@ import {
   EXERCISE_ADD_CORRECT_ANSWER_REQUEST,
   EXERCISE_ADD_CORRECT_ANSWER_SUCCESS,
   EXERCISE_ADD_CORRECT_ANSWER_FAIL,
+  EXERCISE_ADD_WRONG_ANSWER_REQUEST,
+  EXERCISE_ADD_WRONG_ANSWER_SUCCESS,
+  EXERCISE_ADD_WRONG_ANSWER_FAIL,
   EXERCISE_LIST_REQUEST,
   EXERCISE_LIST_SUCCESS,
   EXERCISE_LIST_FAIL,
@@ -42,6 +45,22 @@ export const exerciseAddCorrectAnswerReducer = (state = {}, action) => {
       return { loading: false, success: true, userInfo: action.payload };
 
     case EXERCISE_ADD_CORRECT_ANSWER_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const exerciseAddWrongAnswerReducer = (state = {}, action) => {
+  switch (action.type) {
+    case EXERCISE_ADD_WRONG_ANSWER_REQUEST:
+      return { loading: true };
+
+    case EXERCISE_ADD_WRONG_ANSWER_SUCCESS:
+      return { loading: false, success: true, userInfo: action.payload };
+
+    case EXERCISE_ADD_WRONG_ANSWER_FAIL:
       return { loading: false, error: action.payload };
 
     default:

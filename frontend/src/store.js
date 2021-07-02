@@ -31,6 +31,7 @@ import {
   exerciseCreateReducer,
   exerciseListReducer,
   exerciseAddCorrectAnswerReducer,
+  exerciseAddWrongAnswerReducer,
   exerciseDetailsReducer,
 } from "./reducers/exerciseReducers";
 
@@ -55,6 +56,7 @@ const reducer = combineReducers({
   exerciseCreate: exerciseCreateReducer,
   exerciseList: exerciseListReducer,
   exerciseAddCorrectAnswer: exerciseAddCorrectAnswerReducer,
+  exerciseAddWrongAnswer: exerciseAddWrongAnswerReducer,
   exerciseDetails: exerciseDetailsReducer,
 });
 
