@@ -15,9 +15,10 @@ import {
   addWrongAnswerExercise,
 } from "../actions/exerciseActions";
 
-const ExerciseScreen = ({ match }) => {
+const ExerciseScreen = ({ match, history }) => {
   const [definition, setDefinition] = useState("");
   const [answer, setAnswer] = useState(null);
+  const [wordsNumber, setWordsNumber] = useState(1);
   const dispatch = useDispatch();
 
   const wordDraw = useSelector((state) => state.wordDraw);
@@ -43,6 +44,12 @@ const ExerciseScreen = ({ match }) => {
       setAnswer(false);
     }
     dispatch(addExerciseWord(words[0]));
+    setWordsNumber(wordsNumber + 1);
+    if (wordsNumber === exercise.words_num) {
+      setTimeout(() => {
+        history.push(`/exercises/${exercise.id}/end`);
+      }, 300);
+    }
     setDefinition("");
   };
 
