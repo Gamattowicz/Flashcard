@@ -1,47 +1,53 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import { getUserDetails, updateUserProfile } from "../actions/userActions";
-import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
+import React, { useState, useEffect } from 'react'
+import { Form, Button, Row, Col, ListGroup, Card } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import Exercise from '../components/Exercise'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
+import { getUserDetails, updateUserProfile } from '../actions/userActions'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
+import { listExercises } from '../actions/exerciseActions'
 
 const ProfileScreen = ({ history }) => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [message, setMessage] = useState('')
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { error, loading, user } = userDetails;
+  const userDetails = useSelector((state) => state.userDetails)
+  const { error, loading, user } = userDetails
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-  const { success } = userUpdateProfile;
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
+  const { success } = userUpdateProfile
+
+  const exerciseList = useSelector((state) => state.exerciseList)
+  const { exercises } = exerciseList
 
   useEffect(() => {
     if (!userInfo) {
-      history.push("/login");
+      history.push('/login')
     } else {
       if (!user || !user.name || success) {
-        dispatch({ type: USER_UPDATE_PROFILE_RESET });
-        dispatch(getUserDetails("profile"));
+        dispatch({ type: USER_UPDATE_PROFILE_RESET })
+        dispatch(getUserDetails('profile'))
+        dispatch(listExercises())
       } else {
-        setUsername(user.username);
-        setEmail(user.email);
+        setUsername(user.username)
+        setEmail(user.email)
       }
     }
-  }, [dispatch, history, userInfo, user, success]);
+  }, [dispatch, history, userInfo, user, success])
 
   const submitHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (password != confirmPassword) {
-      setMessage("Password do not match");
+      setMessage('Password do not match')
     } else {
       dispatch(
         updateUserProfile({
@@ -50,10 +56,10 @@ const ProfileScreen = ({ history }) => {
           email: email,
           password: password,
         })
-      );
-      setMessage("");
+      )
+      setMessage('')
     }
-  };
+  }
 
   return (
     <Row>
@@ -107,17 +113,25 @@ const ProfileScreen = ({ history }) => {
             ></Form.Control>
           </Form.Group>
 
-          <Button type="submmit" variant="primary mt-3">
+          <Button type="submit" variant="primary mt-3">
             UPDATE
           </Button>
         </Form>
       </Col>
 
       <Col md={9}>
-        <h2>MY WORDS</h2>
+        <h2>MY EXERCISES</h2>
+
+        {exercises.map((exercise) => (
+          <Row>
+            <Row key={exercise.id} sm={12} md={6} lg={4} xl={3}>
+              <Exercise exercise={exercise} />
+            </Row>
+          </Row>
+        ))}
       </Col>
     </Row>
-  );
-};
+  )
+}
 
-export default ProfileScreen;
+export default ProfileScreen
