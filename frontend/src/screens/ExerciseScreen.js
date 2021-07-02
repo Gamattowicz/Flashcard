@@ -1,57 +1,65 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, ListGroup, Card, Button, Form } from "react-bootstrap";
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  Row,
+  Col,
+  ListGroup,
+  Card,
+  Button,
+  Form,
+  ProgressBar,
+} from 'react-bootstrap'
 import {
   drawWord,
   addExerciseWord,
   addCorrectAnswerWord,
   addWrongAnswerWord,
-} from "../actions/wordActions";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
+} from '../actions/wordActions'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 import {
   listExerciseDetails,
   addCorrectAnswerExercise,
   addWrongAnswerExercise,
-} from "../actions/exerciseActions";
+} from '../actions/exerciseActions'
 
 const ExerciseScreen = ({ match, history }) => {
-  const [definition, setDefinition] = useState("");
-  const [answer, setAnswer] = useState(null);
-  const [wordsNumber, setWordsNumber] = useState(1);
-  const dispatch = useDispatch();
+  const [definition, setDefinition] = useState('')
+  const [answer, setAnswer] = useState(null)
+  const [wordsNumber, setWordsNumber] = useState(1)
+  const dispatch = useDispatch()
 
-  const wordDraw = useSelector((state) => state.wordDraw);
-  const { error, loading, words } = wordDraw;
+  const wordDraw = useSelector((state) => state.wordDraw)
+  const { error, loading, words } = wordDraw
 
-  const exerciseDetails = useSelector((state) => state.exerciseDetails);
-  const { exercise } = exerciseDetails;
+  const exerciseDetails = useSelector((state) => state.exerciseDetails)
+  const { exercise } = exerciseDetails
 
   useEffect(() => {
-    dispatch(drawWord());
-    dispatch(listExerciseDetails(match.params.id));
-  }, [dispatch]);
+    dispatch(drawWord())
+    dispatch(listExerciseDetails(match.params.id))
+  }, [dispatch])
 
   const submitHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (definition.toUpperCase() === words[0].definition.toUpperCase()) {
-      dispatch(addCorrectAnswerExercise(exercise));
-      dispatch(addCorrectAnswerWord(words[0]));
-      setAnswer(true);
+      dispatch(addCorrectAnswerExercise(exercise))
+      dispatch(addCorrectAnswerWord(words[0]))
+      setAnswer(true)
     } else {
-      dispatch(addWrongAnswerExercise(exercise));
-      dispatch(addWrongAnswerWord(words[0]));
-      setAnswer(false);
+      dispatch(addWrongAnswerExercise(exercise))
+      dispatch(addWrongAnswerWord(words[0]))
+      setAnswer(false)
     }
-    dispatch(addExerciseWord(words[0]));
-    setWordsNumber(wordsNumber + 1);
+    dispatch(addExerciseWord(words[0]))
+    setWordsNumber(wordsNumber + 1)
     if (wordsNumber === exercise.words_num) {
       setTimeout(() => {
-        history.push(`/exercises/${exercise.id}/end`);
-      }, 300);
+        history.push(`/exercises/${exercise.id}/end`)
+      }, 500)
     }
-    setDefinition("");
-  };
+    setDefinition('')
+  }
 
   return (
     <div>
@@ -61,6 +69,12 @@ const ExerciseScreen = ({ match, history }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <Col md={3}>
+          <ProgressBar
+            animated
+            variant="success"
+            now={((wordsNumber - 1) / exercise.words_num) * 100}
+            className="my-3"
+          />
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
@@ -120,12 +134,12 @@ const ExerciseScreen = ({ match, history }) => {
               <Message variant="danger">WRONG ANSWER</Message>
             )
           ) : (
-            ""
+            ''
           )}
         </Col>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ExerciseScreen;
+export default ExerciseScreen
