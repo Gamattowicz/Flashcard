@@ -12,6 +12,7 @@ import Message from "../components/Message";
 import {
   listExerciseDetails,
   addCorrectAnswerExercise,
+  addWrongAnswerExercise,
 } from "../actions/exerciseActions";
 
 const ExerciseScreen = ({ match }) => {
@@ -37,6 +38,7 @@ const ExerciseScreen = ({ match }) => {
       dispatch(addCorrectAnswerWord(words[0]));
       setAnswer(true);
     } else {
+      dispatch(addWrongAnswerExercise(exercise));
       dispatch(addWrongAnswerWord(words[0]));
       setAnswer(false);
     }
