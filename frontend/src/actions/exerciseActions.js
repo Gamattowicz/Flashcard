@@ -57,43 +57,6 @@ export const createExercise =
 export const addCorrectAnswerExercise =
   (exercise) => async (dispatch, getState) => {
     try {
-      dispatch({ type: EXERCISE_ADD_WRONG_ANSWER_REQUEST });
-
-      const {
-        userLogin: { userInfo },
-      } = getState();
-
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      };
-
-      const { data } = await axios.put(
-        `/exercises/${exercise.id}/wrong-answer/`,
-        exercise,
-        config
-      );
-
-      dispatch({
-        type: EXERCISE_ADD_WRONG_ANSWER_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: EXERCISE_ADD_WRONG_ANSWER_FAIL,
-        payload:
-          error.response && error.response.data.detail
-            ? error.response.data.detail
-            : error.message,
-      });
-    }
-  };
-
-export const addWrongAnswerExercise =
-  (exercise) => async (dispatch, getState) => {
-    try {
       dispatch({ type: EXERCISE_ADD_CORRECT_ANSWER_REQUEST });
 
       const {
@@ -120,6 +83,43 @@ export const addWrongAnswerExercise =
     } catch (error) {
       dispatch({
         type: EXERCISE_ADD_CORRECT_ANSWER_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      });
+    }
+  };
+
+export const addWrongAnswerExercise =
+  (exercise) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: EXERCISE_ADD_WRONG_ANSWER_REQUEST });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `/exercises/${exercise.id}/wrong-answer/`,
+        exercise,
+        config
+      );
+
+      dispatch({
+        type: EXERCISE_ADD_WRONG_ANSWER_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: EXERCISE_ADD_WRONG_ANSWER_FAIL,
         payload:
           error.response && error.response.data.detail
             ? error.response.data.detail
