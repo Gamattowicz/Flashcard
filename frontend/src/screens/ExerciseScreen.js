@@ -9,8 +9,12 @@ import {
 } from "../actions/wordActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import {
+  listExerciseDetails,
+  addCorrectAnswerExercise,
+} from "../actions/exerciseActions";
 
-const ExerciseScreen = () => {
+const ExerciseScreen = ({ match }) => {
   const [definition, setDefinition] = useState("");
   const [answer, setAnswer] = useState(null);
   const dispatch = useDispatch();
@@ -18,13 +22,18 @@ const ExerciseScreen = () => {
   const wordDraw = useSelector((state) => state.wordDraw);
   const { error, loading, words } = wordDraw;
 
+  const exerciseDetails = useSelector((state) => state.exerciseDetails);
+  const { exercise } = exerciseDetails;
+
   useEffect(() => {
     dispatch(drawWord());
+    dispatch(listExerciseDetails(match.params.id));
   }, [dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (definition.toUpperCase() === words[0].definition.toUpperCase()) {
+      dispatch(addCorrectAnswerExercise(exercise));
       dispatch(addCorrectAnswerWord(words[0]));
       setAnswer(true);
     } else {
@@ -32,7 +41,6 @@ const ExerciseScreen = () => {
       setAnswer(false);
     }
     dispatch(addExerciseWord(words[0]));
-    dispatch(drawWord());
     setDefinition("");
   };
 

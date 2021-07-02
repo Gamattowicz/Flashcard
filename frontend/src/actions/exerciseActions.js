@@ -3,9 +3,9 @@ import {
   EXERCISE_CREATE_REQUEST,
   EXERCISE_CREATE_SUCCESS,
   EXERCISE_CREATE_FAIL,
-  EXERCISE_UPDATE_REQUEST,
-  EXERCISE_UPDATE_SUCCESS,
-  EXERCISE_UPDATE_FAIL,
+  EXERCISE_ADD_CORRECT_ANSWER_REQUEST,
+  EXERCISE_ADD_CORRECT_ANSWER_SUCCESS,
+  EXERCISE_ADD_CORRECT_ANSWER_FAIL,
   EXERCISE_LIST_REQUEST,
   EXERCISE_LIST_SUCCESS,
   EXERCISE_LIST_FAIL,
@@ -51,41 +51,42 @@ export const createExercise =
     }
   };
 
-export const updateExercise = (exercise) => async (dispatch, getState) => {
-  try {
-    dispatch({ type: EXERCISE_UPDATE_REQUEST });
+export const addCorrectAnswerExercise =
+  (exercise) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: EXERCISE_ADD_CORRECT_ANSWER_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+      const {
+        userLogin: { userInfo },
+      } = getState();
 
-    const config = {
-      headers: {
-        "Content=type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
 
-    const { data } = await axios.put(
-      `/exercises/${exercise.id}/update/`,
-      exercise,
-      config
-    );
+      const { data } = await axios.put(
+        `/exercises/${exercise.id}/correct-answer/`,
+        exercise,
+        config
+      );
 
-    dispatch({
-      type: EXERCISE_UPDATE_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: EXERCISE_UPDATE_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    });
-  }
-};
+      dispatch({
+        type: EXERCISE_ADD_CORRECT_ANSWER_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: EXERCISE_ADD_CORRECT_ANSWER_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      });
+    }
+  };
 
 export const listExercises = () => async (dispatch, getState) => {
   try {
