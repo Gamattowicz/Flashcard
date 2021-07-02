@@ -1,26 +1,26 @@
-import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Container } from 'react-bootstrap'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import WordsListScreen from "./screens/WordsListScreen";
-import WordScreen from "./screens/WordScreen";
-import CreateWordScreen from "./screens/CreateWordScreen";
-import DrawWordScreen from "./screens/DrawWordScreen";
-import LoginScreen from "./screens/LoginScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import CategoryListScreen from "./screens/CategoryListScreen";
-import CategoryScreen from "./screens/CategoryScreen";
-import CreateCategoryScreen from "./screens/CreateCategoryScreen";
-import DecksListScreen from "./screens/DecksListScreen";
-import DeckScreen from "./screens/DeckScreen";
-import CreateDeckScreen from "./screens/CreateDeckScreen";
-import CreateExerciseScreen from "./screens/CreateExerciseScreen";
-import ExerciseScreen from "./screens/ExerciseScreen";
-import ExercisesListScreen from "./screens/ExercisesListScreen";
-import ExerciseDetailsScreen from "./screens/ExerciseDetailsScreen";
-import EndExerciseScreen from "./screens/EndExerciseScreen";
+import Header from './components/Header'
+import Footer from './components/Footer'
+import WordsListScreen from './screens/WordsListScreen'
+import WordScreen from './screens/WordScreen'
+import CreateWordScreen from './screens/CreateWordScreen'
+import DrawWordScreen from './screens/DrawWordScreen'
+import LoginScreen from './screens/LoginScreen'
+import RegisterScreen from './screens/RegisterScreen'
+import ProfileScreen from './screens/ProfileScreen'
+import CategoryListScreen from './screens/CategoryListScreen'
+import CategoryScreen from './screens/CategoryScreen'
+import CreateCategoryScreen from './screens/CreateCategoryScreen'
+import DecksListScreen from './screens/DecksListScreen'
+import DeckScreen from './screens/DeckScreen'
+import CreateDeckScreen from './screens/CreateDeckScreen'
+import CreateExerciseScreen from './screens/CreateExerciseScreen'
+import ExerciseScreen from './screens/ExerciseScreen'
+import ExercisesListScreen from './screens/ExercisesListScreen'
+import ExerciseDetailsScreen from './screens/ExerciseDetailsScreen'
+import EndExerciseScreen from './screens/EndExerciseScreen'
 
 function App() {
   return (
@@ -28,8 +28,8 @@ function App() {
       <Header />
       <main className="py-4">
         <Container>
-          <Route path="/words" component={WordsListScreen} exact />
           <Switch>
+            <Route path="/words" component={WordsListScreen} exact />
             <Route path="/words/create" component={CreateWordScreen} />
             <Route path="/words/practice" component={DrawWordScreen} />
             <Route path="/words/:id" component={WordScreen} />
@@ -60,7 +60,7 @@ function App() {
       </main>
       <Footer />
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -9,8 +9,10 @@ from random import sample
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_words(request):
-    words = Word.objects.all()
+    user = request.user
+    words = Word.objects.filter(user=user.id)
     serializer = WordSerializer(words, many=True)
     return Response(serializer.data)
 

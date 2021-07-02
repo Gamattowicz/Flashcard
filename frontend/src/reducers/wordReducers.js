@@ -21,119 +21,119 @@ import {
   WORD_ADD_WRONG_ANSWER_REQUEST,
   WORD_ADD_WRONG_ANSWER_SUCCESS,
   WORD_ADD_WRONG_ANSWER_FAIL,
-} from "../constants/wordConstants";
+} from '../constants/wordConstants'
 
 export const wordListReducer = (state = { words: [] }, action) => {
   switch (action.type) {
     case WORD_LIST_REQUEST:
-      return { loading: true, words: [] };
+      return { loading: true, words: [] }
 
     case WORD_LIST_SUCCESS:
-      return { loading: false, words: action.payload };
+      return { loading: false, words: action.payload }
 
     case WORD_LIST_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const wordDetailsReducer = (state = { word: {} }, action) => {
   switch (action.type) {
     case WORD_DETAILS_REQUEST:
-      return { loading: true, ...state };
+      return { loading: true, ...state }
 
     case WORD_DETAILS_SUCCESS:
-      return { loading: false, word: action.payload };
+      return { loading: false, word: action.payload }
 
     case WORD_DETAILS_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const wordCreateReducer = (state = {}, action) => {
   switch (action.type) {
     case WORD_CREATE_REQUEST:
-      return { loading: true };
+      return { loading: true }
 
     case WORD_CREATE_SUCCESS:
-      return { loading: false, success: true };
+      return { loading: false, success: true }
 
     case WORD_CREATE_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
 
     case WORD_CREATE_RESET:
-      return {};
+      return {}
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const wordDrawReducer = (state = { words: {} }, action) => {
   switch (action.type) {
     case WORD_DRAW_REQUEST:
-      return { loading: true, ...state };
+      return { loading: true, ...state }
 
     case WORD_DRAW_SUCCESS:
-      return { loading: false, words: action.payload };
+      return { loading: false, words: action.payload }
 
     case WORD_DRAW_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const wordAddExerciseReducer = (state = {}, action) => {
   switch (action.type) {
     case WORD_ADD_EXERCISE_REQUEST:
-      return { loading: true };
+      return { loading: true }
 
     case WORD_ADD_EXERCISE_SUCCESS:
-      return { loading: false, success: true };
+      return { loading: false, success: true }
 
     case WORD_ADD_EXERCISE_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const wordAddCorrectAnswerReducer = (state = {}, action) => {
   switch (action.type) {
     case WORD_ADD_CORRECT_ANSWER_REQUEST:
-      return { loading: true };
+      return { loading: true }
 
     case WORD_ADD_CORRECT_ANSWER_SUCCESS:
-      return { loading: false, success: true };
+      return { loading: false, success: true }
 
     case WORD_ADD_CORRECT_ANSWER_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const wordAddWrongAnswerReducer = (state = {}, action) => {
   switch (action.type) {
     case WORD_ADD_WRONG_ANSWER_REQUEST:
-      return { loading: true };
+      return { loading: true }
 
     case WORD_ADD_WRONG_ANSWER_SUCCESS:
-      return { loading: false, success: true };
+      return { loading: false, success: true }
 
     case WORD_ADD_WRONG_ANSWER_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
 
     default:
-      return state;
+      return state
   }
-};
+}
