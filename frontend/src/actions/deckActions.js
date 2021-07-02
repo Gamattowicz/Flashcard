@@ -11,10 +11,23 @@ import {
   DECK_CREATE_FAIL,
 } from '../constants/deckConstants'
 
-export const listDecks = () => async (dispatch) => {
+export const listDecks = () => async (dispatch, getState) => {
   try {
     dispatch({ type: DECK_LIST_REQUEST })
-    const { data } = await axios.get('/decks/')
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get('/decks/', config)
+
     dispatch({
       type: DECK_LIST_SUCCESS,
       payload: data,
