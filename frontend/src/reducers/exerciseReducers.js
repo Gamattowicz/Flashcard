@@ -12,90 +12,109 @@ import {
   EXERCISE_LIST_REQUEST,
   EXERCISE_LIST_SUCCESS,
   EXERCISE_LIST_FAIL,
+  EXERCISE_ALL_LIST_REQUEST,
+  EXERCISE_ALL_LIST_SUCCESS,
+  EXERCISE_ALL_LIST_FAIL,
   EXERCISE_DETAILS_REQUEST,
   EXERCISE_DETAILS_SUCCESS,
   EXERCISE_DETAILS_FAIL,
-} from "../constants/exerciseConstants";
+} from '../constants/exerciseConstants'
 
 export const exerciseCreateReducer = (state = {}, action) => {
   switch (action.type) {
     case EXERCISE_CREATE_REQUEST:
-      return { loading: true };
+      return { loading: true }
 
     case EXERCISE_CREATE_SUCCESS:
-      return { loading: false, success: true, exerciseInfo: action.payload };
+      return { loading: false, success: true, exerciseInfo: action.payload }
 
     case EXERCISE_CREATE_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
 
     case EXERCISE_CREATE_RESET:
-      return {};
+      return {}
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const exerciseAddCorrectAnswerReducer = (state = {}, action) => {
   switch (action.type) {
     case EXERCISE_ADD_CORRECT_ANSWER_REQUEST:
-      return { loading: true };
+      return { loading: true }
 
     case EXERCISE_ADD_CORRECT_ANSWER_SUCCESS:
-      return { loading: false, success: true, userInfo: action.payload };
+      return { loading: false, success: true, userInfo: action.payload }
 
     case EXERCISE_ADD_CORRECT_ANSWER_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const exerciseAddWrongAnswerReducer = (state = {}, action) => {
   switch (action.type) {
     case EXERCISE_ADD_WRONG_ANSWER_REQUEST:
-      return { loading: true };
+      return { loading: true }
 
     case EXERCISE_ADD_WRONG_ANSWER_SUCCESS:
-      return { loading: false, success: true, userInfo: action.payload };
+      return { loading: false, success: true, userInfo: action.payload }
 
     case EXERCISE_ADD_WRONG_ANSWER_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const exerciseListReducer = (state = { exercises: [] }, action) => {
   switch (action.type) {
     case EXERCISE_LIST_REQUEST:
-      return { loading: true, exercises: [] };
+      return { loading: true, exercises: [] }
 
     case EXERCISE_LIST_SUCCESS:
-      return { loading: false, exercises: action.payload };
+      return { loading: false, exercises: action.payload }
 
     case EXERCISE_LIST_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
 
     default:
-      return state;
+      return state
   }
-};
+}
+
+export const exerciseAllListReducer = (state = { exercises: [] }, action) => {
+  switch (action.type) {
+    case EXERCISE_ALL_LIST_REQUEST:
+      return { loading: true, exercises: [] }
+
+    case EXERCISE_ALL_LIST_SUCCESS:
+      return { loading: false, exercises: action.payload }
+
+    case EXERCISE_ALL_LIST_FAIL:
+      return { loading: false, error: action.payload }
+
+    default:
+      return state
+  }
+}
 
 export const exerciseDetailsReducer = (state = { exercise: {} }, action) => {
   switch (action.type) {
     case EXERCISE_DETAILS_REQUEST:
-      return { loading: true, ...state };
+      return { loading: true, ...state }
 
     case EXERCISE_DETAILS_SUCCESS:
-      return { loading: false, exercise: action.payload };
+      return { loading: false, exercise: action.payload }
 
     case EXERCISE_DETAILS_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
 
     default:
-      return state;
+      return state
   }
-};
+}
