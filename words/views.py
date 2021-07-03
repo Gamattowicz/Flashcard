@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .models import Word
 from category.models import Category
 from decks.models import Deck
@@ -13,6 +13,14 @@ from random import sample
 def get_words(request):
     user = request.user
     words = Word.objects.filter(user=user.id)
+    serializer = WordSerializer(words, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def get_all_words(request):
+    words = Word.objects.all()
     serializer = WordSerializer(words, many=True)
     return Response(serializer.data)
 
