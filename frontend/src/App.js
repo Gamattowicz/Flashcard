@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import WordsListScreen from './screens/WordsListScreen'
+import WordsAllListScreen from './screens/WordsAllListScreen'
 import WordScreen from './screens/WordScreen'
 import CreateWordScreen from './screens/CreateWordScreen'
 import DrawWordScreen from './screens/DrawWordScreen'
@@ -31,6 +32,7 @@ function App() {
         <Container>
           <Switch>
             <Route path="/words" component={WordsListScreen} exact />
+            <Route path="/words/admin" component={WordsAllListScreen} />
             <Route path="/words/create" component={CreateWordScreen} />
             <Route path="/words/practice" component={DrawWordScreen} />
             <Route path="/words/:id" component={WordScreen} />
