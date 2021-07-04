@@ -20,6 +20,7 @@ import CreateDeckScreen from './screens/CreateDeckScreen'
 import CreateExerciseScreen from './screens/CreateExerciseScreen'
 import ExerciseScreen from './screens/ExerciseScreen'
 import ExercisesListScreen from './screens/ExercisesListScreen'
+import ExercisesAllListScreen from './screens/ExercisesAllListScreen'
 import ExerciseDetailsScreen from './screens/ExerciseDetailsScreen'
 import EndExerciseScreen from './screens/EndExerciseScreen'
 import UsersListScreen from './screens/UsersListScreen'
@@ -52,8 +53,9 @@ function App() {
             <Route path="/decks/:id" component={DeckScreen} />
           </Switch>
 
-          <Route path="/exercises" component={ExercisesListScreen} exact />
           <Switch>
+            <Route path="/exercises" component={ExercisesListScreen} exact />
+            <Route path="/exercises/admin" component={ExercisesAllListScreen} />
             <Route path="/exercises/create" component={CreateExerciseScreen} />
             <Route path="/exercises/:id/end" component={EndExerciseScreen} />
             <Route path="/exercises/:id/update" component={ExerciseScreen} />
