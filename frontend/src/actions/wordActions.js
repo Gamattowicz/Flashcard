@@ -3,6 +3,9 @@ import {
   WORD_LIST_REQUEST,
   WORD_LIST_SUCCESS,
   WORD_LIST_FAIL,
+  WORD_ALL_LIST_REQUEST,
+  WORD_ALL_LIST_SUCCESS,
+  WORD_ALL_LIST_FAIL,
   WORD_DETAILS_REQUEST,
   WORD_DETAILS_SUCCESS,
   WORD_DETAILS_FAIL,
@@ -47,6 +50,38 @@ export const listWords = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: WORD_LIST_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    })
+  }
+}
+
+export const listAllWords = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: WORD_ALL_LIST_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get('/words/admin/', config)
+
+    dispatch({
+      type: WORD_ALL_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: WORD_ALL_LIST_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
