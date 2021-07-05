@@ -25,6 +25,7 @@ import {
 } from './reducers/categoryReducers'
 import {
   deckListReducer,
+  deckAllListReducer,
   deckDetailsReducer,
   deckCreateReducer,
 } from './reducers/deckReducers'
@@ -56,6 +57,7 @@ const reducer = combineReducers({
   categoryDetails: categoryDetailsReducer,
   categoryCreate: categoryCreateReducer,
   deckList: deckListReducer,
+  deckAllList: deckAllListReducer,
   deckDetails: deckDetailsReducer,
   deckCreate: deckCreateReducer,
   exerciseCreate: exerciseCreateReducer,
