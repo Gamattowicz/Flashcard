@@ -22,12 +22,6 @@ const Header = () => {
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-              <LinkContainer to="/words/practice">
-                <Nav.Link>
-                  <i class="fab fa-leanpub"></i>PRACTICE
-                </Nav.Link>
-              </LinkContainer>
-
               <LinkContainer to="/exercises/create">
                 <Nav.Link>
                   <i class="fas fa-book"></i>EXERCISE
