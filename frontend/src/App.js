@@ -33,7 +33,7 @@ function App() {
         <Container>
           <Switch>
             <Route path="/words" component={WordsListScreen} exact />
-            <Route path="/words/admin" component={WordsAllListScreen} />
+            <Route path="/admin/words/" component={WordsAllListScreen} />
             <Route path="/words/create" component={CreateWordScreen} />
             <Route path="/words/practice" component={DrawWordScreen} />
             <Route path="/words/:id" component={WordScreen} />
@@ -55,7 +55,10 @@ function App() {
 
           <Switch>
             <Route path="/exercises" component={ExercisesListScreen} exact />
-            <Route path="/exercises/admin" component={ExercisesAllListScreen} />
+            <Route
+              path="/admin/exercises/"
+              component={ExercisesAllListScreen}
+            />
             <Route path="/exercises/create" component={CreateExerciseScreen} />
             <Route path="/exercises/:id/end" component={EndExerciseScreen} />
             <Route path="/exercises/:id/update" component={ExerciseScreen} />
