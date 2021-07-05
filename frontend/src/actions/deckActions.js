@@ -3,6 +3,9 @@ import {
   DECK_LIST_REQUEST,
   DECK_LIST_SUCCESS,
   DECK_LIST_FAIL,
+  DECK_ALL_LIST_REQUEST,
+  DECK_ALL_LIST_SUCCESS,
+  DECK_ALL_LIST_FAIL,
   DECK_DETAILS_REQUEST,
   DECK_DETAILS_SUCCESS,
   DECK_DETAILS_FAIL,
@@ -35,6 +38,38 @@ export const listDecks = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: DECK_LIST_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    })
+  }
+}
+
+export const listAllDecks = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: DECK_ALL_LIST_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get('/decks/admin/', config)
+
+    dispatch({
+      type: DECK_ALL_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: DECK_ALL_LIST_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
