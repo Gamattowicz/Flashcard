@@ -15,6 +15,7 @@ import CategoryListScreen from './screens/CategoryListScreen'
 import CategoryScreen from './screens/CategoryScreen'
 import CreateCategoryScreen from './screens/CreateCategoryScreen'
 import DecksListScreen from './screens/DecksListScreen'
+import DecksAllListScreen from './screens/DecksAllListScreen'
 import DeckScreen from './screens/DeckScreen'
 import CreateDeckScreen from './screens/CreateDeckScreen'
 import CreateExerciseScreen from './screens/CreateExerciseScreen'
@@ -47,8 +48,9 @@ function App() {
             <Route path="/category/:id" component={CategoryScreen} />
           </Switch>
 
-          <Route path="/decks" component={DecksListScreen} exact />
           <Switch>
+            <Route path="/decks" component={DecksListScreen} exact />
+            <Route path="/admin/decks" component={DecksAllListScreen} />
             <Route path="/decks/create" component={CreateDeckScreen} />
             <Route path="/decks/:id" component={DeckScreen} />
           </Switch>
