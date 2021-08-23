@@ -1,3 +1,17 @@
 main {
   min-height: 85vh;
 }
+
+a {
+    color: #2aa198;
+    text-decoration: none;
+}
+
+.fa-envelope, .fa-github-square, .fa-linkedin {
+    font-size: 25px;
+    color: #2aa198;
+}
+
+.fa-envelope:hover, .fa-github-square:hover, .fa-linkedin:hover {
+    opacity: 0.5;
+}

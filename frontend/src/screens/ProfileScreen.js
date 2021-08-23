@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col, ListGroup, Card } from 'react-bootstrap'
+import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Exercise from '../components/Exercise'
 import Loader from '../components/Loader'
@@ -46,7 +46,7 @@ const ProfileScreen = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
       setMessage('Password do not match')
     } else {
       dispatch(

@@ -8,6 +8,7 @@ import {
   Button,
   Form,
   ProgressBar,
+  Container,
 } from 'react-bootstrap'
 import {
   drawWord,
@@ -63,81 +64,96 @@ const ExerciseScreen = ({ match, history }) => {
 
   return (
     <div>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant="danger">{error}</Message>
-      ) : (
-        <Col md={3}>
-          <ProgressBar
-            animated
-            variant="success"
-            now={((wordsNumber - 1) / exercise.words_num) * 100}
-            className="my-3"
-          />
-          <Card>
-            <ListGroup variant="flush">
-              <ListGroup.Item>
-                <Row>
-                  <Col>
-                    <strong>Name</strong>
-                  </Col>
-                  {words[0] &&
-                    words.map((word) => <Col key={word.id}>{word.name}</Col>)}
-                </Row>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <Row>
-                  <Col>
-                    <strong>Category</strong>
-                  </Col>
-                  {words[0] &&
-                    words.map((word) => (
-                      <Col key={word.id}>{word.category}</Col>
-                    ))}
-                </Row>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <Row>
-                  <Col>
-                    <strong>Deck</strong>
-                  </Col>
-                  {words[0] &&
-                    words.map((word) => <Col key={word.id}>{word.deck}</Col>)}
-                </Row>
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
-
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId="definition">
-              <Form.Label>Definition</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                placeholder="Enter definition"
-                value={definition}
-                onChange={(e) => setDefinition(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Button type="submit" variant="primary my-3">
-              CONFIRM
-            </Button>
-          </Form>
-          {answer !== null ? (
-            answer ? (
-              <Message variant="success">CORRECT ANSWER</Message>
-            ) : (
-              <Message variant="danger">WRONG ANSWER</Message>
-            )
+      <Container>
+        <Row className="justify-content-md-center">
+          {loading ? (
+            <Loader />
+          ) : error ? (
+            <Message variant="danger">{error}</Message>
           ) : (
-            ''
+            <Col md={5}>
+              <ProgressBar
+                animated
+                variant="success"
+                now={((wordsNumber - 1) / exercise.words_num) * 100}
+                className="my-3"
+              />
+              <Card>
+                <Card.Title className="text-center fw-bold">
+                  QUESTION
+                </Card.Title>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>
+                    <Row>
+                      <h2 className="text-center fw-bold">
+                        {words[0] &&
+                          words.map((word) => (
+                            <Col key={word.id}>{word.name}</Col>
+                          ))}
+                      </h2>
+                    </Row>
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    <Row>
+                      <ListGroup horizontal>
+                        <ListGroup.Item md={6}>
+                          <Col md={3}>
+                            <strong>Category</strong>
+                          </Col>
+                          <Col md={3}>
+                            {words[0] &&
+                              words.map((word) => (
+                                <Col key={word.id}>{word.category}</Col>
+                              ))}
+                          </Col>
+                        </ListGroup.Item>
+                        <ListGroup.Item md={6}>
+                          <Col md={3}>
+                            <strong>Deck</strong>
+                          </Col>
+                          <Col md={3}>
+                            {words[0] &&
+                              words.map((word) => (
+                                <Col key={word.id}>{word.deck}</Col>
+                              ))}
+                          </Col>
+                        </ListGroup.Item>
+                      </ListGroup>
+                    </Row>
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card>
+
+              <Form onSubmit={submitHandler}>
+                <Form.Group controlId="definition">
+                  <Form.Label>Definition</Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    placeholder="Enter definition"
+                    value={definition}
+                    onChange={(e) => setDefinition(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+
+                <Button type="submit" variant="primary my-3">
+                  CONFIRM
+                </Button>
+              </Form>
+              {answer !== null ? (
+                answer ? (
+                  <Message variant="success">CORRECT ANSWER</Message>
+                ) : (
+                  <Message variant="danger">WRONG ANSWER</Message>
+                )
+              ) : (
+                ''
+              )}
+            </Col>
           )}
-        </Col>
-      )}
+        </Row>
+      </Container>
     </div>
   )
 }
