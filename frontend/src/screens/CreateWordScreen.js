@@ -104,7 +104,7 @@ const CreateWordScreen = () => {
           </Form.Control>
         </Form.Group>
 
-        <Button type="submmit" variant="primary mt-3">
+        <Button type="submit" variant="primary mt-3">
           CREATE
         </Button>
       </Form>

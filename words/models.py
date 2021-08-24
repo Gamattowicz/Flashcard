@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from category.models import Category
 from decks.models import Deck
 
-# Create your models here.
-
 
 class Word(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)

@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Row, Col } from "react-bootstrap";
-import Deck from "../components/Deck";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import { listDecks } from "../actions/deckActions";
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Row, Col } from 'react-bootstrap'
+import Deck from '../components/Deck'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
+import { listDecks } from '../actions/deckActions'
 
 const DecksListScreen = () => {
-  const dispatch = useDispatch();
-  const deckList = useSelector((state) => state.deckList);
-  const { error, loading, decks } = deckList;
+  const dispatch = useDispatch()
+  const deckList = useSelector((state) => state.deckList)
+  const { error, loading, decks } = deckList
 
   useEffect(() => {
-    dispatch(listDecks());
-  }, [dispatch]);
+    dispatch(listDecks())
+  }, [dispatch])
 
   return (
     <div>
@@ -33,7 +33,7 @@ const DecksListScreen = () => {
         </Row>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default DecksListScreen;
+export default DecksListScreen

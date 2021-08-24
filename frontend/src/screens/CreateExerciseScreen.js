@@ -14,6 +14,7 @@ const CreateExerciseScreen = ({ history }) => {
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [wrongAnswers, setWrongAnswers] = useState(0)
   const [deck, setDeck] = useState('')
+  const [mode, setMode] = useState('')
 
   const dispatch = useDispatch()
 
@@ -29,7 +30,11 @@ const CreateExerciseScreen = ({ history }) => {
       setWordNumber(0)
       setDeck('')
       dispatch({ type: EXERCISE_CREATE_RESET })
-      history.push(`/exercises/${exerciseInfo.id}/update`)
+      if (mode === 'reversed') {
+        history.push(`/exercises/${exerciseInfo.id}/update/reversed`)
+      } else if (mode === 'typed') {
+        history.push(`/exercises/${exerciseInfo.id}/update/typed`)
+      }
     }
   }, [dispatch, success])
 
@@ -69,6 +74,19 @@ const CreateExerciseScreen = ({ history }) => {
                 {deck.name}
               </option>
             ))}
+          </Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="mode">
+          <Form.Label>Mode</Form.Label>
+          <Form.Control
+            as="select"
+            value={mode}
+            onChange={(e) => setMode(e.target.value)}
+          >
+            <option value="">Select...</option>
+            <option value="reversed">Reversed card</option>
+            <option value="typed">Type in the answer</option>
           </Form.Control>
         </Form.Group>
 

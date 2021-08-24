@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import FormContainer from "../components/FormContainer";
-import { createDeck } from "../actions/deckActions";
-import { DECK_CREATE_RESET } from "../constants/deckConstants";
+import React, { useState, useEffect } from 'react'
+import { Form, Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
+import FormContainer from '../components/FormContainer'
+import { createDeck } from '../actions/deckActions'
+import { DECK_CREATE_RESET } from '../constants/deckConstants'
 
 const CreateDeckScreen = () => {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('')
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const deckCreate = useSelector((state) => state.deckCreate);
-  const { error, loading, success } = deckCreate;
+  const deckCreate = useSelector((state) => state.deckCreate)
+  const { error, loading, success } = deckCreate
 
   useEffect(() => {
     if (success) {
-      setName("");
-      dispatch({ type: DECK_CREATE_RESET });
+      setName('')
+      dispatch({ type: DECK_CREATE_RESET })
     }
-  }, [dispatch, success]);
+  }, [dispatch, success])
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(createDeck(name));
-  };
+    e.preventDefault()
+    dispatch(createDeck(name))
+  }
 
   return (
     <FormContainer>
@@ -45,12 +45,12 @@ const CreateDeckScreen = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Button type="submmit" variant="primary mt-3">
+        <Button type="submit" variant="primary mt-3">
           CREATE
         </Button>
       </Form>
     </FormContainer>
-  );
-};
+  )
+}
 
-export default CreateDeckScreen;
+export default CreateDeckScreen
