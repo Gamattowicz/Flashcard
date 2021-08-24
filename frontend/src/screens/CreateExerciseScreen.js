@@ -1,44 +1,42 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import FormContainer from "../components/FormContainer";
-import { createExercise } from "../actions/exerciseActions";
-import { EXERCISE_CREATE_RESET } from "../constants/exerciseConstants";
-import { listDecks } from "../actions/deckActions";
+import React, { useState, useEffect } from 'react'
+import { Form, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
+import FormContainer from '../components/FormContainer'
+import { createExercise } from '../actions/exerciseActions'
+import { EXERCISE_CREATE_RESET } from '../constants/exerciseConstants'
+import { listDecks } from '../actions/deckActions'
 
 const CreateExerciseScreen = ({ history }) => {
-  const [wordNumber, setWordNumber] = useState(0);
-  const [correctAnswers, setCorrectAnswers] = useState(0);
-  const [wrongAnswers, setWrongAnswers] = useState(0);
-  const [deck, setDeck] = useState("");
+  const [wordNumber, setWordNumber] = useState(0)
+  const [correctAnswers, setCorrectAnswers] = useState(0)
+  const [wrongAnswers, setWrongAnswers] = useState(0)
+  const [deck, setDeck] = useState('')
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const exerciseCreate = useSelector((state) => state.exerciseCreate);
-  const { error, loading, success, exerciseInfo } = exerciseCreate;
+  const exerciseCreate = useSelector((state) => state.exerciseCreate)
+  const { error, loading, success, exerciseInfo } = exerciseCreate
 
-  const deckList = useSelector((state) => state.deckList);
-  const { decks } = deckList;
+  const deckList = useSelector((state) => state.deckList)
+  const { decks } = deckList
 
   useEffect(() => {
-    dispatch(listDecks());
+    dispatch(listDecks())
     if (success) {
-      setWordNumber(0);
-      setDeck("");
-      dispatch({ type: EXERCISE_CREATE_RESET });
-      history.push(`/exercises/${exerciseInfo.id}/update`);
+      setWordNumber(0)
+      setDeck('')
+      dispatch({ type: EXERCISE_CREATE_RESET })
+      history.push(`/exercises/${exerciseInfo.id}/update`)
     }
-  }, [dispatch, success]);
+  }, [dispatch, success])
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(
-      createExercise(deck, { wordNumber, correctAnswers, wrongAnswers })
-    );
-  };
+    e.preventDefault()
+    dispatch(createExercise(deck, { wordNumber, correctAnswers, wrongAnswers }))
+  }
 
   return (
     <FormContainer>
@@ -74,13 +72,13 @@ const CreateExerciseScreen = ({ history }) => {
           </Form.Control>
         </Form.Group>
 
-        <Button type="submmit" variant="primary mt-3">
+        <Button type="submit" variant="primary mt-3">
           START
         </Button>
       </Form>
       <Link to={`/exercises/`}>Exercises list</Link>
     </FormContainer>
-  );
-};
+  )
+}
 
-export default CreateExerciseScreen;
+export default CreateExerciseScreen

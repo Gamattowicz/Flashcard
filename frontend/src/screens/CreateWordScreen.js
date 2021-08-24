@@ -1,47 +1,47 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import FormContainer from "../components/FormContainer";
-import { createWord } from "../actions/wordActions";
-import { WORD_CREATE_RESET } from "../constants/wordConstants";
-import { listCategories } from "../actions/categoryActions";
-import { listDecks } from "../actions/deckActions";
+import React, { useState, useEffect } from 'react'
+import { Form, Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
+import FormContainer from '../components/FormContainer'
+import { createWord } from '../actions/wordActions'
+import { WORD_CREATE_RESET } from '../constants/wordConstants'
+import { listCategories } from '../actions/categoryActions'
+import { listDecks } from '../actions/deckActions'
 
 const CreateWordScreen = () => {
-  const [name, setName] = useState("");
-  const [definition, setDefinition] = useState("");
-  const [category, setCategory] = useState("");
-  const [deck, setDeck] = useState("");
+  const [name, setName] = useState('')
+  const [definition, setDefinition] = useState('')
+  const [category, setCategory] = useState('')
+  const [deck, setDeck] = useState('')
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const wordCreate = useSelector((state) => state.wordCreate);
-  const { error, loading, success } = wordCreate;
+  const wordCreate = useSelector((state) => state.wordCreate)
+  const { error, loading, success } = wordCreate
 
-  const categoryList = useSelector((state) => state.categoryList);
-  const { categories } = categoryList;
+  const categoryList = useSelector((state) => state.categoryList)
+  const { categories } = categoryList
 
-  const deckList = useSelector((state) => state.deckList);
-  const { decks } = deckList;
+  const deckList = useSelector((state) => state.deckList)
+  const { decks } = deckList
 
   useEffect(() => {
-    dispatch(listCategories());
-    dispatch(listDecks());
+    dispatch(listCategories())
+    dispatch(listDecks())
     if (success) {
-      setName("");
-      setDefinition("");
-      setCategory("");
-      setDeck("");
-      dispatch({ type: WORD_CREATE_RESET });
+      setName('')
+      setDefinition('')
+      setCategory('')
+      setDeck('')
+      dispatch({ type: WORD_CREATE_RESET })
     }
-  }, [dispatch, success]);
+  }, [dispatch, success])
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(createWord(category, deck, { name, definition }));
-  };
+    e.preventDefault()
+    dispatch(createWord(category, deck, { name, definition }))
+  }
 
   return (
     <FormContainer>
@@ -109,7 +109,7 @@ const CreateWordScreen = () => {
         </Button>
       </Form>
     </FormContainer>
-  );
-};
+  )
+}
 
-export default CreateWordScreen;
+export default CreateWordScreen

@@ -256,7 +256,7 @@ export const addWrongAnswerWord = (word) => async (dispatch, getState) => {
   }
 }
 
-export const drawWord = () => async (dispatch, getState) => {
+export const drawWord = (exercise) => async (dispatch, getState) => {
   try {
     dispatch({ type: WORD_DRAW_REQUEST })
 
@@ -271,7 +271,7 @@ export const drawWord = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get('/words/practice/', config)
+    const { data } = await axios.get(`/words/practice/${exercise.id}/`, config)
 
     dispatch({
       type: WORD_DRAW_SUCCESS,

@@ -37,7 +37,7 @@ const ExerciseScreen = ({ match, history }) => {
   const { exercise } = exerciseDetails
 
   useEffect(() => {
-    dispatch(drawWord())
+    dispatch(drawWord(exercise))
     dispatch(listExerciseDetails(match.params.id))
   }, [dispatch])
 
@@ -53,6 +53,7 @@ const ExerciseScreen = ({ match, history }) => {
       setAnswer(false)
     }
     dispatch(addExerciseWord(words[0]))
+    dispatch(drawWord(exercise))
     setWordsNumber(wordsNumber + 1)
     if (wordsNumber === exercise.words_num) {
       setTimeout(() => {

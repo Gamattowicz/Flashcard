@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .models import Word
 from category.models import Category
 from decks.models import Deck
+from exercises.models import Exercise
 from .serializers import WordSerializer
 from random import sample
 
@@ -54,10 +55,12 @@ def create_word(request, pk, pk2):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def draw_word(request):
-    user = request.user
-    words = list(Word.objects.filter(user=user))
+def draw_word(request, pk):
+    deck_id = Exercise.objects.get(id=pk).deck_id
+    words = list(Word.objects.filter(deck=deck_id))
+    print(words)
     word = sample(words, 1)
+    print(word)
 
     serializer = WordSerializer(word, many=True)
     return Response(serializer.data)
