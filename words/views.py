@@ -43,8 +43,8 @@ def create_word(request, pk, pk2):
 
     word = Word.objects.create(
         user=user,
-        name=data['name'],
-        definition=data['definition'],
+        question=data['question'],
+        answer=data['answer'],
         category=category,
         deck=deck
     )

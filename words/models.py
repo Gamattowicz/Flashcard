@@ -6,8 +6,8 @@ from decks.models import Deck
 
 class Word(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
-    name = models.CharField(max_length=200, null=True, blank=True)
-    definition = models.TextField(null=True, blank=True)
+    question = models.TextField(null=False)
+    answer = models.TextField(null=False)
     deck = models.ForeignKey(Deck, on_delete=models.CASCADE, null=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=False)
     studied = models.IntegerField(null=True, blank=True, default=0)
@@ -16,7 +16,7 @@ class Word(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{str(self.name)}'
+        return f'{str(self.question)}'
 
     class Meta:
-        ordering = ['name']
+        ordering = ['question']

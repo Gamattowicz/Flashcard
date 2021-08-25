@@ -4,7 +4,7 @@ from words.models import Word
 
 
 class DeckSerializer(serializers.ModelSerializer):
-    words = serializers.SlugRelatedField(many=True, source='word_set', queryset=Word.objects.all(), slug_field='name')
+    words = serializers.SlugRelatedField(many=True, source='word_set', queryset=Word.objects.all(), slug_field='question')
     words_id = serializers.PrimaryKeyRelatedField(many=True, source='word_set', queryset=Word.objects.all())
 
     class Meta:

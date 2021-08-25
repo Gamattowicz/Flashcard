@@ -10,8 +10,8 @@ import { listCategories } from '../actions/categoryActions'
 import { listDecks } from '../actions/deckActions'
 
 const CreateWordScreen = () => {
-  const [name, setName] = useState('')
-  const [definition, setDefinition] = useState('')
+  const [question, setQuestion] = useState('')
+  const [answer, setAnswer] = useState('')
   const [category, setCategory] = useState('')
   const [deck, setDeck] = useState('')
 
@@ -30,8 +30,8 @@ const CreateWordScreen = () => {
     dispatch(listCategories())
     dispatch(listDecks())
     if (success) {
-      setName('')
-      setDefinition('')
+      setQuestion('')
+      setAnswer('')
       setCategory('')
       setDeck('')
       dispatch({ type: WORD_CREATE_RESET })
@@ -40,7 +40,7 @@ const CreateWordScreen = () => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(createWord(category, deck, { name, definition }))
+    dispatch(createWord(category, deck, { question, answer }))
   }
 
   return (
@@ -51,24 +51,24 @@ const CreateWordScreen = () => {
 
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="name">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Question</Form.Label>
           <Form.Control
             required
             type="text"
-            placeholder="Enter category name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter question"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="definition">
-          <Form.Label>Definition</Form.Label>
+        <Form.Group controlId="answer">
+          <Form.Label>Answer</Form.Label>
           <Form.Control
             required
             type="text"
-            placeholder="Enter definition"
-            value={definition}
-            onChange={(e) => setDefinition(e.target.value)}
+            placeholder="Enter answer"
+            value={answer}
+            onChange={(e) => setAnswer(e.target.value)}
           ></Form.Control>
         </Form.Group>
 

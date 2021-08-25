@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { Row, Col, ListGroup, Card } from "react-bootstrap";
-import { listWordDetails } from "../actions/wordActions";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Row, Col, ListGroup, Card } from 'react-bootstrap'
+import { listWordDetails } from '../actions/wordActions'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
 const WordScreen = ({ match, history }) => {
-  const dispatch = useDispatch();
-  const wordDetails = useSelector((state) => state.wordDetails);
-  const { error, loading, word } = wordDetails;
+  const dispatch = useDispatch()
+  const wordDetails = useSelector((state) => state.wordDetails)
+  const { error, loading, word } = wordDetails
 
   useEffect(() => {
-    dispatch(listWordDetails(match.params.id));
-  }, [dispatch]);
+    dispatch(listWordDetails(match.params.id))
+  }, [dispatch])
 
   return (
     <div>
@@ -31,18 +31,18 @@ const WordScreen = ({ match, history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>
-                    <strong>Name</strong>
+                    <strong>Question</strong>
                   </Col>
-                  <Col>{word.name}</Col>
+                  <Col>{word.question}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>
-                    <strong>Definition</strong>
+                    <strong>Answer</strong>
                   </Col>
-                  <Col>{word.definition}</Col>
+                  <Col>{word.answer}</Col>
                 </Row>
               </ListGroup.Item>
 
@@ -95,7 +95,7 @@ const WordScreen = ({ match, history }) => {
         </Col>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default WordScreen;
+export default WordScreen

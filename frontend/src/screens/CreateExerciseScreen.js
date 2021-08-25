@@ -64,6 +64,7 @@ const CreateExerciseScreen = ({ history }) => {
         <Form.Group controlId="deck">
           <Form.Label>Deck</Form.Label>
           <Form.Control
+            required
             as="select"
             value={deck}
             onChange={(e) => setDeck(e.target.value)}
@@ -80,6 +81,7 @@ const CreateExerciseScreen = ({ history }) => {
         <Form.Group controlId="mode">
           <Form.Label>Mode</Form.Label>
           <Form.Control
+            required
             as="select"
             value={mode}
             onChange={(e) => setMode(e.target.value)}
