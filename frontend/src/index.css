@@ -18,3 +18,29 @@ a:hover {
   font-size: 25px;
   color: #2aa198;
 }
+
+.word {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 13rem;
+  transform-style: preserve-3d;
+  transition: 150ms;
+  cursor: pointer;
+  transform: perspective(1000px) rotateY(var(--rotate-y, 0));
+}
+
+.word.reversed {
+  --rotate-y: 180deg;
+}
+
+.word .front,
+.word .back {
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.word .back {
+  transform: rotateY(180deg);
+}
