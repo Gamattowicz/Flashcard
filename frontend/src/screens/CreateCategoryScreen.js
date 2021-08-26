@@ -1,35 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import FormContainer from "../components/FormContainer";
-import { createCategory } from "../actions/categoryActions";
-import { CATEGORY_CREATE_RESET } from "../constants/categoryConstants";
-import { ChromePicker } from "react-color";
+import React, { useState, useEffect } from 'react'
+import { Form, Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
+import FormContainer from '../components/FormContainer'
+import { createCategory } from '../actions/categoryActions'
+import { CATEGORY_CREATE_RESET } from '../constants/categoryConstants'
+import { ChromePicker } from 'react-color'
 
 const CreateCategoryScreen = () => {
-  const [name, setName] = useState("");
-  const [color, setColor] = useState("");
-  const [showColorPicker, setShowColorPicker] = useState(true);
+  const [name, setName] = useState('')
+  const [color, setColor] = useState('#fff')
+  const [showColorPicker, setShowColorPicker] = useState(true)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const categoryCreate = useSelector((state) => state.categoryCreate);
-  const { error, loading, success } = categoryCreate;
+  const categoryCreate = useSelector((state) => state.categoryCreate)
+  const { error, loading, success } = categoryCreate
 
   useEffect(() => {
     if (success) {
-      setName("");
-      setColor("");
-      dispatch({ type: CATEGORY_CREATE_RESET });
+      setName('')
+      setColor('')
+      dispatch({ type: CATEGORY_CREATE_RESET })
     }
-  }, [dispatch, success]);
+  }, [dispatch, success])
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(createCategory(name, color));
-  };
+    e.preventDefault()
+    dispatch(createCategory(name, color))
+  }
 
   return (
     <FormContainer>
@@ -51,13 +51,13 @@ const CreateCategoryScreen = () => {
 
         <Form.Group controlId="color">
           <Button
-            type="submmit"
+            type="submit"
             variant="warning my-3"
             onClick={() =>
               setShowColorPicker((showColorPicker) => !showColorPicker)
             }
           >
-            {showColorPicker ? "Close color picker" : "Pick a color"}
+            {showColorPicker ? 'Close color picker' : 'Pick a color'}
           </Button>
           {showColorPicker && (
             <ChromePicker
@@ -72,7 +72,7 @@ const CreateCategoryScreen = () => {
         </Button>
       </Form>
     </FormContainer>
-  );
-};
+  )
+}
 
-export default CreateCategoryScreen;
+export default CreateCategoryScreen
