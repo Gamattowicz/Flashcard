@@ -28,18 +28,24 @@ const ExerciseTypedScreen = ({ match, history }) => {
   const [answer, setAnswer] = useState('')
   const [correctAnswer, setCorrectAnswer] = useState(null)
   const [wordsNumber, setWordsNumber] = useState(1)
+  const [start, setStart] = useState(false)
   const dispatch = useDispatch()
-
-  const wordDraw = useSelector((state) => state.wordDraw)
-  const { error, loading, words } = wordDraw
 
   const exerciseDetails = useSelector((state) => state.exerciseDetails)
   const { exercise } = exerciseDetails
 
+  const wordDraw = useSelector((state) => state.wordDraw)
+  const { error, loading, words } = wordDraw
+
   useEffect(() => {
-    dispatch(drawWord(exercise))
     dispatch(listExerciseDetails(match.params.id))
   }, [dispatch])
+
+  const startHandler = (e) => {
+    e.preventDefault()
+    setStart(true)
+    dispatch(drawWord(exercise))
+  }
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -64,8 +70,8 @@ const ExerciseTypedScreen = ({ match, history }) => {
   }
 
   return (
-    <div>
-      <Container>
+    <Container>
+      {start && (
         <Row className="justify-content-md-center">
           {loading ? (
             <Loader />
@@ -154,8 +160,15 @@ const ExerciseTypedScreen = ({ match, history }) => {
             </Col>
           )}
         </Row>
-      </Container>
-    </div>
+      )}
+      {!start && (
+        <div className="text-center">
+          <Button variant="primary" size="lg" onClick={startHandler}>
+            START
+          </Button>
+        </div>
+      )}
+    </Container>
   )
 }
 
