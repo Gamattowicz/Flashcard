@@ -93,7 +93,7 @@ const CreateExerciseScreen = ({ history }) => {
         </Form.Group>
 
         <Button type="submit" variant="primary mt-3">
-          START
+          CREATE
         </Button>
       </Form>
       <Link to={`/exercises/`}>Exercises list</Link>

@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  Row,
-  Col,
-  ListGroup,
-  Card,
-  Button,
-  Form,
-  ProgressBar,
-  Container,
-} from 'react-bootstrap'
+import { Row, Col, Button, ProgressBar, Container } from 'react-bootstrap'
 import {
   drawWord,
   addExerciseWord,
@@ -27,18 +18,24 @@ import Flashcard from '../components/Flashcard'
 
 const ExerciseReversedScreen = ({ match, history }) => {
   const [wordsNumber, setWordsNumber] = useState(1)
+  const [start, setStart] = useState(false)
   const dispatch = useDispatch()
-
-  const wordDraw = useSelector((state) => state.wordDraw)
-  const { error, loading, words } = wordDraw
 
   const exerciseDetails = useSelector((state) => state.exerciseDetails)
   const { exercise } = exerciseDetails
 
+  const wordDraw = useSelector((state) => state.wordDraw)
+  const { error, loading, words } = wordDraw
+
   useEffect(() => {
-    dispatch(drawWord(exercise))
     dispatch(listExerciseDetails(match.params.id))
   }, [dispatch])
+
+  const startHandler = (e) => {
+    e.preventDefault()
+    setStart(true)
+    dispatch(drawWord(exercise))
+  }
 
   const badAnswer = (e) => {
     e.preventDefault()
@@ -58,9 +55,9 @@ const ExerciseReversedScreen = ({ match, history }) => {
   const goodAnswer = (e) => {
     e.preventDefault()
     console.log('works')
-    dispatch(addWrongAnswerExercise(exercise))
     dispatch(addCorrectAnswerExercise(exercise))
     dispatch(addCorrectAnswerWord(words[0]))
+    dispatch(addExerciseWord(words[0]))
     dispatch(drawWord(exercise))
     setWordsNumber(wordsNumber + 1)
     if (wordsNumber === exercise.words_num) {
@@ -71,8 +68,8 @@ const ExerciseReversedScreen = ({ match, history }) => {
   }
 
   return (
-    <div>
-      <Container>
+    <Container>
+      {start && (
         <Row className="justify-content-md-center">
           {loading ? (
             <Loader />
@@ -86,11 +83,6 @@ const ExerciseReversedScreen = ({ match, history }) => {
                 now={((wordsNumber - 1) / exercise.words_num) * 100}
                 className="my-3"
               />
-              <Card>
-                <Card.Title className="text-center fw-bold">
-                  QUESTION
-                </Card.Title>
-              </Card>
 
               {words[0] &&
                 words.map((word) => (
@@ -115,8 +107,16 @@ const ExerciseReversedScreen = ({ match, history }) => {
             </Col>
           )}
         </Row>
-      </Container>
-    </div>
+      )}
+
+      {!start && (
+        <div className="text-center">
+          <Button variant="primary" size="lg" onClick={startHandler}>
+            START
+          </Button>
+        </div>
+      )}
+    </Container>
   )
 }
 

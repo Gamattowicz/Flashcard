@@ -24,7 +24,6 @@ a:hover {
   justify-content: center;
   align-items: center;
   position: relative;
-  height: 13rem;
   transform-style: preserve-3d;
   transition: 150ms;
   cursor: pointer;
