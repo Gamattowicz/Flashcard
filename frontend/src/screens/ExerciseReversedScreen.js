@@ -91,7 +91,9 @@ const ExerciseReversedScreen = ({ match, history }) => {
 
               <Button
                 variant="warning my-3"
-                className="float-start"
+                className={`float-start ${
+                  wordsNumber === exercise.words_num + 1 ? 'disabled' : ''
+                }`}
                 onClick={badAnswer}
               >
                 BAD
@@ -99,7 +101,9 @@ const ExerciseReversedScreen = ({ match, history }) => {
 
               <Button
                 variant="success my-3"
-                className="float-end"
+                className={`float-end ${
+                  wordsNumber === exercise.words_num + 1 ? 'disabled' : ''
+                }`}
                 onClick={goodAnswer}
               >
                 GOOD
