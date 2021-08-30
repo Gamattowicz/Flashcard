@@ -114,7 +114,7 @@ const ExerciseReversedScreen = ({ match, history }) => {
       )}
 
       {!start && (
-        <div className="text-center">
+        <div className="d-grid mt-5">
           <Button variant="primary" size="lg" onClick={startHandler}>
             START
           </Button>
