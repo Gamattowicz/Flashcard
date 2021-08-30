@@ -23,6 +23,7 @@ import {
   addCorrectAnswerExercise,
   addWrongAnswerExercise,
 } from '../actions/exerciseActions'
+import TypedCard from '../components/TypedCard'
 
 const ExerciseTypedScreen = ({ match, history }) => {
   const [answer, setAnswer] = useState('')
@@ -59,7 +60,10 @@ const ExerciseTypedScreen = ({ match, history }) => {
       setCorrectAnswer(false)
     }
     dispatch(addExerciseWord(words[0]))
-    dispatch(drawWord(exercise))
+    setTimeout(() => {
+      dispatch(drawWord(exercise))
+    }, 800)
+
     setWordsNumber(wordsNumber + 1)
     if (wordsNumber === exercise.words_num) {
       setTimeout(() => {
@@ -85,56 +89,13 @@ const ExerciseTypedScreen = ({ match, history }) => {
                 now={((wordsNumber - 1) / exercise.words_num) * 100}
                 className="my-3"
               />
-              <Card>
-                <Card.Title className="text-center fw-bold">
-                  QUESTION
-                </Card.Title>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    <Row>
-                      <h2 className="text-center fw-bold">
-                        {words[0] &&
-                          words.map((word) => (
-                            <Col key={word.id}>{word.question}</Col>
-                          ))}
-                      </h2>
-                    </Row>
-                  </ListGroup.Item>
+              {words[0] &&
+                words.map((word) => (
+                  <TypedCard key={word.id} word={words[0]} />
+                ))}
 
-                  <ListGroup.Item>
-                    <Row>
-                      <ListGroup horizontal>
-                        <ListGroup.Item md={6}>
-                          <Col md={3}>
-                            <strong>Category</strong>
-                          </Col>
-                          <Col md={3}>
-                            {words[0] &&
-                              words.map((word) => (
-                                <Col key={word.id}>{word.category}</Col>
-                              ))}
-                          </Col>
-                        </ListGroup.Item>
-                        <ListGroup.Item md={6}>
-                          <Col md={3}>
-                            <strong>Deck</strong>
-                          </Col>
-                          <Col md={3}>
-                            {words[0] &&
-                              words.map((word) => (
-                                <Col key={word.id}>{word.deck}</Col>
-                              ))}
-                          </Col>
-                        </ListGroup.Item>
-                      </ListGroup>
-                    </Row>
-                  </ListGroup.Item>
-                </ListGroup>
-              </Card>
-
-              <Form onSubmit={submitHandler}>
+              <Form onSubmit={submitHandler} className="mt-3">
                 <Form.Group controlId="answer">
-                  <Form.Label>Answer</Form.Label>
                   <Form.Control
                     required
                     type="text"
@@ -148,11 +109,18 @@ const ExerciseTypedScreen = ({ match, history }) => {
                   CONFIRM
                 </Button>
               </Form>
+
               {correctAnswer !== null ? (
                 correctAnswer ? (
                   <Message variant="success">CORRECT ANSWER</Message>
                 ) : (
-                  <Message variant="danger">WRONG ANSWER</Message>
+                  <Message variant="warning">
+                    WRONG. CORRECT ANSWER IS:
+                    {words[0] &&
+                      words.map((word) => (
+                        <p className="fst-italic fw-bold">"{word.answer}"</p>
+                      ))}
+                  </Message>
                 )
               ) : (
                 ''

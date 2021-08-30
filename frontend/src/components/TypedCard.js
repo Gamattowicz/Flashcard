@@ -1,15 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Card } from 'react-bootstrap'
 
-const Flashcard = ({ word }) => {
-  const [reversed, setReversed] = useState(false)
-
+const TypedCard = ({ word }) => {
   return (
-    <Card
-      className={`word ${reversed ? 'reversed bg-secondary text-dark' : ''}`}
-      onClick={() => setReversed(!reversed)}
-      style={{ height: '23rem' }}
-    >
+    <Card className="word" style={{ height: '23rem' }}>
       <div className="front text-center w-100">
         <Card.Body>
           <Card.Title
@@ -40,25 +34,8 @@ const Flashcard = ({ word }) => {
           </small>
         </Card.Footer>
       </div>
-
-      <div className="back text-center w-100">
-        <Card.Body>
-          <Card.Title
-            className="fw-bold fs-2 align-items-center d-flex justify-content-center"
-            style={{ height: '3rem' }}
-          >
-            ANSWER
-          </Card.Title>
-          <Card.Text
-            className="fs-6 align-items-center d-flex justify-content-center"
-            style={{ height: '16rem', overflow: 'hidden' }}
-          >
-            {word.answer}
-          </Card.Text>
-        </Card.Body>
-      </div>
     </Card>
   )
 }
 
-export default Flashcard
+export default TypedCard
