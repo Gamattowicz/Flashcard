@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  Row,
-  Col,
-  ListGroup,
-  Card,
-  Button,
-  Form,
-  ProgressBar,
-  Container,
-} from 'react-bootstrap'
+import { Row, Col, Button, Form, ProgressBar, Container } from 'react-bootstrap'
 import {
   drawWord,
   addExerciseWord,
@@ -54,14 +45,17 @@ const ExerciseTypedScreen = ({ match, history }) => {
       dispatch(addCorrectAnswerExercise(exercise))
       dispatch(addCorrectAnswerWord(words[0]))
       setCorrectAnswer(true)
+      console.log(correctAnswer)
     } else {
       dispatch(addWrongAnswerExercise(exercise))
       dispatch(addWrongAnswerWord(words[0]))
       setCorrectAnswer(false)
+      console.log(correctAnswer)
     }
     dispatch(addExerciseWord(words[0]))
     setTimeout(() => {
       dispatch(drawWord(exercise))
+      setCorrectAnswer(null)
     }, 800)
 
     setWordsNumber(wordsNumber + 1)
@@ -93,7 +87,6 @@ const ExerciseTypedScreen = ({ match, history }) => {
                 words.map((word) => (
                   <TypedCard key={word.id} word={words[0]} />
                 ))}
-
               <Form onSubmit={submitHandler} className="mt-3">
                 <Form.Group controlId="answer">
                   <Form.Control
@@ -109,21 +102,17 @@ const ExerciseTypedScreen = ({ match, history }) => {
                   CONFIRM
                 </Button>
               </Form>
-
-              {correctAnswer !== null ? (
-                correctAnswer ? (
-                  <Message variant="success">CORRECT ANSWER</Message>
-                ) : (
-                  <Message variant="warning">
-                    WRONG. CORRECT ANSWER IS:
-                    {words[0] &&
-                      words.map((word) => (
-                        <p className="fst-italic fw-bold">"{word.answer}"</p>
-                      ))}
-                  </Message>
-                )
-              ) : (
-                ''
+              {correctAnswer == true && (
+                <Message variant="success">CORRECT ANSWER</Message>
+              )}
+              {correctAnswer == false && (
+                <Message variant="warning">
+                  WRONG. CORRECT ANSWER IS:
+                  {words[0] &&
+                    words.map((word) => (
+                      <p className="fst-italic fw-bold">"{word.answer}"</p>
+                    ))}
+                </Message>
               )}
             </Col>
           )}
