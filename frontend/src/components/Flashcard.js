@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card } from 'react-bootstrap'
+import { Card, Row, Col } from 'react-bootstrap'
 
 const Flashcard = ({ word }) => {
   const [reversed, setReversed] = useState(false)
@@ -8,29 +8,53 @@ const Flashcard = ({ word }) => {
     <Card
       className={`word ${reversed ? 'reversed bg-secondary text-dark' : ''}`}
       onClick={() => setReversed(!reversed)}
-      style={{ height: '19rem' }}
+      style={{ height: '23rem' }}
     >
-      <div className="front text-center">
+      <div className="front text-center w-100">
         <Card.Body>
           <Card.Title
-            className="d-flex align-content-start flex-wrap"
-            style={{ height: '7rem' }}
+            className="fw-bold fs-2 align-items-center d-flex justify-content-center"
+            style={{ height: '3rem' }}
           >
             QUESTION
           </Card.Title>
-          <Card.Text style={{ height: '7rem' }}>{word.question}</Card.Text>
+          <Card.Text
+            className="fs-6 align-items-center d-flex justify-content-center"
+            style={{ height: '15rem', overflow: 'hidden' }}
+          >
+            {word.question}
+          </Card.Text>
         </Card.Body>
         <Card.Footer>
-          <small className="text-muted" style={{ height: '1rem' }}>
-            Last updated 3 mins ago
+          <small
+            className="align-items-center d-flex justify-content-center w-100"
+            style={{ height: '2rem' }}
+          >
+            <span class="float-start badge rounded-pill bg-primary me-5 text-dark">
+              Category: {word.category}
+            </span>
+
+            <span class="badge rounded-pill bg-primary ms-5 text-dark">
+              Deck: {word.deck}
+            </span>
           </small>
         </Card.Footer>
       </div>
 
-      <div className="back text-center">
+      <div className="back text-center w-100">
         <Card.Body>
-          <Card.Title className="fw-bold">ANSWER</Card.Title>
-          <Card.Text>{word.answer}</Card.Text>
+          <Card.Title
+            className="fw-bold fs-2 align-items-center d-flex justify-content-center"
+            style={{ height: '3rem' }}
+          >
+            ANSWER
+          </Card.Title>
+          <Card.Text
+            className="fs-6 align-items-center d-flex justify-content-center"
+            style={{ height: '16rem', overflow: 'hidden' }}
+          >
+            {word.answer}
+          </Card.Text>
         </Card.Body>
       </div>
     </Card>

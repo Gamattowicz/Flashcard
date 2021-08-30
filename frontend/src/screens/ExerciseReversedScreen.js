@@ -48,7 +48,7 @@ const ExerciseReversedScreen = ({ match, history }) => {
     if (wordsNumber === exercise.words_num) {
       setTimeout(() => {
         history.push(`/exercises/${exercise.id}/end`)
-      }, 500)
+      }, 800)
     }
   }
 
@@ -63,7 +63,7 @@ const ExerciseReversedScreen = ({ match, history }) => {
     if (wordsNumber === exercise.words_num) {
       setTimeout(() => {
         history.push(`/exercises/${exercise.id}/end`)
-      }, 500)
+      }, 800)
     }
   }
 
