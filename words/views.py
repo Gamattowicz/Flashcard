@@ -7,6 +7,7 @@ from decks.models import Deck
 from exercises.models import Exercise
 from .serializers import WordSerializer
 from random import sample
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @api_view(['GET'])
@@ -14,8 +15,24 @@ from random import sample
 def get_words(request):
     user = request.user
     words = Word.objects.filter(user=user.id)
+
+    page = request.query_params.get('page')
+    paginator = Paginator(words, 1)
+
+    try:
+        words = paginator.page(page)
+    except PageNotAnInteger:
+        words = paginator.page(1)
+    except EmptyPage:
+        words = paginator.page(paginator.num_pages)
+
+    if page is None:
+        page = 1
+
+    page = int(page)
+
     serializer = WordSerializer(words, many=True)
-    return Response(serializer.data)
+    return Response({'words': serializer.data, 'page': page, 'pages': paginator.num_pages})
 
 
 @api_view(['GET'])
