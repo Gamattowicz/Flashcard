@@ -8,7 +8,7 @@ import { createCategory } from '../actions/categoryActions'
 import { CATEGORY_CREATE_RESET } from '../constants/categoryConstants'
 import { ChromePicker } from 'react-color'
 
-const CreateCategoryScreen = () => {
+const CreateCategoryScreen = ({ history }) => {
   const [name, setName] = useState('')
   const [color, setColor] = useState('#fff')
   const [showColorPicker, setShowColorPicker] = useState(true)
@@ -23,6 +23,7 @@ const CreateCategoryScreen = () => {
       setName('')
       setColor('')
       dispatch({ type: CATEGORY_CREATE_RESET })
+      history.push('/category')
     }
   }, [dispatch, success])
 

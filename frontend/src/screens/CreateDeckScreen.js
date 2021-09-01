@@ -7,7 +7,7 @@ import FormContainer from '../components/FormContainer'
 import { createDeck } from '../actions/deckActions'
 import { DECK_CREATE_RESET } from '../constants/deckConstants'
 
-const CreateDeckScreen = () => {
+const CreateDeckScreen = ({ history }) => {
   const [name, setName] = useState('')
 
   const dispatch = useDispatch()
@@ -19,6 +19,7 @@ const CreateDeckScreen = () => {
     if (success) {
       setName('')
       dispatch({ type: DECK_CREATE_RESET })
+      history.push('/decks')
     }
   }, [dispatch, success])
 

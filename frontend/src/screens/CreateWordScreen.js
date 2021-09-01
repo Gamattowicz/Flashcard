@@ -9,7 +9,7 @@ import { WORD_CREATE_RESET } from '../constants/wordConstants'
 import { listCategories } from '../actions/categoryActions'
 import { listDecks } from '../actions/deckActions'
 
-const CreateWordScreen = () => {
+const CreateWordScreen = ({ history }) => {
   const [question, setQuestion] = useState('')
   const [answer, setAnswer] = useState('')
   const [category, setCategory] = useState('')
@@ -35,6 +35,7 @@ const CreateWordScreen = () => {
       setCategory('')
       setDeck('')
       dispatch({ type: WORD_CREATE_RESET })
+      history.push('/words')
     }
   }, [dispatch, success])
 
