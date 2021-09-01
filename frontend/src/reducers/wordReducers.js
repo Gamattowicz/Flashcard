@@ -32,7 +32,12 @@ export const wordListReducer = (state = { words: [] }, action) => {
       return { loading: true, words: [] }
 
     case WORD_LIST_SUCCESS:
-      return { loading: false, words: action.payload }
+      return {
+        loading: false,
+        words: action.payload.words,
+        page: action.payload.page,
+        pages: action.payload.pages,
+      }
 
     case WORD_LIST_FAIL:
       return { loading: false, error: action.payload }
