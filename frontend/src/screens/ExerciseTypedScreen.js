@@ -45,26 +45,25 @@ const ExerciseTypedScreen = ({ match, history }) => {
       dispatch(addCorrectAnswerExercise(exercise))
       dispatch(addCorrectAnswerWord(words[0]))
       setCorrectAnswer(true)
-      console.log(correctAnswer)
     } else {
       dispatch(addWrongAnswerExercise(exercise))
       dispatch(addWrongAnswerWord(words[0]))
       setCorrectAnswer(false)
-      console.log(correctAnswer)
     }
-    dispatch(addExerciseWord(words[0]))
-    setTimeout(() => {
-      dispatch(drawWord(exercise))
-      setCorrectAnswer(null)
-    }, 800)
-
     setWordsNumber(wordsNumber + 1)
     if (wordsNumber === exercise.words_num) {
       setTimeout(() => {
         history.push(`/exercises/${exercise.id}/end`)
-      }, 800)
+      }, 1800)
     }
     setAnswer('')
+  }
+
+  const nextCardHandler = (e) => {
+    e.preventDefault()
+    dispatch(addExerciseWord(words[0]))
+    dispatch(drawWord(exercise))
+    setCorrectAnswer(null)
   }
 
   return (
@@ -98,8 +97,26 @@ const ExerciseTypedScreen = ({ match, history }) => {
                   ></Form.Control>
                 </Form.Group>
 
-                <Button type="submit" variant="primary my-3">
+                <Button
+                  type="submit"
+                  variant={`success my-3 ${
+                    correctAnswer !== null ? 'disabled' : ''
+                  }`}
+                >
                   CONFIRM
+                </Button>
+
+                <Button
+                  type="submit"
+                  variant={`primary my-3 float-end ${
+                    correctAnswer === null ||
+                    wordsNumber - 1 === exercise.words_num
+                      ? 'disabled'
+                      : ''
+                  }`}
+                  onClick={nextCardHandler}
+                >
+                  NEXT
                 </Button>
               </Form>
               {correctAnswer == true && (
