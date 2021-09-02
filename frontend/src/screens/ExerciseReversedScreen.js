@@ -19,6 +19,7 @@ import Flashcard from '../components/Flashcard'
 const ExerciseReversedScreen = ({ match, history }) => {
   const [wordsNumber, setWordsNumber] = useState(1)
   const [start, setStart] = useState(false)
+  const [reversed, setReversed] = useState(false)
   const dispatch = useDispatch()
 
   const exerciseDetails = useSelector((state) => state.exerciseDetails)
@@ -86,13 +87,20 @@ const ExerciseReversedScreen = ({ match, history }) => {
 
               {words[0] &&
                 words.map((word) => (
-                  <Flashcard key={word.id} word={words[0]} />
+                  <Flashcard
+                    key={word.id}
+                    word={words[0]}
+                    setReversed={setReversed}
+                    reversed={reversed}
+                  />
                 ))}
 
               <Button
                 variant="warning my-3"
                 className={`float-start ${
-                  wordsNumber === exercise.words_num + 1 ? 'disabled' : ''
+                  wordsNumber === exercise.words_num + 1 || reversed
+                    ? 'disabled'
+                    : ''
                 }`}
                 onClick={badAnswer}
               >
@@ -102,7 +110,9 @@ const ExerciseReversedScreen = ({ match, history }) => {
               <Button
                 variant="success my-3"
                 className={`float-end ${
-                  wordsNumber === exercise.words_num + 1 ? 'disabled' : ''
+                  wordsNumber === exercise.words_num + 1 || reversed
+                    ? 'disabled'
+                    : ''
                 }`}
                 onClick={goodAnswer}
               >

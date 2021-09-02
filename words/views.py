@@ -85,9 +85,7 @@ def create_word(request, pk, pk2):
 def draw_word(request, pk):
     deck_id = Exercise.objects.get(id=pk).deck_id
     words = list(Word.objects.filter(deck=deck_id))
-    print(words)
     word = sample(words, 1)
-    print(word)
 
     serializer = WordSerializer(word, many=True)
     return Response(serializer.data)

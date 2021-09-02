@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Card } from 'react-bootstrap'
 
-const Flashcard = ({ word }) => {
-  const [reversed, setReversed] = useState(false)
-
+const Flashcard = ({ word, reversed, setReversed }) => {
   return (
     <Card
       className={`word ${reversed ? 'reversed bg-secondary text-dark' : ''}`}
