@@ -17,7 +17,7 @@ def get_words(request):
     words = Word.objects.filter(user=user.id)
 
     page = request.query_params.get('page')
-    paginator = Paginator(words, 1)
+    paginator = Paginator(words, 6)
 
     try:
         words = paginator.page(page)
