@@ -18,17 +18,14 @@ def get_words(request):
 
     page = request.query_params.get('page')
     paginator = Paginator(words, 6)
-
     try:
         words = paginator.page(page)
     except PageNotAnInteger:
         words = paginator.page(1)
     except EmptyPage:
         words = paginator.page(paginator.num_pages)
-
     if page is None:
         page = 1
-
     page = int(page)
 
     serializer = WordSerializer(words, many=True)
@@ -39,8 +36,21 @@ def get_words(request):
 @permission_classes([IsAdminUser])
 def get_all_words(request):
     words = Word.objects.all()
+
+    page = request.query_params.get('page')
+    paginator = Paginator(words, 6)
+    try:
+        words = paginator.page(page)
+    except PageNotAnInteger:
+        words = paginator.page(1)
+    except EmptyPage:
+        words = paginator.page(paginator.num_pages)
+    if page is None:
+        page = 1
+    page = int(page)
+
     serializer = WordSerializer(words, many=True)
-    return Response(serializer.data)
+    return Response({'words': serializer.data, 'page': page, 'pages': paginator.num_pages})
 
 
 @api_view(['GET'])

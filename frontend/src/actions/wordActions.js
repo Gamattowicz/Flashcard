@@ -60,37 +60,39 @@ export const listWords =
     }
   }
 
-export const listAllWords = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: WORD_ALL_LIST_REQUEST })
+export const listAllWords =
+  (keyword = '') =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: WORD_ALL_LIST_REQUEST })
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo },
+      } = getState()
 
-    const config = {
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.get(`/words/admin/${keyword}`, config)
+
+      dispatch({
+        type: WORD_ALL_LIST_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: WORD_ALL_LIST_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      })
     }
-
-    const { data } = await axios.get('/words/admin/', config)
-
-    dispatch({
-      type: WORD_ALL_LIST_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: WORD_ALL_LIST_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    })
   }
-}
 
 export const listWordDetails = (id) => async (dispatch) => {
   try {

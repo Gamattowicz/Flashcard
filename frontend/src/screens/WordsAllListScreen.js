@@ -5,15 +5,18 @@ import Word from '../components/Word'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { listAllWords } from '../actions/wordActions'
+import Paginate from '../components/Paginate'
 
-const WordsAllListScreen = () => {
+const WordsAllListScreen = ({ history }) => {
   const dispatch = useDispatch()
   const wordAllList = useSelector((state) => state.wordAllList)
-  const { error, loading, words } = wordAllList
+  const { error, loading, words, pages, page } = wordAllList
+
+  let keyword = history.location.search
 
   useEffect(() => {
-    dispatch(listAllWords())
-  }, [dispatch])
+    dispatch(listAllWords(keyword))
+  }, [dispatch, history, keyword])
 
   return (
     <div>
@@ -24,13 +27,16 @@ const WordsAllListScreen = () => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Row>
-          {words.map((word) => (
-            <Col key={word.id} sm={12} md={6} lg={4} xl={3}>
-              <Word word={word} />
-            </Col>
-          ))}
-        </Row>
+        <div>
+          <Row>
+            {words.map((word) => (
+              <Col key={word.id} sm={12} md={6} lg={4} xl={3}>
+                <Word word={word} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate pages={pages} page={page} />
+        </div>
       )}
     </div>
   )
