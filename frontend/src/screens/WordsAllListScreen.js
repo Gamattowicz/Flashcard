@@ -35,7 +35,7 @@ const WordsAllListScreen = ({ history }) => {
               </Col>
             ))}
           </Row>
-          <Paginate pages={pages} page={page} />
+          <Paginate pages={pages} page={page} path={'/admin/words'} />
         </div>
       )}
     </div>

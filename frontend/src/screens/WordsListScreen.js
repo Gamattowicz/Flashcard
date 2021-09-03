@@ -35,7 +35,7 @@ const WordsListScreen = ({ history }) => {
               </Col>
             ))}
           </Row>
-          <Paginate pages={pages} page={page} />
+          <Paginate pages={pages} page={page} path={'/words'} />
         </div>
       )}
     </div>

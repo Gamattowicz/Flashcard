@@ -35,7 +35,7 @@ const CategoryListScreen = ({ history }) => {
               </Col>
             ))}
           </Row>
-          <Paginate pages={pages} page={page} />
+          <Paginate pages={pages} page={page} path={'/category'} />
         </div>
       )}
     </div>
