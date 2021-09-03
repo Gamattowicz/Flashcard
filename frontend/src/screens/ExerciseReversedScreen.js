@@ -15,6 +15,7 @@ import {
   addWrongAnswerExercise,
 } from '../actions/exerciseActions'
 import Flashcard from '../components/Flashcard'
+import Counter from '../components/Counter'
 
 const ExerciseReversedScreen = ({ match, history }) => {
   const [wordsNumber, setWordsNumber] = useState(1)
@@ -80,6 +81,11 @@ const ExerciseReversedScreen = ({ match, history }) => {
             <Message variant="danger">{error}</Message>
           ) : (
             <Col md={5}>
+              <Counter
+                correctAnswers={goodAnswers}
+                wrongAnswers={badAnswers}
+                totalAnswers={exercise.words_num}
+              />
               <ProgressBar className="my-3">
                 <ProgressBar
                   animated

@@ -15,6 +15,7 @@ import {
   addWrongAnswerExercise,
 } from '../actions/exerciseActions'
 import TypedCard from '../components/TypedCard'
+import Counter from '../components/Counter'
 
 const ExerciseTypedScreen = ({ match, history }) => {
   const [answer, setAnswer] = useState('')
@@ -80,6 +81,11 @@ const ExerciseTypedScreen = ({ match, history }) => {
             <Message variant="danger">{error}</Message>
           ) : (
             <Col md={5}>
+              <Counter
+                correctAnswers={goodAnswers}
+                wrongAnswers={badAnswers}
+                totalAnswers={exercise.words_num}
+              />
               <ProgressBar className="my-3">
                 <ProgressBar
                   animated
