@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios'
 import {
   CATEGORY_LIST_REQUEST,
   CATEGORY_LIST_SUCCESS,
@@ -9,35 +9,37 @@ import {
   CATEGORY_CREATE_REQUEST,
   CATEGORY_CREATE_SUCCESS,
   CATEGORY_CREATE_FAIL,
-} from "../constants/categoryConstants";
+} from '../constants/categoryConstants'
 
-export const listCategories = () => async (dispatch) => {
-  try {
-    dispatch({ type: CATEGORY_LIST_REQUEST });
-    const { data } = await axios.get("/category/");
-    dispatch({
-      type: CATEGORY_LIST_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: CATEGORY_LIST_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    });
+export const listCategories =
+  (keyword = '') =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: CATEGORY_LIST_REQUEST })
+      const { data } = await axios.get(`/category/${keyword}`)
+      dispatch({
+        type: CATEGORY_LIST_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: CATEGORY_LIST_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      })
+    }
   }
-};
 
 export const listCategoryDetails = (id) => async (dispatch) => {
   try {
-    dispatch({ type: CATEGORY_DETAILS_REQUEST });
-    const { data } = await axios.get(`/category/${id}`);
+    dispatch({ type: CATEGORY_DETAILS_REQUEST })
+    const { data } = await axios.get(`/category/${id}`)
     dispatch({
       type: CATEGORY_DETAILS_SUCCESS,
       payload: data,
-    });
+    })
   } catch (error) {
     dispatch({
       type: CATEGORY_DETAILS_FAIL,
@@ -45,38 +47,38 @@ export const listCategoryDetails = (id) => async (dispatch) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
-    });
+    })
   }
-};
+}
 
 export const createCategory = (name, color) => async (dispatch, getState) => {
   try {
-    dispatch({ type: CATEGORY_CREATE_REQUEST });
+    dispatch({ type: CATEGORY_CREATE_REQUEST })
 
     const {
       userLogin: { userInfo },
-    } = getState();
+    } = getState()
 
     const config = {
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
-    };
+    }
 
     const { data } = await axios.post(
-      "/category/create/",
+      '/category/create/',
       {
         name,
         color,
       },
       config
-    );
+    )
 
     dispatch({
       type: CATEGORY_CREATE_SUCCESS,
       payload: data,
-    });
+    })
   } catch (error) {
     dispatch({
       type: CATEGORY_CREATE_FAIL,
@@ -84,6 +86,6 @@ export const createCategory = (name, color) => async (dispatch, getState) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
-    });
+    })
   }
-};
+}
