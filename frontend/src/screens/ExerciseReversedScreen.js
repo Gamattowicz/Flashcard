@@ -20,6 +20,8 @@ const ExerciseReversedScreen = ({ match, history }) => {
   const [wordsNumber, setWordsNumber] = useState(1)
   const [start, setStart] = useState(false)
   const [reversed, setReversed] = useState(false)
+  const [goodAnswers, setGoodAnswers] = useState(0)
+  const [badAnswers, setBadAnswers] = useState(0)
   const dispatch = useDispatch()
 
   const exerciseDetails = useSelector((state) => state.exerciseDetails)
@@ -30,7 +32,7 @@ const ExerciseReversedScreen = ({ match, history }) => {
 
   useEffect(() => {
     dispatch(listExerciseDetails(match.params.id))
-  }, [dispatch])
+  }, [dispatch, exercise.correct_answers])
 
   const startHandler = (e) => {
     e.preventDefault()
@@ -40,12 +42,12 @@ const ExerciseReversedScreen = ({ match, history }) => {
 
   const badAnswer = (e) => {
     e.preventDefault()
-    console.log('not works')
     dispatch(addWrongAnswerExercise(exercise))
     dispatch(addWrongAnswerWord(words[0]))
     dispatch(addExerciseWord(words[0]))
     dispatch(drawWord(exercise))
     setWordsNumber(wordsNumber + 1)
+    setBadAnswers(badAnswers + 1)
     if (wordsNumber === exercise.words_num) {
       setTimeout(() => {
         history.push(`/exercises/${exercise.id}/end`)
@@ -55,12 +57,12 @@ const ExerciseReversedScreen = ({ match, history }) => {
 
   const goodAnswer = (e) => {
     e.preventDefault()
-    console.log('works')
     dispatch(addCorrectAnswerExercise(exercise))
     dispatch(addCorrectAnswerWord(words[0]))
     dispatch(addExerciseWord(words[0]))
     dispatch(drawWord(exercise))
     setWordsNumber(wordsNumber + 1)
+    setGoodAnswers(goodAnswers + 1)
     if (wordsNumber === exercise.words_num) {
       setTimeout(() => {
         history.push(`/exercises/${exercise.id}/end`)
@@ -78,12 +80,20 @@ const ExerciseReversedScreen = ({ match, history }) => {
             <Message variant="danger">{error}</Message>
           ) : (
             <Col md={5}>
-              <ProgressBar
-                animated
-                variant="success"
-                now={((wordsNumber - 1) / exercise.words_num) * 100}
-                className="my-3"
-              />
+              <ProgressBar className="my-3">
+                <ProgressBar
+                  animated
+                  variant="success"
+                  now={(goodAnswers / exercise.words_num) * 100}
+                  key={1}
+                />
+                <ProgressBar
+                  animated
+                  variant="warning"
+                  now={(badAnswers / exercise.words_num) * 100}
+                  key={2}
+                />
+              </ProgressBar>
 
               {words[0] &&
                 words.map((word) => (

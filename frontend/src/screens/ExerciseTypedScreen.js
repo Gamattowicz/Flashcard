@@ -21,6 +21,8 @@ const ExerciseTypedScreen = ({ match, history }) => {
   const [correctAnswer, setCorrectAnswer] = useState(null)
   const [wordsNumber, setWordsNumber] = useState(1)
   const [start, setStart] = useState(false)
+  const [goodAnswers, setGoodAnswers] = useState(0)
+  const [badAnswers, setBadAnswers] = useState(0)
   const dispatch = useDispatch()
 
   const exerciseDetails = useSelector((state) => state.exerciseDetails)
@@ -44,10 +46,12 @@ const ExerciseTypedScreen = ({ match, history }) => {
     if (answer.toUpperCase() === words[0].answer.toUpperCase()) {
       dispatch(addCorrectAnswerExercise(exercise))
       dispatch(addCorrectAnswerWord(words[0]))
+      setGoodAnswers(goodAnswers + 1)
       setCorrectAnswer(true)
     } else {
       dispatch(addWrongAnswerExercise(exercise))
       dispatch(addWrongAnswerWord(words[0]))
+      setBadAnswers(badAnswers + 1)
       setCorrectAnswer(false)
     }
     setWordsNumber(wordsNumber + 1)
@@ -76,12 +80,20 @@ const ExerciseTypedScreen = ({ match, history }) => {
             <Message variant="danger">{error}</Message>
           ) : (
             <Col md={5}>
-              <ProgressBar
-                animated
-                variant="success"
-                now={((wordsNumber - 1) / exercise.words_num) * 100}
-                className="my-3"
-              />
+              <ProgressBar className="my-3">
+                <ProgressBar
+                  animated
+                  variant="success"
+                  now={(goodAnswers / exercise.words_num) * 100}
+                  key={1}
+                />
+                <ProgressBar
+                  animated
+                  variant="warning"
+                  now={(badAnswers / exercise.words_num) * 100}
+                  key={2}
+                />
+              </ProgressBar>
               {words[0] &&
                 words.map((word) => (
                   <TypedCard key={word.id} word={words[0]} />
