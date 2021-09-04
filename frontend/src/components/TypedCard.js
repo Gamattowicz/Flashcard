@@ -14,7 +14,7 @@ const TypedCard = ({ word }) => {
           </Card.Title>
           <Card.Text
             className="fs-6 align-items-center d-flex justify-content-center"
-            style={{ height: '15rem', overflow: 'hidden' }}
+            style={{ height: '15rem', overflow: 'auto' }}
           >
             {word.question}
           </Card.Text>
