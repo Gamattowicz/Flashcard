@@ -5,15 +5,18 @@ import Deck from '../components/Deck'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { listDecks } from '../actions/deckActions'
+import Paginate from '../components/Paginate'
 
-const DecksListScreen = () => {
+const DecksListScreen = ({ history }) => {
   const dispatch = useDispatch()
   const deckList = useSelector((state) => state.deckList)
-  const { error, loading, decks } = deckList
+  const { error, loading, decks, pages, page } = deckList
+
+  let keyword = history.location.search
 
   useEffect(() => {
-    dispatch(listDecks())
-  }, [dispatch])
+    dispatch(listDecks(keyword))
+  }, [dispatch, history, keyword])
 
   return (
     <div>
@@ -24,13 +27,16 @@ const DecksListScreen = () => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Row>
-          {decks.map((deck) => (
-            <Col key={deck.id} sm={12} md={6} lg={4} xl={3}>
-              <Deck deck={deck} />
-            </Col>
-          ))}
-        </Row>
+        <div>
+          <Row>
+            {decks.map((deck) => (
+              <Col key={deck.id} sm={12} md={6} lg={4} xl={3}>
+                <Deck deck={deck} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate pages={pages} page={page} path={'/decks'} />
+        </div>
       )}
     </div>
   )

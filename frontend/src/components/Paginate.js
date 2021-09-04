@@ -7,13 +7,13 @@ const Paginate = ({ pages, page, path }) => {
     pages > 1 && (
       <Pagination size="lg">
         <LinkContainer
-          to={`/words/?page=1`}
+          to={`${path}/?page=1`}
           className={`${page === 1 ? 'disabled' : ''}`}
         >
           <Pagination.First />
         </LinkContainer>
         <LinkContainer
-          to={`/words/?page=${page - 1}`}
+          to={`${path}/?page=${page - 1}`}
           className={`${page === 1 ? 'disabled' : ''}`}
         >
           <Pagination.Prev />
@@ -26,13 +26,13 @@ const Paginate = ({ pages, page, path }) => {
           </div>
         ))}
         <LinkContainer
-          to={`/words/?page=${page + 1}`}
+          to={`${path}/?page=${page + 1}`}
           className={`${page === pages ? 'disabled' : ''}`}
         >
           <Pagination.Next />
         </LinkContainer>
         <LinkContainer
-          to={`/words/?page=${pages}`}
+          to={`${path}/?page=${pages}`}
           className={`${page === pages ? 'disabled' : ''}`}
         >
           <Pagination.Last />

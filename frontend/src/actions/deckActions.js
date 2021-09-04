@@ -14,37 +14,39 @@ import {
   DECK_CREATE_FAIL,
 } from '../constants/deckConstants'
 
-export const listDecks = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: DECK_LIST_REQUEST })
+export const listDecks =
+  (keyword = '') =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: DECK_LIST_REQUEST })
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo },
+      } = getState()
 
-    const config = {
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.get(`/decks/${keyword}`, config)
+
+      dispatch({
+        type: DECK_LIST_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: DECK_LIST_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      })
     }
-
-    const { data } = await axios.get('/decks/', config)
-
-    dispatch({
-      type: DECK_LIST_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: DECK_LIST_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    })
   }
-}
 
 export const listAllDecks = () => async (dispatch, getState) => {
   try {
