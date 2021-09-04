@@ -63,7 +63,7 @@ const ProfileScreen = ({ history }) => {
 
   return (
     <Row>
-      <Col md={3}>
+      <Col md={4} className="mx-4">
         <h2>USER PROFILE</h2>
 
         {message && <Message variant="danger">{message}</Message>}
@@ -119,12 +119,16 @@ const ProfileScreen = ({ history }) => {
         </Form>
       </Col>
 
-      <Col md={9}>
+      <Col md={6} className="mx-4 text-center">
         <h2>MY EXERCISES</h2>
 
         {exercises.map((exercise) => (
           <Row>
-            <Row key={exercise.id} sm={12} md={6} lg={4} xl={3}>
+            <Row
+              key={exercise.id}
+              md={2}
+              className="align-items-center d-flex justify-content-center w-100"
+            >
               <Exercise exercise={exercise} />
             </Row>
           </Row>
