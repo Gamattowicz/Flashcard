@@ -22,45 +22,46 @@ const Header = () => {
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-              <LinkContainer to="/exercises/create">
-                <Nav.Link>
-                  <i class="fas fa-book"></i>EXERCISE
-                </Nav.Link>
-              </LinkContainer>
-
-              <NavDropdown title="VOCABULARY" id="vocabulary">
-                <LinkContainer to="/words">
-                  <NavDropdown.Item>List of words</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/words/create">
-                  <NavDropdown.Item>Create word</NavDropdown.Item>
-                </LinkContainer>
-                <NavDropdown.Divider />
-                <LinkContainer to="/category">
-                  <NavDropdown.Item>List of categories</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/category/create">
-                  <NavDropdown.Item>Create category</NavDropdown.Item>
-                </LinkContainer>
-                <NavDropdown.Divider />
-                <LinkContainer to="/decks">
-                  <NavDropdown.Item>List of decks</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/decks/create">
-                  <NavDropdown.Item>Create deck</NavDropdown.Item>
-                </LinkContainer>
-              </NavDropdown>
-
               {userInfo ? (
-                <NavDropdown title={userInfo.username} id="username">
-                  <LinkContainer to="/profile">
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                <>
+                  <LinkContainer to="/exercises/create">
+                    <Nav.Link>
+                      <i class="fas fa-book"></i>EXERCISE
+                    </Nav.Link>
                   </LinkContainer>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
+
+                  <NavDropdown title="VOCABULARY" id="vocabulary">
+                    <LinkContainer to="/words">
+                      <NavDropdown.Item>List of words</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/words/create">
+                      <NavDropdown.Item>Create word</NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Divider />
+                    <LinkContainer to="/category">
+                      <NavDropdown.Item>List of categories</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/category/create">
+                      <NavDropdown.Item>Create category</NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Divider />
+                    <LinkContainer to="/decks">
+                      <NavDropdown.Item>List of decks</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/decks/create">
+                      <NavDropdown.Item>Create deck</NavDropdown.Item>
+                    </LinkContainer>
+                  </NavDropdown>
+                  <NavDropdown title={userInfo.username} id="username">
+                    <LinkContainer to="/profile">
+                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={logoutHandler}>
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </>
               ) : (
                 <LinkContainer to="/login">
                   <Nav.Link>
