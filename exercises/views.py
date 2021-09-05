@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .models import Exercise
 from .serializers import ExerciseSerializer
 from decks.models import Deck
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @api_view(['POST'])
@@ -30,8 +31,21 @@ def create_exercise(request, pk):
 def get_exercises(request):
     user = request.user
     exercises = Exercise.objects.filter(user=user.id)
+
+    page = request.query_params.get('page')
+    paginator = Paginator(exercises, 12)
+    try:
+        exercises = paginator.page(page)
+    except PageNotAnInteger:
+        exercises = paginator.page(1)
+    except EmptyPage:
+        exercises = paginator.page(paginator.num_pages)
+    if page is None:
+        page = 1
+    page = int(page)
+
     serializer = ExerciseSerializer(exercises, many=True)
-    return Response(serializer.data)
+    return Response({'exercises': serializer.data, 'page': page, 'pages': paginator.num_pages})
 
 
 @api_view(['GET'])

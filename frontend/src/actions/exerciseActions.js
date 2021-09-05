@@ -131,34 +131,36 @@ export const addWrongAnswerExercise =
     }
   }
 
-export const listExercises = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: EXERCISE_LIST_REQUEST })
+export const listExercises =
+  (keyword = '') =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: EXERCISE_LIST_REQUEST })
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo },
+      } = getState()
 
-    const config = {
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.get(`/exercises/${keyword}`, config)
+
+      dispatch({ type: EXERCISE_LIST_SUCCESS, payload: data })
+    } catch (error) {
+      dispatch({
+        type: EXERCISE_LIST_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      })
     }
-
-    const { data } = await axios.get(`/exercises/`, config)
-
-    dispatch({ type: EXERCISE_LIST_SUCCESS, payload: data })
-  } catch (error) {
-    dispatch({
-      type: EXERCISE_LIST_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    })
   }
-}
 
 export const listAllExercises = () => async (dispatch, getState) => {
   try {

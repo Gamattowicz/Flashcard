@@ -77,7 +77,12 @@ export const exerciseListReducer = (state = { exercises: [] }, action) => {
       return { loading: true, exercises: [] }
 
     case EXERCISE_LIST_SUCCESS:
-      return { loading: false, exercises: action.payload }
+      return {
+        loading: false,
+        exercises: action.payload.exercises,
+        page: action.payload.page,
+        pages: action.payload.pages,
+      }
 
     case EXERCISE_LIST_FAIL:
       return { loading: false, error: action.payload }
