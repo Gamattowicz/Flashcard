@@ -1,11 +1,11 @@
 import React from 'react'
-import { Pagination } from 'react-bootstrap'
+import { Pagination, Container } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 const Paginate = ({ pages, page, path }) => {
   return (
     pages > 1 && (
-      <Pagination size="lg">
+      <Pagination className="flex-wrap my-3">
         <LinkContainer
           to={`${path}/?page=1`}
           className={`${page === 1 ? 'disabled' : ''}`}
