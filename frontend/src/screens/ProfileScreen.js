@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { listExercises } from '../actions/exerciseActions'
+import Paginate from '../components/Paginate'
 
 const ProfileScreen = ({ history }) => {
   const [username, setUsername] = useState('')
@@ -27,7 +28,10 @@ const ProfileScreen = ({ history }) => {
   const { success } = userUpdateProfile
 
   const exerciseList = useSelector((state) => state.exerciseList)
-  const { exercises } = exerciseList
+  const { errorExercises, loadingExercises, exercises, pages, page } =
+    exerciseList
+
+  let keyword = history.location.search
 
   useEffect(() => {
     if (!userInfo) {
@@ -36,13 +40,13 @@ const ProfileScreen = ({ history }) => {
       if (!user || !user.name || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET })
         dispatch(getUserDetails('profile'))
-        dispatch(listExercises())
       } else {
         setUsername(user.username)
         setEmail(user.email)
       }
     }
-  }, [dispatch, history, userInfo, user, success])
+    dispatch(listExercises(keyword))
+  }, [dispatch, history, userInfo, user, success, keyword])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -67,8 +71,10 @@ const ProfileScreen = ({ history }) => {
         <h2>USER PROFILE</h2>
 
         {message && <Message variant="danger">{message}</Message>}
-        {error && <Message variant="danger">{error}</Message>}
-        {loading && <Loader />}
+        {(error || errorExercises) && (
+          <Message variant="danger">{error}</Message>
+        )}
+        {(loading || loadingExercises) && <Loader />}
 
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="username">
@@ -122,8 +128,8 @@ const ProfileScreen = ({ history }) => {
       <Col md={6} className="mx-4 text-center">
         <h2>MY EXERCISES</h2>
 
-        {exercises.map((exercise) => (
-          <Row>
+        <Row>
+          {exercises.map((exercise) => (
             <Row
               key={exercise.id}
               md={2}
@@ -131,8 +137,9 @@ const ProfileScreen = ({ history }) => {
             >
               <Exercise exercise={exercise} />
             </Row>
-          </Row>
-        ))}
+          ))}
+        </Row>
+        <Paginate pages={pages} page={page} path={'/profile'} />
       </Col>
     </Row>
   )
