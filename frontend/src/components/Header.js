@@ -63,11 +63,18 @@ const Header = () => {
                   </NavDropdown>
                 </>
               ) : (
-                <LinkContainer to="/login">
-                  <Nav.Link>
-                    <i className="fas fa-user"></i> Login
-                  </Nav.Link>
-                </LinkContainer>
+                <>
+                  <LinkContainer to="/register">
+                    <Nav.Link>
+                      <i class="fas fa-user-plus"></i> REGISTRATION
+                    </Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/login">
+                    <Nav.Link>
+                      <i className="fas fa-user"></i> LOGIN
+                    </Nav.Link>
+                  </LinkContainer>
+                </>
               )}
 
               {userInfo && userInfo.isAdmin && (
