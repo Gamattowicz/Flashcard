@@ -5,15 +5,18 @@ import Exercise from '../components/Exercise'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { listAllExercises } from '../actions/exerciseActions'
+import Paginate from '../components/Paginate'
 
-const ExercisesAllListScreen = () => {
+const ExercisesAllListScreen = ({ history }) => {
   const dispatch = useDispatch()
   const exerciseAllList = useSelector((state) => state.exerciseAllList)
-  const { error, loading, exercises } = exerciseAllList
+  const { error, loading, exercises, pages, page } = exerciseAllList
+
+  let keyword = history.location.search
 
   useEffect(() => {
-    dispatch(listAllExercises())
-  }, [dispatch])
+    dispatch(listAllExercises(keyword))
+  }, [dispatch, history, keyword])
 
   return (
     <div>
@@ -24,13 +27,16 @@ const ExercisesAllListScreen = () => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Row>
-          {exercises.map((exercise) => (
-            <Col key={exercise.id} sm={12} md={6} lg={4} xl={3}>
-              <Exercise exercise={exercise} />
-            </Col>
-          ))}
-        </Row>
+        <div>
+          <Row>
+            {exercises.map((exercise) => (
+              <Col key={exercise.id} sm={12} md={6} lg={4} xl={3}>
+                <Exercise exercise={exercise} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate pages={pages} page={page} path={'/admin/exercises'} />
+        </div>
       )}
     </div>
   )

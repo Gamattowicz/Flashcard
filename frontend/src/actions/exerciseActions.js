@@ -162,34 +162,36 @@ export const listExercises =
     }
   }
 
-export const listAllExercises = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: EXERCISE_ALL_LIST_REQUEST })
+export const listAllExercises =
+  (keyword = '') =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: EXERCISE_ALL_LIST_REQUEST })
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo },
+      } = getState()
 
-    const config = {
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.get(`/exercises/admin/${keyword}`, config)
+
+      dispatch({ type: EXERCISE_ALL_LIST_SUCCESS, payload: data })
+    } catch (error) {
+      dispatch({
+        type: EXERCISE_ALL_LIST_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      })
     }
-
-    const { data } = await axios.get(`/exercises/admin/`, config)
-
-    dispatch({ type: EXERCISE_ALL_LIST_SUCCESS, payload: data })
-  } catch (error) {
-    dispatch({
-      type: EXERCISE_ALL_LIST_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    })
   }
-}
 
 export const listExerciseDetails = (id) => async (dispatch, getState) => {
   try {

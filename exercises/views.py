@@ -52,8 +52,21 @@ def get_exercises(request):
 @permission_classes([IsAdminUser])
 def get_all_exercises(request):
     exercises = Exercise.objects.all()
+
+    page = request.query_params.get('page')
+    paginator = Paginator(exercises, 12)
+    try:
+        exercises = paginator.page(page)
+    except PageNotAnInteger:
+        exercises = paginator.page(1)
+    except EmptyPage:
+        exercises = paginator.page(paginator.num_pages)
+    if page is None:
+        page = 1
+    page = int(page)
+
     serializer = ExerciseSerializer(exercises, many=True)
-    return Response(serializer.data)
+    return Response({'exercises': serializer.data, 'page': page, 'pages': paginator.num_pages})
 
 
 @api_view(['GET'])
