@@ -3,6 +3,8 @@ from .models import Exercise
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
+    created_at = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
+
     class Meta:
         model = Exercise
         fields = '__all__'
