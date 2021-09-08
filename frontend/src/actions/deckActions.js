@@ -48,37 +48,39 @@ export const listDecks =
     }
   }
 
-export const listAllDecks = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: DECK_ALL_LIST_REQUEST })
+export const listAllDecks =
+  (keyword = '') =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: DECK_ALL_LIST_REQUEST })
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo },
+      } = getState()
 
-    const config = {
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.get(`/decks/admin/${keyword}`, config)
+
+      dispatch({
+        type: DECK_ALL_LIST_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: DECK_ALL_LIST_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      })
     }
-
-    const { data } = await axios.get('/decks/admin/', config)
-
-    dispatch({
-      type: DECK_ALL_LIST_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: DECK_ALL_LIST_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    })
   }
-}
 
 export const listDeckDetails = (id) => async (dispatch) => {
   try {

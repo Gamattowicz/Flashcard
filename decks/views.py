@@ -32,8 +32,21 @@ def get_decks(request):
 @permission_classes([IsAdminUser])
 def get_all_decks(request):
     decks = Deck.objects.all()
+
+    page = request.query_params.get('page')
+    paginator = Paginator(decks, 2)
+    try:
+        decks = paginator.page(page)
+    except PageNotAnInteger:
+        decks = paginator.page(1)
+    except EmptyPage:
+        decks = paginator.page(paginator.num_pages)
+    if page is None:
+        page = 1
+    page = int(page)
+
     serializer = DeckSerializer(decks, many=True)
-    return Response(serializer.data)
+    return Response({'decks': serializer.data, 'page': page, 'pages': paginator.num_pages})
 
 
 @api_view(['GET'])

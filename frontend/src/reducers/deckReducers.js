@@ -41,7 +41,12 @@ export const deckAllListReducer = (state = { decks: [] }, action) => {
       return { loading: true, decks: [] }
 
     case DECK_ALL_LIST_SUCCESS:
-      return { loading: false, decks: action.payload }
+      return {
+        loading: false,
+        decks: action.payload.decks,
+        page: action.payload.page,
+        pages: action.payload.pages,
+      }
 
     case DECK_ALL_LIST_FAIL:
       return { loading: false, error: action.payload }
