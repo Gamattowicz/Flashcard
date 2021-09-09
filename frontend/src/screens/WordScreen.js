@@ -25,71 +25,64 @@ const WordScreen = ({ match, history }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Col md={3}>
+        <Col md={8}>
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <Row>
-                  <Col>
+                  <Col md={2} className="align-self-center">
                     <strong>Question</strong>
                   </Col>
-                  <Col>{word.question}</Col>
+                  <Col md={10} className="text-center">
+                    {word.question}
+                  </Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>
+                  <Col md={2} className="align-self-center">
                     <strong>Answer</strong>
                   </Col>
-                  <Col>{word.answer}</Col>
-                </Row>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <Row>
-                  <Col>
-                    <strong>Category</strong>
+                  <Col md={10} className="text-center">
+                    {word.answer}
                   </Col>
-                  <Col>{word.category}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>
-                    <strong>Deck</strong>
-                  </Col>
-                  <Col>{word.deck}</Col>
-                </Row>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <Row>
-                  <Col>
-                    <strong>Exercises</strong>
-                  </Col>
-                  <Col>{word.studied}</Col>
-                </Row>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <Row>
-                  <Col>
+                  <Col md={2} className="align-self-center text-success">
                     <strong>Correct answers</strong>
                   </Col>
-                  <Col>{word.correct_answers}</Col>
+                  <Col md={4} className="text-center text-success">
+                    {word.correct_answers}
+                  </Col>
+                  <Col md={2} className="align-self-center text-warning">
+                    <strong>Wrong answers</strong>
+                  </Col>
+                  <Col md={4} className="text-center text-warning">
+                    {word.wrong_answers}
+                  </Col>
                 </Row>
               </ListGroup.Item>
 
-              <ListGroup.Item>
+              <Card.Footer className="text-muted">
                 <Row>
-                  <Col>
-                    <strong>Wrong answers</strong>
+                  <Col md={2}>
+                    <strong>Category</strong>
                   </Col>
-                  <Col>{word.wrong_answers}</Col>
+                  <Col md={4} className="text-center">
+                    {word.category}
+                  </Col>
+                  <Col md={2}>
+                    <strong>Deck</strong>
+                  </Col>
+                  <Col md={4} className="text-center">
+                    {word.deck}
+                  </Col>
                 </Row>
-              </ListGroup.Item>
+              </Card.Footer>
             </ListGroup>
           </Card>
         </Col>
