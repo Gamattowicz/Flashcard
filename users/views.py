@@ -7,6 +7,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -69,5 +70,18 @@ def get_user_profile(request):
 @permission_classes([IsAdminUser])
 def get_users(request):
     users = User.objects.all()
+
+    page = request.query_params.get('page')
+    paginator = Paginator(users, 1)
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+    if page is None:
+        page = 1
+    page = int(page)
+
     serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
+    return Response({'users': serializer.data, 'page': page, 'pages': paginator.num_pages})

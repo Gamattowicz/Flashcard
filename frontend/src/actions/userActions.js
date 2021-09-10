@@ -169,34 +169,36 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   }
 }
 
-export const listUsers = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: USER_LIST_REQUEST })
+export const listUsers =
+  (keyword = '') =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: USER_LIST_REQUEST })
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo },
+      } = getState()
 
-    const config = {
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.get(`/users/${keyword}`, config)
+
+      dispatch({
+        type: USER_LIST_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: USER_LIST_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      })
     }
-
-    const { data } = await axios.get('/users/', config)
-
-    dispatch({
-      type: USER_LIST_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: USER_LIST_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    })
   }
-}

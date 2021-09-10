@@ -5,15 +5,18 @@ import User from '../components/User'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { listUsers } from '../actions/userActions'
+import Paginate from '../components/Paginate'
 
-const UsersListScreen = () => {
+const UsersListScreen = ({ history }) => {
   const dispatch = useDispatch()
   const userList = useSelector((state) => state.userList)
-  const { error, loading, users } = userList
+  const { error, loading, users, pages, page } = userList
+
+  let keyword = history.location.search
 
   useEffect(() => {
-    dispatch(listUsers())
-  }, [dispatch])
+    dispatch(listUsers(keyword))
+  }, [dispatch, history, keyword])
 
   return (
     <div>
@@ -24,13 +27,16 @@ const UsersListScreen = () => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Row>
-          {users.map((user) => (
-            <Col key={user.id} sm={12} md={6} lg={4} xl={3}>
-              <User user={user} />
-            </Col>
-          ))}
-        </Row>
+        <div>
+          <Row>
+            {users.map((user) => (
+              <Col key={user.id} sm={12} md={6} lg={4} xl={3}>
+                <User user={user} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate pages={pages} page={page} path={'/admin/usersList'} />
+        </div>
       )}
     </div>
   )
