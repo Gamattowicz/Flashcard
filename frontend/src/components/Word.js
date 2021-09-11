@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const Word = ({ word }) => {
   return (
-    <Card className="my-3 p-3 rounded">
+    <Card className="my-3 p-3 rounded text-center">
       <Link to={`/words/${word.id}`}>{word.question}</Link>
     </Card>
   )
