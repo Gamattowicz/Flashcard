@@ -2,6 +2,9 @@ import {
   WORD_LIST_REQUEST,
   WORD_LIST_SUCCESS,
   WORD_LIST_FAIL,
+  WORD_LIST_DECK_REQUEST,
+  WORD_LIST_DECK_SUCCESS,
+  WORD_LIST_DECK_FAIL,
   WORD_ALL_LIST_REQUEST,
   WORD_ALL_LIST_SUCCESS,
   WORD_ALL_LIST_FAIL,
@@ -40,6 +43,27 @@ export const wordListReducer = (state = { words: [] }, action) => {
       }
 
     case WORD_LIST_FAIL:
+      return { loading: false, error: action.payload }
+
+    default:
+      return state
+  }
+}
+
+export const wordListDeckReducer = (state = { words: [] }, action) => {
+  switch (action.type) {
+    case WORD_LIST_DECK_REQUEST:
+      return { loading: true, words: [] }
+
+    case WORD_LIST_DECK_SUCCESS:
+      return {
+        loading: false,
+        words: action.payload.words,
+        page: action.payload.page,
+        pages: action.payload.pages,
+      }
+
+    case WORD_LIST_DECK_FAIL:
       return { loading: false, error: action.payload }
 
     default:

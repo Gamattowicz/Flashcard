@@ -5,7 +5,7 @@ import { Row, Col, ListGroup, Card } from 'react-bootstrap'
 import { listDeckDetails } from '../actions/deckActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { listWords } from '../actions/wordActions'
+import { listWordsDeck } from '../actions/wordActions'
 import Paginate from '../components/Paginate'
 
 const DeckScreen = ({ match, history }) => {
@@ -13,14 +13,14 @@ const DeckScreen = ({ match, history }) => {
   const deckDetails = useSelector((state) => state.deckDetails)
   const { error, loading, deck } = deckDetails
 
-  const wordList = useSelector((state) => state.wordList)
-  const { loadingWords, errorWords, words, pages, page } = wordList
+  const wordListDeck = useSelector((state) => state.wordListDeck)
+  const { loadingWords, errorWords, words, pages, page } = wordListDeck
 
   let keyword = history.location.search
 
   useEffect(() => {
     dispatch(listDeckDetails(match.params.id))
-    dispatch(listWords(keyword))
+    dispatch(listWordsDeck(keyword, match.params.id))
   }, [dispatch, history, keyword])
 
   return (
@@ -54,11 +54,14 @@ const DeckScreen = ({ match, history }) => {
                   </Col>
                   <Col md={10} className="text-center">
                     <ListGroup variant="flush">
-                      {words.map((word) => (
-                        <ListGroup.Item action className="my-1" key={word.id}>
-                          <Link to={`/words/${word.id}`}>{word.question}</Link>
-                        </ListGroup.Item>
-                      ))}
+                      {words &&
+                        words.map((word) => (
+                          <ListGroup.Item action className="my-1" key={word.id}>
+                            <Link to={`/words/${word.id}`}>
+                              {word.question}
+                            </Link>
+                          </ListGroup.Item>
+                        ))}
                       <Paginate
                         pages={pages}
                         page={page}
