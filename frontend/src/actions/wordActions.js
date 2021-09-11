@@ -3,6 +3,9 @@ import {
   WORD_LIST_REQUEST,
   WORD_LIST_SUCCESS,
   WORD_LIST_FAIL,
+  WORD_LIST_DECK_REQUEST,
+  WORD_LIST_DECK_SUCCESS,
+  WORD_LIST_DECK_FAIL,
   WORD_ALL_LIST_REQUEST,
   WORD_ALL_LIST_SUCCESS,
   WORD_ALL_LIST_FAIL,
@@ -52,6 +55,43 @@ export const listWords =
     } catch (error) {
       dispatch({
         type: WORD_LIST_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      })
+    }
+  }
+
+export const listWordsDeck =
+  (keyword = '', idDeck) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: WORD_LIST_DECK_REQUEST })
+
+      const {
+        userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.get(
+        `/words/deck/${idDeck}/${keyword}`,
+        config
+      )
+
+      dispatch({
+        type: WORD_LIST_DECK_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: WORD_LIST_DECK_FAIL,
         payload:
           error.response && error.response.data.detail
             ? error.response.data.detail
