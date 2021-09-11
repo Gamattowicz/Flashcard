@@ -33,6 +33,29 @@ def get_words(request):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_words_deck(request, pk):
+    user = request.user
+    deck = Deck.objects.get(id=pk)
+    words = Word.objects.filter(user=user.id, deck=deck)
+
+    page = request.query_params.get('page')
+    paginator = Paginator(words, 3)
+    try:
+        words = paginator.page(page)
+    except PageNotAnInteger:
+        words = paginator.page(1)
+    except EmptyPage:
+        words = paginator.page(paginator.num_pages)
+    if page is None:
+        page = 1
+    page = int(page)
+
+    serializer = WordSerializer(words, many=True)
+    return Response({'words': serializer.data, 'page': page, 'pages': paginator.num_pages})
+
+
+@api_view(['GET'])
 @permission_classes([IsAdminUser])
 def get_all_words(request):
     words = Word.objects.all()

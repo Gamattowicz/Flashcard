@@ -1,9 +1,10 @@
 from django.urls import path
 from .views import get_words, get_word, create_word, draw_word, add_exercise, add_correct_answer, add_wrong_answer, \
-    get_all_words
+    get_all_words, get_words_deck
 
 urlpatterns = [
     path('', get_words, name='words'),
+    path('deck/<str:pk>/', get_words_deck, name='words_deck'),
     path('admin/', get_all_words, name='all_words'),
     path('practice/<str:pk>/', draw_word, name='draw_word'),
     path('<str:pk>/add-exercise/', add_exercise, name='add_exercise'),
