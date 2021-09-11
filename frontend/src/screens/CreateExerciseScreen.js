@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
@@ -45,10 +45,21 @@ const CreateExerciseScreen = ({ history }) => {
 
   return (
     <FormContainer>
-      <h1>CREATE NEW EXERCISE</h1>
+      <Row>
+        <Col md={8}>
+          <h1>CREATE NEW EXERCISE</h1>
+        </Col>
+        <Col md={4} className="align-self-center">
+          <Link
+            to={`/exercises/`}
+            className="text-primary text-uppercase float-end fw-bold"
+          >
+            Exercises list
+          </Link>
+        </Col>
+      </Row>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
-
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="wordNumber">
           <Form.Label>Number of word</Form.Label>
@@ -92,11 +103,10 @@ const CreateExerciseScreen = ({ history }) => {
           </Form.Control>
         </Form.Group>
 
-        <Button type="submit" variant="primary mt-3">
+        <Button type="submit" variant="primary my-3">
           CREATE
         </Button>
       </Form>
-      <Link to={`/exercises/`}>Exercises list</Link>
     </FormContainer>
   )
 }
