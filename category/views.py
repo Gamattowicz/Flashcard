@@ -1,4 +1,3 @@
-from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
@@ -7,7 +6,7 @@ from .serializers import CategorySerializer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-class CategoriesList(ListAPIView):
+class CategoryList(ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
@@ -36,6 +35,5 @@ class CategoryDetail(RetrieveAPIView):
 
 
 class CategoryCreate(CreateAPIView):
-    queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticated]

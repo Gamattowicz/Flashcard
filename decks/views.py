@@ -1,70 +1,75 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
 from .models import Deck
 from .serializers import DeckSerializer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_decks(request):
-    user = request.user
-    decks = Deck.objects.filter(user=user.id)
+class DeckList(ListAPIView):
+    serializer_class = DeckSerializer
 
-    page = request.query_params.get('page')
-    paginator = Paginator(decks, 2)
-    try:
-        decks = paginator.page(page)
-    except PageNotAnInteger:
-        decks = paginator.page(1)
-    except EmptyPage:
-        decks = paginator.page(paginator.num_pages)
-    if page is None:
-        page = 1
-    page = int(page)
+    def list(self, request, *args, **kwargs):
+        user = request.user
+        queryset = Deck.objects.filter(user=user.id).order_by('id')
 
-    serializer = DeckSerializer(decks, many=True)
-    return Response({'decks': serializer.data, 'page': page, 'pages': paginator.num_pages})
+        page = request.query_params.get('page')
+        paginator = Paginator(queryset, 2)
+        try:
+            queryset = paginator.page(page)
+        except PageNotAnInteger:
+            queryset = paginator.page(1)
+        except EmptyPage:
+            queryset = paginator.page(paginator.num_pages)
+        if page is None:
+            page = 1
+        page = int(page)
 
-
-@api_view(['GET'])
-@permission_classes([IsAdminUser])
-def get_all_decks(request):
-    decks = Deck.objects.all()
-
-    page = request.query_params.get('page')
-    paginator = Paginator(decks, 2)
-    try:
-        decks = paginator.page(page)
-    except PageNotAnInteger:
-        decks = paginator.page(1)
-    except EmptyPage:
-        decks = paginator.page(paginator.num_pages)
-    if page is None:
-        page = 1
-    page = int(page)
-
-    serializer = DeckSerializer(decks, many=True)
-    return Response({'decks': serializer.data, 'page': page, 'pages': paginator.num_pages})
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({'decks': serializer.data, 'page': page, 'pages': paginator.num_pages})
 
 
-@api_view(['GET'])
-def get_deck(request, pk):
-    deck = Deck.objects.get(id=pk)
-    serializer = DeckSerializer(deck, many=False)
-    return Response(serializer.data)
+class DeckAllList(ListAPIView):
+    queryset = Deck.objects.all()
+    serializer_class = DeckSerializer
+    permission_classes = [IsAdminUser]
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = request.query_params.get('page')
+        paginator = Paginator(queryset, 2)
+        try:
+            queryset = paginator.page(page)
+        except PageNotAnInteger:
+            queryset = paginator.page(1)
+        except EmptyPage:
+            queryset = paginator.page(paginator.num_pages)
+        if page is None:
+            page = 1
+        page = int(page)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({'decks': serializer.data, 'page': page, 'pages': paginator.num_pages})
 
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def create_deck(request):
-    user = request.user
-    data = request.data
+class DeckDetail(RetrieveAPIView):
+    queryset = Deck.objects.all()
+    serializer_class = DeckSerializer
 
-    deck = Deck.objects.create(
-        user=user,
-        name=data['name'],
-    )
-    serializer = DeckSerializer(deck, many=False)
-    return Response(serializer.data)
+
+class DeckCreate(CreateAPIView):
+    serializer_class = DeckSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        data = request.data
+
+        queryset = Deck.objects.create(
+            user=user,
+            name=data['name'],
+        )
+        serializer = self.get_serializer(queryset, many=False)
+        return Response(serializer.data)
