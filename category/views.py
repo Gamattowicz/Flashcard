@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
 from .models import Category
 from .serializers import CategorySerializer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -35,15 +35,7 @@ class CategoryDetail(RetrieveAPIView):
     serializer_class = CategorySerializer
 
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def create_category(request):
-    data = request.data
-
-    category = Category.objects.create(
-        name=data['name'],
-        color=data['color'],
-    )
-
-    serializer = CategorySerializer(category, many=False)
-    return Response(serializer.data)
+class CategoryCreate(CreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticated]
