@@ -22,7 +22,7 @@ const ExercisesListScreen = ({ history }) => {
   return (
     <div>
       <h1>Exercises</h1>
-      <Link to="/exercises/create" className="btn btn-outline-primary my-3">
+      <Link onClick={history.goBack} className="btn btn-outline-primary my-3">
         GO BACK
       </Link>
       {loading ? (

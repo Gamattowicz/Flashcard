@@ -12,4 +12,5 @@ class ExerciseSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         rep = super(ExerciseSerializer, self).to_representation(instance)
         rep['deck'] = instance.deck.name
+        rep['deck_id'] = instance.deck.id
         return rep

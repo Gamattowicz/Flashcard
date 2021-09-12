@@ -25,7 +25,7 @@ const DeckScreen = ({ match, history }) => {
 
   return (
     <div>
-      <Link to="/decks" className="btn btn-outline-primary my-3">
+      <Link onClick={history.goBack} className="btn btn-outline-primary my-3">
         GO BACK
       </Link>
       {loading || loadingWords ? (

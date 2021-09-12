@@ -6,7 +6,7 @@ import { listCategoryDetails } from '../actions/categoryActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
-const CategoryScreen = ({ match }) => {
+const CategoryScreen = ({ match, history }) => {
   const dispatch = useDispatch()
   const categoryDetails = useSelector((state) => state.categoryDetails)
   const { error, loading, category } = categoryDetails
@@ -17,7 +17,7 @@ const CategoryScreen = ({ match }) => {
 
   return (
     <div>
-      <Link to="/category" className="btn btn-outline-primary my-3">
+      <Link onClick={history.goBack} className="btn btn-outline-primary my-3">
         GO BACK
       </Link>
       {loading ? (
