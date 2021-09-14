@@ -1,6 +1,7 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView
 from .models import Word
 from category.models import Category
 from decks.models import Deck
@@ -10,138 +11,165 @@ from random import sample
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_words(request):
-    user = request.user
-    words = Word.objects.filter(user=user.id)
+class WordList(ListAPIView):
+    serializer_class = WordSerializer
+    permission_classes = [IsAuthenticated]
 
-    page = request.query_params.get('page')
-    paginator = Paginator(words, 3)
-    try:
-        words = paginator.page(page)
-    except PageNotAnInteger:
-        words = paginator.page(1)
-    except EmptyPage:
-        words = paginator.page(paginator.num_pages)
-    if page is None:
-        page = 1
-    page = int(page)
+    def list(self, request, *args, **kwargs):
+        user = request.user
+        queryset = Word.objects.filter(user=user.id).order_by('created_at')
 
-    serializer = WordSerializer(words, many=True)
-    return Response({'words': serializer.data, 'page': page, 'pages': paginator.num_pages})
+        page = request.query_params.get('page')
+        paginator = Paginator(queryset, 2)
+        try:
+            queryset = paginator.page(page)
+        except PageNotAnInteger:
+            queryset = paginator.page(1)
+        except EmptyPage:
+            queryset = paginator.page(paginator.num_pages)
+        if page is None:
+            page = 1
+        page = int(page)
 
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_words_deck(request, pk):
-    user = request.user
-    deck = Deck.objects.get(id=pk)
-    words = Word.objects.filter(user=user.id, deck=deck)
-
-    page = request.query_params.get('page')
-    paginator = Paginator(words, 3)
-    try:
-        words = paginator.page(page)
-    except PageNotAnInteger:
-        words = paginator.page(1)
-    except EmptyPage:
-        words = paginator.page(paginator.num_pages)
-    if page is None:
-        page = 1
-    page = int(page)
-
-    serializer = WordSerializer(words, many=True)
-    return Response({'words': serializer.data, 'page': page, 'pages': paginator.num_pages})
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({'words': serializer.data, 'page': page, 'pages': paginator.num_pages})
 
 
-@api_view(['GET'])
-@permission_classes([IsAdminUser])
-def get_all_words(request):
-    words = Word.objects.all()
+class WordAllList(ListAPIView):
+    queryset = Word.objects.all().order_by('created_at')
+    serializer_class = WordSerializer
+    permission_classes = [IsAdminUser]
 
-    page = request.query_params.get('page')
-    paginator = Paginator(words, 6)
-    try:
-        words = paginator.page(page)
-    except PageNotAnInteger:
-        words = paginator.page(1)
-    except EmptyPage:
-        words = paginator.page(paginator.num_pages)
-    if page is None:
-        page = 1
-    page = int(page)
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
 
-    serializer = WordSerializer(words, many=True)
-    return Response({'words': serializer.data, 'page': page, 'pages': paginator.num_pages})
+        page = request.query_params.get('page')
+        paginator = Paginator(queryset, 2)
+        try:
+            queryset = paginator.page(page)
+        except PageNotAnInteger:
+            queryset = paginator.page(1)
+        except EmptyPage:
+            queryset = paginator.page(paginator.num_pages)
+        if page is None:
+            page = 1
+        page = int(page)
 
-
-@api_view(['GET'])
-def get_word(request, pk):
-    word = Word.objects.get(id=pk)
-    serializer = WordSerializer(word, many=False)
-    return Response(serializer.data)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({'words': serializer.data, 'page': page, 'pages': paginator.num_pages})
 
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def create_word(request, pk, pk2):
-    user = request.user
-    category = Category.objects.get(id=pk)
-    deck = Deck.objects.get(id=pk2)
-    data = request.data
-
-    word = Word.objects.create(
-        user=user,
-        question=data['question'],
-        answer=data['answer'],
-        category=category,
-        deck=deck
-    )
-
-    serializer = WordSerializer(word, many=False)
-    return Response(serializer.data)
+class WordDetail(RetrieveAPIView):
+    queryset = Word.objects.all()
+    serializer_class = WordSerializer
 
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def draw_word(request, pk):
-    deck_id = Exercise.objects.get(id=pk).deck_id
-    words = list(Word.objects.filter(deck=deck_id))
-    word = sample(words, 1)
+class WordDeckList(ListAPIView):
+    serializer_class = WordSerializer
+    permission_classes = [IsAuthenticated]
 
-    serializer = WordSerializer(word, many=True)
-    return Response(serializer.data)
+    def list(self, request, pk, *args, **kwargs):
+        user = request.user
+        deck = Deck.objects.get(id=pk)
+        queryset = Word.objects.filter(user=user.id, deck=deck).order_by('created_at')
 
+        page = request.query_params.get('page')
+        paginator = Paginator(queryset, 2)
+        try:
+            queryset = paginator.page(page)
+        except PageNotAnInteger:
+            queryset = paginator.page(1)
+        except EmptyPage:
+            queryset = paginator.page(paginator.num_pages)
+        if page is None:
+            page = 1
+        page = int(page)
 
-@api_view(['PUT'])
-@permission_classes([IsAuthenticated])
-def add_exercise(request, pk):
-    word = Word.objects.get(id=pk)
-    word.studied += 1
-    word.save()
-
-    serializer = WordSerializer(word, many=False)
-    return Response(serializer.data)
-
-
-@api_view(['PUT'])
-@permission_classes([IsAuthenticated])
-def add_correct_answer(request, pk):
-    word = Word.objects.get(id=pk)
-    word.correct_answers += 1
-    word.save()
-
-    serializer = WordSerializer(word, many=False)
-    return Response(serializer.data)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({'words': serializer.data, 'page': page, 'pages': paginator.num_pages})
 
 
-@api_view(['PUT'])
-@permission_classes([IsAuthenticated])
-def add_wrong_answer(request, pk):
-    word = Word.objects.get(id=pk)
-    word.wrong_answers += 1
-    word.save()
+class WordCreate(CreateAPIView):
+    serializer_class = WordSerializer
+    permission_classes = [IsAuthenticated]
 
-    serializer = WordSerializer(word, many=False)
-    return Response(serializer.data)
+    def post(self, request, pk, pk2, *args, **kwargs):
+        user = request.user
+        category = Category.objects.get(id=pk)
+        deck = Deck.objects.get(id=pk2)
+        data = request.data
+
+        word = Word.objects.create(
+            user=user,
+            question=data['question'],
+            answer=data['answer'],
+            category=category,
+            deck=deck
+        )
+
+        serializer = WordSerializer(word, many=False)
+        return Response(serializer.data)
+
+
+class WordDraw(ListAPIView):
+    serializer_class = WordSerializer
+    permission_classes = [IsAuthenticated]
+
+    def list(self, request, pk,*args, **kwargs):
+        deck_id = Exercise.objects.get(id=pk).deck_id
+        words = list(Word.objects.filter(deck=deck_id))
+        queryset = sample(words, 1)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class WordUpdateExercise(UpdateAPIView):
+    queryset = Word.objects.all()
+    serializer_class = WordSerializer
+    permission_classes = [IsAuthenticated]
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.studied += 1
+        instance.save()
+        word_exercises = {'word_exercises': instance.studied}
+        serializer = self.serializer_class(request.user, data=word_exercises, partial=True)
+        if serializer.is_valid():
+            self.perform_update(serializer)
+
+        return Response(serializer.data)
+
+
+class WordUpdateCorrectAnswer(UpdateAPIView):
+    queryset = Word.objects.all()
+    serializer_class = WordSerializer
+    permission_classes = [IsAuthenticated]
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.correct_answers += 1
+        instance.save()
+        correct_answers = {'correct_answers': instance.correct_answers}
+        serializer = self.serializer_class(request.user, data=correct_answers, partial=True)
+        if serializer.is_valid():
+            self.perform_update(serializer)
+
+        return Response(serializer.data)
+
+
+class WordUpdateWrongAnswer(UpdateAPIView):
+    queryset = Word.objects.all()
+    serializer_class = WordSerializer
+    permission_classes = [IsAuthenticated]
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.wrong_answers += 1
+        instance.save()
+        wrong_answers = {'wrong_answers': instance.wrong_answers}
+        serializer = self.serializer_class(request.user, data=wrong_answers, partial=True)
+        if serializer.is_valid():
+            self.perform_update(serializer)
+
+        return Response(serializer.data)

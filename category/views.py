@@ -7,7 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class CategoryList(ListAPIView):
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().order_by('created_at')
     serializer_class = CategorySerializer
 
     def list(self, request, *args, **kwargs):

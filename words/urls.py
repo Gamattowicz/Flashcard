@@ -1,15 +1,15 @@
 from django.urls import path
-from .views import get_words, get_word, create_word, draw_word, add_exercise, add_correct_answer, add_wrong_answer, \
-    get_all_words, get_words_deck
+from .views import WordList, WordAllList, WordDetail, WordDeckList, WordCreate, \
+    WordUpdateExercise, WordUpdateCorrectAnswer, WordUpdateWrongAnswer, WordDraw
 
 urlpatterns = [
-    path('', get_words, name='words'),
-    path('deck/<str:pk>/', get_words_deck, name='words_deck'),
-    path('admin/', get_all_words, name='all_words'),
-    path('practice/<str:pk>/', draw_word, name='draw_word'),
-    path('<str:pk>/add-exercise/', add_exercise, name='add_exercise'),
-    path('<str:pk>/correct-answer/', add_correct_answer, name='add_correct_answer'),
-    path('<str:pk>/wrong-answer/', add_wrong_answer, name='add_wrong_answer'),
-    path('<str:pk>/', get_word, name='word'),
-    path('<str:pk>/create/<str:pk2>/', create_word, name='word_create'),
+    path('', WordList.as_view(), name='words'),
+    path('deck/<str:pk>/', WordDeckList.as_view(), name='words_deck'),
+    path('admin/', WordAllList.as_view(), name='all_words'),
+    path('practice/<str:pk>/', WordDraw.as_view(), name='draw_word'),
+    path('<str:pk>/add-exercise/', WordUpdateExercise.as_view(), name='add_exercise'),
+    path('<str:pk>/correct-answer/', WordUpdateCorrectAnswer.as_view(), name='add_correct_answer'),
+    path('<str:pk>/wrong-answer/', WordUpdateWrongAnswer.as_view(), name='add_wrong_answer'),
+    path('<str:pk>/', WordDetail.as_view(), name='word'),
+    path('<str:pk>/create/<str:pk2>/', WordCreate.as_view(), name='word_create'),
 ]
