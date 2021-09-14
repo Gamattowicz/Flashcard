@@ -1,6 +1,7 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, UserSerializerWithToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -66,22 +67,25 @@ def get_user_profile(request):
     return Response(serializer.data)
 
 
-@api_view(['GET'])
-@permission_classes([IsAdminUser])
-def get_users(request):
-    users = User.objects.all()
+class UserList(ListAPIView):
+    queryset = User.objects.all().order_by('date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [IsAdminUser]
 
-    page = request.query_params.get('page')
-    paginator = Paginator(users, 1)
-    try:
-        users = paginator.page(page)
-    except PageNotAnInteger:
-        users = paginator.page(1)
-    except EmptyPage:
-        users = paginator.page(paginator.num_pages)
-    if page is None:
-        page = 1
-    page = int(page)
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
 
-    serializer = UserSerializer(users, many=True)
-    return Response({'users': serializer.data, 'page': page, 'pages': paginator.num_pages})
+        page = request.query_params.get('page')
+        paginator = Paginator(queryset, 2)
+        try:
+            queryset = paginator.page(page)
+        except PageNotAnInteger:
+            queryset = paginator.page(1)
+        except EmptyPage:
+            queryset = paginator.page(paginator.num_pages)
+        if page is None:
+            page = 1
+        page = int(page)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({'users': serializer.data, 'page': page, 'pages': paginator.num_pages})
