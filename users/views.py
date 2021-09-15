@@ -62,28 +62,14 @@ class UserProfileUpdate(UpdateAPIView):
         return Response(serializer.data)
 
 
-@api_view(['PUT'])
-@permission_classes([IsAuthenticated])
-def update_user_profile(request):
-    user = request.user
-    serializer = UserSerializerWithToken(user, many=False)
+class UserProfile(ListAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
 
-    data = request.data
-    user.username = data['username']
-    user.email = data['email']
-    if data['password'] != '':
-        user.password = make_password(data['password'])
-
-    user.save()
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_user_profile(request):
-    user = request.user
-    serializer = UserSerializer(user, many=False)
-    return Response(serializer.data)
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        serializer = self.get_serializer(user, many=False)
+        return Response(serializer.data)
 
 
 class UserList(ListAPIView):
