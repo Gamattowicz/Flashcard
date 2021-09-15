@@ -95,3 +95,8 @@ class UserList(ListAPIView):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response({'users': serializer.data, 'page': page, 'pages': paginator.num_pages})
+
+
+class UserDetail(RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
