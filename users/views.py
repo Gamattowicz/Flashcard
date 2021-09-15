@@ -26,21 +26,22 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 
-@api_view(['POST'])
-def register_user(request):
-    data = request.data
+class UserCreate(CreateAPIView):
+    serializer_class = UserSerializerWithToken
 
-    try:
-        user = User.objects.create(
-            username=data['username'],
-            email=data['email'],
-            password=make_password(data['password'])
-        )
-        serializer = UserSerializerWithToken(user, many=False)
-        return Response(serializer.data)
-    except:
-        message = {'detail': 'User with this email already exists'}
-        return Response(message, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        try:
+            user = User.objects.create(
+                username=data['username'],
+                email=data['email'],
+                password=make_password(data['password'])
+            )
+            serializer = self.get_serializer(user, many=False)
+            return Response(serializer.data)
+        except:
+            message = {'detail': 'User with this email already exists'}
+            return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserProfileUpdate(UpdateAPIView):

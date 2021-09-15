@@ -106,7 +106,7 @@ class WordCreate(CreateAPIView):
             deck=deck
         )
 
-        serializer = WordSerializer(word, many=False)
+        serializer = self.get_serializer(word, many=False)
         return Response(serializer.data)
 
 
