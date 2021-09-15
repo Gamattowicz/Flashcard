@@ -43,6 +43,25 @@ def register_user(request):
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
+class UserProfileUpdate(UpdateAPIView):
+    serializer_class = UserSerializerWithToken
+    permission_classes = [IsAuthenticated]
+
+    def update(self, request, *args, **kwargs):
+        user = request.user
+        data = request.data
+        user.username = data['username']
+        user.email = data['email']
+        if data['password'] != '':
+            user.password = make_password(data['password'])
+        user.save()
+        serializer = self.serializer_class(user, data=data, partial=True, many=False)
+        if serializer.is_valid():
+            self.perform_update(serializer)
+
+        return Response(serializer.data)
+
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def update_user_profile(request):
