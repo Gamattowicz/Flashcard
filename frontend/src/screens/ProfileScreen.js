@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Exercise from '../components/Exercise'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { getUserDetails, updateUserProfile } from '../actions/userActions'
+import { listUserDetails, updateUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { listExercises } from '../actions/exerciseActions'
 import Paginate from '../components/Paginate'
@@ -39,7 +39,7 @@ const ProfileScreen = ({ history }) => {
     } else {
       if (!user || !user.name || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET })
-        dispatch(getUserDetails('profile'))
+        dispatch(listUserDetails('profile'))
       } else {
         setUsername(user.username)
         setEmail(user.email)

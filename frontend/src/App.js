@@ -10,6 +10,7 @@ import CreateWordScreen from './screens/CreateWordScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import UserScreen from './screens/UserScreen'
 import CategoryListScreen from './screens/CategoryListScreen'
 import CategoryScreen from './screens/CategoryScreen'
 import CreateCategoryScreen from './screens/CreateCategoryScreen'
@@ -42,6 +43,7 @@ function App() {
           <Route path="/register" component={RegisterScreen} />
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/category" component={CategoryListScreen} exact />
+          <Route path="/admin/user/:id" component={UserScreen} />
           <Switch>
             <Route path="/category/create" component={CreateCategoryScreen} />
             <Route path="/category/:id" component={CategoryScreen} />

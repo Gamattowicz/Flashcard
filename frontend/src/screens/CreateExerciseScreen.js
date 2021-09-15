@@ -52,7 +52,7 @@ const CreateExerciseScreen = ({ history }) => {
         <Col md={4} className="align-self-center">
           <Link
             to={`/exercises/`}
-            className="text-primary text-uppercase float-end fw-bold"
+            className="btn btn-outline-primary text-uppercase fw-bold float-end"
           >
             Exercises list
           </Link>
