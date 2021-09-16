@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -34,7 +35,20 @@ const CreateCategoryScreen = ({ history }) => {
 
   return (
     <FormContainer>
-      <h1>CREATE NEW CATEGORY</h1>
+      <Row>
+        <Col md={8}>
+          <h1>CREATE NEW CATEGORY</h1>
+        </Col>
+        <Col md={4} className="align-self-center">
+          <Link
+            to={`/category/`}
+            className="btn btn-outline-primary text-uppercase fw-bold float-end"
+          >
+            Category list
+          </Link>
+        </Col>
+      </Row>
+
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
 

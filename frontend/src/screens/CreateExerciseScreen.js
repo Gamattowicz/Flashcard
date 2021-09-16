@@ -54,7 +54,7 @@ const CreateExerciseScreen = ({ history }) => {
             to={`/exercises/`}
             className="btn btn-outline-primary text-uppercase fw-bold float-end"
           >
-            Exercises list
+            Exercise list
           </Link>
         </Col>
       </Row>
