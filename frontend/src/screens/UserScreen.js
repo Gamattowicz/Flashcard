@@ -49,6 +49,39 @@ const UserScreen = ({ match, history }) => {
                   </Col>
                 </Row>
               </ListGroup.Item>
+
+              <ListGroup.Item>
+                <Row>
+                  <Col md={4} className="align-self-center">
+                    <strong>Last login</strong>
+                  </Col>
+                  <Col md={8} className="text-center">
+                    {user.last_login && user.last_login}
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                <Row>
+                  <Col md={4} className="align-self-center">
+                    <strong>Date joined</strong>
+                  </Col>
+                  <Col md={8} className="text-center">
+                    {user.date_joined}
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                <Row>
+                  <Col md={4} className="align-self-center">
+                    <strong>Admin</strong>
+                  </Col>
+                  <Col md={8} className="text-center">
+                    {user.is_admin ? `Yes` : `No`}
+                  </Col>
+                </Row>
+              </ListGroup.Item>
             </ListGroup>
           </Card>
         </Col>
