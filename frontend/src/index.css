@@ -2,12 +2,14 @@ main {
   min-height: 85vh;
 }
 
-a {
+a,
+i.fa-trash {
   color: #073642;
   text-decoration: none !important;
 }
 
-a:hover {
+a:hover,
+i.fa-trash:hover {
   opacity: 0.7;
   text-shadow: 3px 3px 6px #000;
 }

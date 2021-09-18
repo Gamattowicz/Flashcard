@@ -27,6 +27,9 @@ import {
   WORD_ADD_WRONG_ANSWER_REQUEST,
   WORD_ADD_WRONG_ANSWER_SUCCESS,
   WORD_ADD_WRONG_ANSWER_FAIL,
+  WORD_DELETE_REQUEST,
+  WORD_DELETE_SUCCESS,
+  WORD_DELETE_FAIL,
 } from '../constants/wordConstants'
 
 export const listWords =
@@ -324,6 +327,27 @@ export const drawWord = (exercise) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: WORD_DRAW_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    })
+  }
+}
+
+export const deleteWord = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: WORD_DELETE_REQUEST })
+
+    const { data } = await axios.delete(`/words/${id}/delete`)
+
+    dispatch({
+      type: WORD_DELETE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: WORD_DELETE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
