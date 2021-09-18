@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
@@ -100,3 +101,8 @@ class UserList(ListAPIView):
 class UserDetail(RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def get(self, request, pk, *args, **kwargs):
+        user = User.objects.get(id=pk)
+        serializer = self.get_serializer(user, many=False)
+        return self.retrieve(request, *args, **kwargs)

@@ -129,15 +129,16 @@ const ProfileScreen = ({ history }) => {
         <h2>MY EXERCISES</h2>
 
         <Row>
-          {exercises.map((exercise) => (
-            <Row
-              key={exercise.id}
-              md={2}
-              className="align-items-center d-flex justify-content-center w-100"
-            >
-              <Exercise exercise={exercise} />
-            </Row>
-          ))}
+          {exercises &&
+            exercises.map((exercise) => (
+              <Row
+                key={exercise.id}
+                md={2}
+                className="align-items-center d-flex justify-content-center w-100"
+              >
+                <Exercise exercise={exercise} />
+              </Row>
+            ))}
         </Row>
         <Paginate pages={pages} page={page} path={'/profile'} />
       </Col>
