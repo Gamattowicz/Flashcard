@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from .models import Word
 from category.models import Category
 from decks.models import Deck
@@ -108,6 +108,11 @@ class WordCreate(CreateAPIView):
 
         serializer = self.get_serializer(word, many=False)
         return Response(serializer.data)
+
+
+class WordDelete(DestroyAPIView):
+    queryset = Word.objects.all()
+    serializer_class = WordSerializer
 
 
 class WordDraw(ListAPIView):
