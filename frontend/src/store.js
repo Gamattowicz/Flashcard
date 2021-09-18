@@ -11,6 +11,7 @@ import {
   wordAddExerciseReducer,
   wordAddCorrectAnswerReducer,
   wordAddWrongAnswerReducer,
+  wordDeleteReducer,
 } from './reducers/wordReducers'
 import {
   userLoginReducer,
@@ -49,6 +50,7 @@ const reducer = combineReducers({
   wordAddExercise: wordAddExerciseReducer,
   wordAddCorrectAnswer: wordAddCorrectAnswerReducer,
   wordAddWrongAnswer: wordAddWrongAnswerReducer,
+  wordDelete: wordDeleteReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,

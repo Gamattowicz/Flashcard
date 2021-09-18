@@ -27,6 +27,9 @@ import {
   WORD_ADD_WRONG_ANSWER_REQUEST,
   WORD_ADD_WRONG_ANSWER_SUCCESS,
   WORD_ADD_WRONG_ANSWER_FAIL,
+  WORD_DELETE_REQUEST,
+  WORD_DELETE_SUCCESS,
+  WORD_DELETE_FAIL,
 } from '../constants/wordConstants'
 
 export const wordListReducer = (state = { words: [] }, action) => {
@@ -184,6 +187,25 @@ export const wordAddWrongAnswerReducer = (state = {}, action) => {
       return { loading: false, success: true }
 
     case WORD_ADD_WRONG_ANSWER_FAIL:
+      return { loading: false, error: action.payload }
+
+    default:
+      return state
+  }
+}
+
+export const wordDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case WORD_DELETE_REQUEST:
+      return { loading: true }
+
+    case WORD_DELETE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      }
+
+    case WORD_DELETE_FAIL:
       return { loading: false, error: action.payload }
 
     default:
