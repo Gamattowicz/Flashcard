@@ -12,6 +12,9 @@ import {
   DECK_CREATE_SUCCESS,
   DECK_CREATE_FAIL,
   DECK_CREATE_RESET,
+  DECK_DELETE_REQUEST,
+  DECK_DELETE_SUCCESS,
+  DECK_DELETE_FAIL,
 } from '../constants/deckConstants'
 
 export const deckListReducer = (state = { decks: [] }, action) => {
@@ -85,6 +88,25 @@ export const deckCreateReducer = (state = {}, action) => {
 
     case DECK_CREATE_RESET:
       return {}
+
+    default:
+      return state
+  }
+}
+
+export const deckDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DECK_DELETE_REQUEST:
+      return { loading: true }
+
+    case DECK_DELETE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      }
+
+    case DECK_DELETE_FAIL:
+      return { loading: false, error: action.payload }
 
     default:
       return state
