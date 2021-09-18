@@ -12,6 +12,9 @@ import {
   DECK_CREATE_REQUEST,
   DECK_CREATE_SUCCESS,
   DECK_CREATE_FAIL,
+  DECK_DELETE_REQUEST,
+  DECK_DELETE_SUCCESS,
+  DECK_DELETE_FAIL,
 } from '../constants/deckConstants'
 
 export const listDecks =
@@ -127,6 +130,27 @@ export const createDeck = (name) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: DECK_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    })
+  }
+}
+
+export const deleteDeck = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DECK_DELETE_REQUEST })
+
+    const { data } = await axios.delete(`/decks/${id}/delete`)
+
+    dispatch({
+      type: DECK_DELETE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: DECK_DELETE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
