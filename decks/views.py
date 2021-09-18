@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, DestroyAPIView
 from .models import Deck
 from .serializers import DeckSerializer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -72,3 +72,8 @@ class DeckCreate(CreateAPIView):
         )
         serializer = self.get_serializer(queryset, many=False)
         return Response(serializer.data)
+
+
+class DeckDelete(DestroyAPIView):
+    queryset = Deck.objects.all()
+    serializer_class = DeckSerializer
