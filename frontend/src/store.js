@@ -2,40 +2,41 @@ import {applyMiddleware, combineReducers, createStore} from 'redux'
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import {
-  wordAddCorrectAnswerReducer,
-  wordAddExerciseReducer,
-  wordAddWrongAnswerReducer,
-  wordAllListReducer,
-  wordCreateReducer,
-  wordDeleteReducer,
-  wordDetailsReducer,
-  wordDrawReducer,
-  wordListDeckReducer,
-  wordListReducer,
+    wordAddCorrectAnswerReducer,
+    wordAddExerciseReducer,
+    wordAddWrongAnswerReducer,
+    wordAllListReducer,
+    wordCreateReducer,
+    wordDeleteReducer,
+    wordDetailsReducer,
+    wordDrawReducer,
+    wordListDeckReducer,
+    wordListReducer,
+    wordUpdateReducer,
 } from './reducers/wordReducers'
 import {
-  userDetailsReducer,
-  userListReducer,
-  userLoginReducer,
-  userRegisterReducer,
-  userUpdateProfileReducer,
+    userDetailsReducer,
+    userListReducer,
+    userLoginReducer,
+    userRegisterReducer,
+    userUpdateProfileReducer,
 } from './reducers/userReducers'
 import {categoryCreateReducer, categoryDetailsReducer, categoryListReducer,} from './reducers/categoryReducers'
 import {
-  deckAllListReducer,
-  deckCreateReducer,
-  deckDeleteReducer,
-  deckDetailsReducer,
-  deckListReducer,
-  deckUpdateReducer,
+    deckAllListReducer,
+    deckCreateReducer,
+    deckDeleteReducer,
+    deckDetailsReducer,
+    deckListReducer,
+    deckUpdateReducer,
 } from './reducers/deckReducers'
 import {
-  exerciseAddCorrectAnswerReducer,
-  exerciseAddWrongAnswerReducer,
-  exerciseAllListReducer,
-  exerciseCreateReducer,
-  exerciseDetailsReducer,
-  exerciseListReducer,
+    exerciseAddCorrectAnswerReducer,
+    exerciseAddWrongAnswerReducer,
+    exerciseAllListReducer,
+    exerciseCreateReducer,
+    exerciseDetailsReducer,
+    exerciseListReducer,
 } from './reducers/exerciseReducers'
 
 const reducer = combineReducers({
@@ -43,6 +44,7 @@ const reducer = combineReducers({
   wordListDeck: wordListDeckReducer,
   wordAllList: wordAllListReducer,
   wordDetails: wordDetailsReducer,
+  wordUpdate: wordUpdateReducer,
   wordCreate: wordCreateReducer,
   wordDraw: wordDrawReducer,
   wordAddExercise: wordAddExerciseReducer,
