@@ -113,6 +113,7 @@ class WordCreate(CreateAPIView):
 class WordDelete(DestroyAPIView):
     queryset = Word.objects.all()
     serializer_class = WordSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class WordDraw(ListAPIView):

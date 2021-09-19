@@ -1,6 +1,7 @@
+import data as data
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, DestroyAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, DestroyAPIView, RetrieveUpdateAPIView
 from .models import Deck
 from .serializers import DeckSerializer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -64,11 +65,10 @@ class DeckCreate(CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         user = request.user
-        data = request.data
 
         queryset = Deck.objects.create(
             user=user,
-            name=data['name'],
+            name=request.data.get('name'),
         )
         serializer = self.get_serializer(queryset, many=False)
         return Response(serializer.data)
@@ -77,3 +77,20 @@ class DeckCreate(CreateAPIView):
 class DeckDelete(DestroyAPIView):
     queryset = Deck.objects.all()
     serializer_class = DeckSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class DeckUpdate(RetrieveUpdateAPIView):
+    queryset = Deck.objects.all()
+    serializer_class = DeckSerializer
+    permission_classes = [IsAuthenticated]
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.name = request.data.get('name')
+        instance.save()
+        serializer = self.serializer_class(data=instance, partial=True)
+        if serializer.is_valid():
+            self.perform_update(serializer)
+
+        return Response(serializer.data)
