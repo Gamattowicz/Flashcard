@@ -1,35 +1,38 @@
 import axios from 'axios'
 import {
-  WORD_LIST_REQUEST,
-  WORD_LIST_SUCCESS,
-  WORD_LIST_FAIL,
-  WORD_LIST_DECK_REQUEST,
-  WORD_LIST_DECK_SUCCESS,
-  WORD_LIST_DECK_FAIL,
-  WORD_ALL_LIST_REQUEST,
-  WORD_ALL_LIST_SUCCESS,
-  WORD_ALL_LIST_FAIL,
-  WORD_DETAILS_REQUEST,
-  WORD_DETAILS_SUCCESS,
-  WORD_DETAILS_FAIL,
-  WORD_CREATE_REQUEST,
-  WORD_CREATE_SUCCESS,
-  WORD_CREATE_FAIL,
-  WORD_DRAW_REQUEST,
-  WORD_DRAW_SUCCESS,
-  WORD_DRAW_FAIL,
-  WORD_ADD_EXERCISE_REQUEST,
-  WORD_ADD_EXERCISE_SUCCESS,
-  WORD_ADD_EXERCISE_FAIL,
-  WORD_ADD_CORRECT_ANSWER_REQUEST,
-  WORD_ADD_CORRECT_ANSWER_SUCCESS,
-  WORD_ADD_CORRECT_ANSWER_FAIL,
-  WORD_ADD_WRONG_ANSWER_REQUEST,
-  WORD_ADD_WRONG_ANSWER_SUCCESS,
-  WORD_ADD_WRONG_ANSWER_FAIL,
-  WORD_DELETE_REQUEST,
-  WORD_DELETE_SUCCESS,
-  WORD_DELETE_FAIL,
+    WORD_ADD_CORRECT_ANSWER_FAIL,
+    WORD_ADD_CORRECT_ANSWER_REQUEST,
+    WORD_ADD_CORRECT_ANSWER_SUCCESS,
+    WORD_ADD_EXERCISE_FAIL,
+    WORD_ADD_EXERCISE_REQUEST,
+    WORD_ADD_EXERCISE_SUCCESS,
+    WORD_ADD_WRONG_ANSWER_FAIL,
+    WORD_ADD_WRONG_ANSWER_REQUEST,
+    WORD_ADD_WRONG_ANSWER_SUCCESS,
+    WORD_ALL_LIST_FAIL,
+    WORD_ALL_LIST_REQUEST,
+    WORD_ALL_LIST_SUCCESS,
+    WORD_CREATE_FAIL,
+    WORD_CREATE_REQUEST,
+    WORD_CREATE_SUCCESS,
+    WORD_DELETE_FAIL,
+    WORD_DELETE_REQUEST,
+    WORD_DELETE_SUCCESS,
+    WORD_DETAILS_FAIL,
+    WORD_DETAILS_REQUEST,
+    WORD_DETAILS_SUCCESS,
+    WORD_DRAW_FAIL,
+    WORD_DRAW_REQUEST,
+    WORD_DRAW_SUCCESS,
+    WORD_LIST_DECK_FAIL,
+    WORD_LIST_DECK_REQUEST,
+    WORD_LIST_DECK_SUCCESS,
+    WORD_LIST_FAIL,
+    WORD_LIST_REQUEST,
+    WORD_LIST_SUCCESS,
+    WORD_UPDATE_FAIL,
+    WORD_UPDATE_REQUEST,
+    WORD_UPDATE_SUCCESS,
 } from '../constants/wordConstants'
 
 export const listWords =
@@ -348,6 +351,38 @@ export const deleteWord = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: WORD_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    })
+  }
+}
+
+export const updateWord = (word) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: WORD_UPDATE_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put(`/words/${word.id}/update/`, word, config)
+
+    dispatch({
+      type: WORD_UPDATE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: WORD_UPDATE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
