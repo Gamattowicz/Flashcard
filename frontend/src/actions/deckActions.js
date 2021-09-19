@@ -15,6 +15,9 @@ import {
   DECK_DELETE_REQUEST,
   DECK_DELETE_SUCCESS,
   DECK_DELETE_FAIL,
+  DECK_UPDATE_REQUEST,
+  DECK_UPDATE_SUCCESS,
+  DECK_UPDATE_FAIL,
 } from '../constants/deckConstants'
 
 export const listDecks =
@@ -151,6 +154,38 @@ export const deleteDeck = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DECK_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    })
+  }
+}
+
+export const updateDeck = (deck) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: DECK_UPDATE_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put(`/decks/${deck.id}/update/`, deck, config)
+
+    dispatch({
+      type: DECK_UPDATE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: DECK_UPDATE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
