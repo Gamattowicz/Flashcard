@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { Card, Row, Col, Button, Modal } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { deleteWord } from '../actions/wordActions'
+import React, {useState} from 'react'
+import {Button, Card, Col, Modal, Row} from 'react-bootstrap'
+import {useDispatch, useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
+import {deleteWord} from '../actions/wordActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -36,7 +36,6 @@ const Word = ({ word }) => {
           </Col>
           <Col md={2}>
             <i class="fas fa-trash text-warning" onClick={handleShow}></i>
-            <Link to={`/words/${word.id}/delete`}></Link>
             <Modal show={show} onHide={handleClose}>
               <Modal.Header>
                 <Modal.Title>Delete word</Modal.Title>

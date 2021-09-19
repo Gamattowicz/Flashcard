@@ -1,44 +1,41 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import {applyMiddleware, combineReducers, createStore} from 'redux'
 import thunk from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import {composeWithDevTools} from 'redux-devtools-extension'
 import {
-  wordListReducer,
-  wordListDeckReducer,
-  wordAllListReducer,
-  wordDetailsReducer,
-  wordCreateReducer,
-  wordDrawReducer,
-  wordAddExerciseReducer,
   wordAddCorrectAnswerReducer,
+  wordAddExerciseReducer,
   wordAddWrongAnswerReducer,
+  wordAllListReducer,
+  wordCreateReducer,
   wordDeleteReducer,
+  wordDetailsReducer,
+  wordDrawReducer,
+  wordListDeckReducer,
+  wordListReducer,
 } from './reducers/wordReducers'
 import {
+  userDetailsReducer,
+  userListReducer,
   userLoginReducer,
   userRegisterReducer,
-  userDetailsReducer,
   userUpdateProfileReducer,
-  userListReducer,
 } from './reducers/userReducers'
+import {categoryCreateReducer, categoryDetailsReducer, categoryListReducer,} from './reducers/categoryReducers'
 import {
-  categoryListReducer,
-  categoryDetailsReducer,
-  categoryCreateReducer,
-} from './reducers/categoryReducers'
-import {
-  deckListReducer,
   deckAllListReducer,
-  deckDetailsReducer,
   deckCreateReducer,
   deckDeleteReducer,
+  deckDetailsReducer,
+  deckListReducer,
+  deckUpdateReducer,
 } from './reducers/deckReducers'
 import {
-  exerciseCreateReducer,
-  exerciseListReducer,
-  exerciseAllListReducer,
   exerciseAddCorrectAnswerReducer,
   exerciseAddWrongAnswerReducer,
+  exerciseAllListReducer,
+  exerciseCreateReducer,
   exerciseDetailsReducer,
+  exerciseListReducer,
 } from './reducers/exerciseReducers'
 
 const reducer = combineReducers({
@@ -65,6 +62,7 @@ const reducer = combineReducers({
   deckDetails: deckDetailsReducer,
   deckCreate: deckCreateReducer,
   deckDelete: deckDeleteReducer,
+  deckUpdate: deckUpdateReducer,
   exerciseCreate: exerciseCreateReducer,
   exerciseList: exerciseListReducer,
   exerciseAllList: exerciseAllListReducer,

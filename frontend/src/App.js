@@ -1,5 +1,5 @@
-import { Container } from 'react-bootstrap'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import {Container} from 'react-bootstrap'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -17,6 +17,7 @@ import CreateCategoryScreen from './screens/CreateCategoryScreen'
 import DecksListScreen from './screens/DecksListScreen'
 import DecksAllListScreen from './screens/DecksAllListScreen'
 import DeckScreen from './screens/DeckScreen'
+import DeckUpdateScreen from './screens/DeckUpdateScreen'
 import CreateDeckScreen from './screens/CreateDeckScreen'
 import CreateExerciseScreen from './screens/CreateExerciseScreen'
 import ExerciseReversedScreen from './screens/ExerciseReversedScreen'
@@ -53,7 +54,8 @@ function App() {
             <Route path="/decks" component={DecksListScreen} exact />
             <Route path="/admin/decks" component={DecksAllListScreen} />
             <Route path="/decks/create" component={CreateDeckScreen} />
-            <Route path="/decks/:id" component={DeckScreen} />
+            <Route path="/decks/:id" component={DeckScreen} exact />
+            <Route path="/decks/:id/update" component={DeckUpdateScreen} />
           </Switch>
 
           <Switch>
