@@ -135,22 +135,3 @@ export const deckUpdateReducer = (state = {}, action) => {
       return state
   }
 }
-
-export const deckUpdateReducer = (state = {}, action) => {
-  switch (action.type) {
-    case DECK_UPDATE_REQUEST:
-      return { loading: true }
-
-    case DECK_UPDATE_SUCCESS:
-      return { loading: false, success: true }
-
-    case DECK_UPDATE_FAIL:
-      return { loading: false, error: action.payload }
-
-    case DECK_UPDATE_RESET:
-      return {}
-
-    default:
-      return state
-  }
-}
