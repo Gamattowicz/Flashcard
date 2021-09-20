@@ -1,13 +1,16 @@
-from rest_framework.response import Response
+from random import sample
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, \
+    RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
-from .models import Word
+from rest_framework.response import Response
+
 from category.models import Category
 from decks.models import Deck
 from exercises.models import Exercise
+from .models import Word
 from .serializers import WordSerializer
-from random import sample
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class WordList(ListAPIView):
@@ -177,4 +180,22 @@ class WordUpdateWrongAnswer(UpdateAPIView):
         if serializer.is_valid():
             self.perform_update(serializer)
 
+        return Response(serializer.data)
+
+
+class WordUpdate(RetrieveUpdateAPIView):
+    queryset = Word.objects.all()
+    serializer_class = WordSerializer
+    permission_classes = [IsAuthenticated]
+
+    def partial_update(self, request, *args, **kwargs):
+        word = self.get_object()
+        data = request.data
+        word.question = data.get('question', word.question)
+        word.answer = data.get('answer', word.answer)
+        word.category = Category.objects.get(name=data.get('category', word.category.name))
+        word.deck = Deck.objects.get(name=data.get('deck', word.deck.name))
+
+        word.save()
+        serializer = self.serializer_class(word)
         return Response(serializer.data)
