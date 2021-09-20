@@ -17,6 +17,9 @@ const Word = ({ word }) => {
   const wordDelete = useSelector((state) => state.wordDelete)
   const { error, loading } = wordDelete
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   const deleteHandler = () => {
     dispatch(deleteWord(word.id))
     handleClose()

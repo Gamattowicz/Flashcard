@@ -1,23 +1,23 @@
 import axios from 'axios'
 import {
-  DECK_LIST_REQUEST,
-  DECK_LIST_SUCCESS,
-  DECK_LIST_FAIL,
-  DECK_ALL_LIST_REQUEST,
-  DECK_ALL_LIST_SUCCESS,
-  DECK_ALL_LIST_FAIL,
-  DECK_DETAILS_REQUEST,
-  DECK_DETAILS_SUCCESS,
-  DECK_DETAILS_FAIL,
-  DECK_CREATE_REQUEST,
-  DECK_CREATE_SUCCESS,
-  DECK_CREATE_FAIL,
-  DECK_DELETE_REQUEST,
-  DECK_DELETE_SUCCESS,
-  DECK_DELETE_FAIL,
-  DECK_UPDATE_REQUEST,
-  DECK_UPDATE_SUCCESS,
-  DECK_UPDATE_FAIL,
+    DECK_ALL_LIST_FAIL,
+    DECK_ALL_LIST_REQUEST,
+    DECK_ALL_LIST_SUCCESS,
+    DECK_CREATE_FAIL,
+    DECK_CREATE_REQUEST,
+    DECK_CREATE_SUCCESS,
+    DECK_DELETE_FAIL,
+    DECK_DELETE_REQUEST,
+    DECK_DELETE_SUCCESS,
+    DECK_DETAILS_FAIL,
+    DECK_DETAILS_REQUEST,
+    DECK_DETAILS_SUCCESS,
+    DECK_LIST_FAIL,
+    DECK_LIST_REQUEST,
+    DECK_LIST_SUCCESS,
+    DECK_UPDATE_FAIL,
+    DECK_UPDATE_REQUEST,
+    DECK_UPDATE_SUCCESS,
 } from '../constants/deckConstants'
 
 export const listDecks =
@@ -141,11 +141,22 @@ export const createDeck = (name) => async (dispatch, getState) => {
   }
 }
 
-export const deleteDeck = (id) => async (dispatch) => {
+export const deleteDeck = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: DECK_DELETE_REQUEST })
 
-    const { data } = await axios.delete(`/decks/${id}/delete`)
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.delete(`/decks/${id}/delete`, config)
 
     dispatch({
       type: DECK_DELETE_SUCCESS,
