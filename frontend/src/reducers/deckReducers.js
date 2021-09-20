@@ -69,7 +69,7 @@ export const deckDetailsReducer = (state = { deck: {} }, action) => {
       return { loading: true, ...state }
 
     case DECK_DETAILS_SUCCESS:
-      return { loading: false, deck: action.payload }
+      return { loading: false, success: true, deck: action.payload }
 
     case DECK_DETAILS_FAIL:
       return { loading: false, error: action.payload }
@@ -117,7 +117,7 @@ export const deckDeleteReducer = (state = {}, action) => {
   }
 }
 
-export const deckUpdateReducer = (state = {}, action) => {
+export const deckUpdateReducer = (state = { deck: {} }, action) => {
   switch (action.type) {
     case DECK_UPDATE_REQUEST:
       return { loading: true }
@@ -129,7 +129,7 @@ export const deckUpdateReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
 
     case DECK_UPDATE_RESET:
-      return {}
+      return { deck: {} }
 
     default:
       return state

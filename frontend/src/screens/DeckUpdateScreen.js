@@ -10,30 +10,36 @@ import {DECK_UPDATE_RESET} from '../constants/deckConstants'
 
 const DeckUpdateScreen = ({ match, history }) => {
   const [name, setName] = useState('')
+  const [loaded, setLoaded] = useState(false)
 
   const dispatch = useDispatch()
 
   const deckDetails = useSelector((state) => state.deckDetails)
-  const { error, loading, deck } = deckDetails
+  const { error, loading, deck, success } = deckDetails
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
   const deckUpdate = useSelector((state) => state.deckUpdate)
-  const { success } = deckUpdate
+  const { success: successDeckUpdate } = deckUpdate
 
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')
+    }
+    if (successDeckUpdate) {
+      dispatch({ type: DECK_UPDATE_RESET })
+      setLoaded(false)
+      history.push('/decks')
     } else {
-      if (!deck || !deck.name || success) {
-        dispatch({ type: DECK_UPDATE_RESET })
+      if (!success || !loaded) {
         dispatch(listDeckDetails(match.params.id))
+        setLoaded(true)
       } else {
         setName(deck.name)
       }
     }
-  }, [dispatch, history, userInfo, deck, success])
+  }, [dispatch, history, userInfo, deck, success, successDeckUpdate])
 
   const submitHandler = (e) => {
     e.preventDefault()
