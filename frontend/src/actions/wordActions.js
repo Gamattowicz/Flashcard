@@ -213,7 +213,7 @@ export const addExerciseWord = (word) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.put(
+    const { data } = await axios.patch(
       `/words/${word.id}/add-exercise/`,
       word,
       config
@@ -249,7 +249,7 @@ export const addCorrectAnswerWord = (word) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.put(
+    const { data } = await axios.patch(
       `/words/${word.id}/correct-answer/`,
       word,
       config
@@ -285,7 +285,7 @@ export const addWrongAnswerWord = (word) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.put(
+    const { data } = await axios.patch(
       `/words/${word.id}/wrong-answer/`,
       word,
       config
