@@ -1,38 +1,40 @@
 import {
-    WORD_ADD_CORRECT_ANSWER_FAIL,
-    WORD_ADD_CORRECT_ANSWER_REQUEST,
-    WORD_ADD_CORRECT_ANSWER_SUCCESS,
-    WORD_ADD_EXERCISE_FAIL,
-    WORD_ADD_EXERCISE_REQUEST,
-    WORD_ADD_EXERCISE_SUCCESS,
-    WORD_ADD_WRONG_ANSWER_FAIL,
-    WORD_ADD_WRONG_ANSWER_REQUEST,
-    WORD_ADD_WRONG_ANSWER_SUCCESS,
-    WORD_ALL_LIST_FAIL,
-    WORD_ALL_LIST_REQUEST,
-    WORD_ALL_LIST_SUCCESS,
-    WORD_CREATE_FAIL,
-    WORD_CREATE_REQUEST,
-    WORD_CREATE_RESET,
-    WORD_CREATE_SUCCESS,
-    WORD_DELETE_FAIL,
-    WORD_DELETE_REQUEST,
-    WORD_DELETE_SUCCESS,
-    WORD_DETAILS_FAIL,
-    WORD_DETAILS_REQUEST,
-    WORD_DETAILS_SUCCESS,
-    WORD_DRAW_FAIL,
-    WORD_DRAW_REQUEST,
-    WORD_DRAW_SUCCESS,
-    WORD_LIST_DECK_FAIL,
-    WORD_LIST_DECK_REQUEST,
-    WORD_LIST_DECK_SUCCESS,
-    WORD_LIST_FAIL,
-    WORD_LIST_REQUEST,
-    WORD_LIST_SUCCESS,
-    WORD_UPDATE_FAIL,
-    WORD_UPDATE_REQUEST,
-    WORD_UPDATE_SUCCESS,
+  WORD_ADD_CORRECT_ANSWER_FAIL,
+  WORD_ADD_CORRECT_ANSWER_REQUEST,
+  WORD_ADD_CORRECT_ANSWER_SUCCESS,
+  WORD_ADD_EXERCISE_FAIL,
+  WORD_ADD_EXERCISE_REQUEST,
+  WORD_ADD_EXERCISE_SUCCESS,
+  WORD_ADD_WRONG_ANSWER_FAIL,
+  WORD_ADD_WRONG_ANSWER_REQUEST,
+  WORD_ADD_WRONG_ANSWER_SUCCESS,
+  WORD_ALL_LIST_FAIL,
+  WORD_ALL_LIST_REQUEST,
+  WORD_ALL_LIST_SUCCESS,
+  WORD_CREATE_FAIL,
+  WORD_CREATE_REQUEST,
+  WORD_CREATE_RESET,
+  WORD_CREATE_SUCCESS,
+  WORD_DELETE_FAIL,
+  WORD_DELETE_REQUEST,
+  WORD_DELETE_SUCCESS,
+  WORD_DETAILS_FAIL,
+  WORD_DETAILS_REQUEST,
+  WORD_DETAILS_RESET,
+  WORD_DETAILS_SUCCESS,
+  WORD_DRAW_FAIL,
+  WORD_DRAW_REQUEST,
+  WORD_DRAW_SUCCESS,
+  WORD_LIST_DECK_FAIL,
+  WORD_LIST_DECK_REQUEST,
+  WORD_LIST_DECK_SUCCESS,
+  WORD_LIST_FAIL,
+  WORD_LIST_REQUEST,
+  WORD_LIST_SUCCESS,
+  WORD_UPDATE_FAIL,
+  WORD_UPDATE_REQUEST,
+  WORD_UPDATE_RESET,
+  WORD_UPDATE_SUCCESS,
 } from '../constants/wordConstants'
 
 export const wordListReducer = (state = { words: [] }, action) => {
@@ -104,10 +106,13 @@ export const wordDetailsReducer = (state = { word: {} }, action) => {
       return { loading: true, ...state }
 
     case WORD_DETAILS_SUCCESS:
-      return { loading: false, word: action.payload }
+      return { loading: false, success: true, word: action.payload }
 
     case WORD_DETAILS_FAIL:
       return { loading: false, error: action.payload }
+
+    case WORD_DETAILS_RESET:
+      return {}
 
     default:
       return state
@@ -216,7 +221,7 @@ export const wordDeleteReducer = (state = {}, action) => {
   }
 }
 
-export const wordUpdateReducer = (state = {}, action) => {
+export const wordUpdateReducer = (state = { word: {} }, action) => {
   switch (action.type) {
     case WORD_UPDATE_REQUEST:
       return { loading: true }
@@ -226,6 +231,9 @@ export const wordUpdateReducer = (state = {}, action) => {
 
     case WORD_UPDATE_FAIL:
       return { loading: false, error: action.payload }
+
+    case WORD_UPDATE_RESET:
+      return { word: {} }
 
     default:
       return state

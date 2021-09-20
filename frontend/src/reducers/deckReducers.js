@@ -66,7 +66,7 @@ export const deckAllListReducer = (state = { decks: [] }, action) => {
 export const deckDetailsReducer = (state = { deck: {} }, action) => {
   switch (action.type) {
     case DECK_DETAILS_REQUEST:
-      return { loading: true }
+      return { loading: true, ...state }
 
     case DECK_DETAILS_SUCCESS:
       return { loading: false, deck: action.payload }

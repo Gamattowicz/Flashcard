@@ -32,7 +32,9 @@ const Word = ({ word }) => {
             <Link to={`/words/${word.id}`}>{word.question}</Link>
           </Col>
           <Col md={2}>
-            <i class="fas fa-edit text-primary"></i>
+            <Link to={`/words/${word.id}/update`}>
+              <i class="fas fa-edit text-primary"></i>
+            </Link>
           </Col>
           <Col md={2}>
             <i class="fas fa-trash text-warning" onClick={handleShow}></i>

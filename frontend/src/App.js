@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import WordsListScreen from './screens/WordsListScreen'
 import WordsAllListScreen from './screens/WordsAllListScreen'
 import WordScreen from './screens/WordScreen'
+import WordUpdateScreen from './screens/WordUpdateScreen'
 import CreateWordScreen from './screens/CreateWordScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
@@ -38,7 +39,8 @@ function App() {
             <Route path="/words" component={WordsListScreen} exact />
             <Route path="/admin/words/" component={WordsAllListScreen} />
             <Route path="/words/create" component={CreateWordScreen} />
-            <Route path="/words/:id" component={WordScreen} />
+            <Route path="/words/:id" component={WordScreen} exact />
+            <Route path="/words/:id/update" component={WordUpdateScreen} />
           </Switch>
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
