@@ -1,8 +1,8 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
-import { logout } from '../actions/userActions'
+import {useDispatch, useSelector} from 'react-redux'
+import {Container, Nav, Navbar, NavDropdown} from 'react-bootstrap'
+import {LinkContainer} from 'react-router-bootstrap'
+import {logout} from '../actions/userActions'
 
 const Header = () => {
   const userLogin = useSelector((state) => state.userLogin)
@@ -77,7 +77,7 @@ const Header = () => {
                 </>
               )}
 
-              {userInfo && userInfo.isAdmin && (
+              {userInfo && userInfo.is_admin && (
                 <NavDropdown title="ADMIN" id="adminMenu">
                   <LinkContainer to="/admin/usersList">
                     <NavDropdown.Item>Users</NavDropdown.Item>
