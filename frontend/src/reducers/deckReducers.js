@@ -1,24 +1,25 @@
 import {
-  DECK_ALL_LIST_FAIL,
-  DECK_ALL_LIST_REQUEST,
-  DECK_ALL_LIST_SUCCESS,
-  DECK_CREATE_FAIL,
-  DECK_CREATE_REQUEST,
-  DECK_CREATE_RESET,
-  DECK_CREATE_SUCCESS,
-  DECK_DELETE_FAIL,
-  DECK_DELETE_REQUEST,
-  DECK_DELETE_SUCCESS,
-  DECK_DETAILS_FAIL,
-  DECK_DETAILS_REQUEST,
-  DECK_DETAILS_SUCCESS,
-  DECK_LIST_FAIL,
-  DECK_LIST_REQUEST,
-  DECK_LIST_SUCCESS,
-  DECK_UPDATE_FAIL,
-  DECK_UPDATE_REQUEST,
-  DECK_UPDATE_RESET,
-  DECK_UPDATE_SUCCESS,
+    DECK_ALL_LIST_FAIL,
+    DECK_ALL_LIST_REQUEST,
+    DECK_ALL_LIST_SUCCESS,
+    DECK_CREATE_FAIL,
+    DECK_CREATE_REQUEST,
+    DECK_CREATE_RESET,
+    DECK_CREATE_SUCCESS,
+    DECK_DELETE_FAIL,
+    DECK_DELETE_REQUEST,
+    DECK_DELETE_RESET,
+    DECK_DELETE_SUCCESS,
+    DECK_DETAILS_FAIL,
+    DECK_DETAILS_REQUEST,
+    DECK_DETAILS_SUCCESS,
+    DECK_LIST_FAIL,
+    DECK_LIST_REQUEST,
+    DECK_LIST_SUCCESS,
+    DECK_UPDATE_FAIL,
+    DECK_UPDATE_REQUEST,
+    DECK_UPDATE_RESET,
+    DECK_UPDATE_SUCCESS,
 } from '../constants/deckConstants'
 
 export const deckListReducer = (state = { decks: [] }, action) => {
@@ -98,7 +99,7 @@ export const deckCreateReducer = (state = {}, action) => {
   }
 }
 
-export const deckDeleteReducer = (state = {}, action) => {
+export const deckDeleteReducer = (state = { deck: {} }, action) => {
   switch (action.type) {
     case DECK_DELETE_REQUEST:
       return { loading: true }
@@ -111,6 +112,9 @@ export const deckDeleteReducer = (state = {}, action) => {
 
     case DECK_DELETE_FAIL:
       return { loading: false, error: action.payload }
+
+    case DECK_DELETE_RESET:
+      return { deck: {} }
 
     default:
       return state

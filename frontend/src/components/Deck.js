@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Button, Card, Col, Modal, Row} from 'react-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {deleteDeck} from '../actions/deckActions'
+import {DECK_DELETE_RESET} from '../constants/deckConstants'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -15,12 +16,20 @@ const Deck = ({ deck }) => {
   const dispatch = useDispatch()
 
   const deckDelete = useSelector((state) => state.deckDelete)
-  const { error, loading } = deckDelete
+  const { error, loading, success } = deckDelete
+
+  useEffect(() => {
+    if (success) {
+      window.location.reload()
+      dispatch({ type: DECK_DELETE_RESET })
+    }
+  }, [success])
 
   const deleteHandler = () => {
     dispatch(deleteDeck(deck.id))
     handleClose()
   }
+
   return (
     <>
       {error && <Message variant="danger">{error}</Message>}

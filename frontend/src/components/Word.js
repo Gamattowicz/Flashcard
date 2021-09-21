@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Button, Card, Col, Modal, Row} from 'react-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {deleteWord} from '../actions/wordActions'
+import {WORD_DELETE_RESET} from '../constants/wordConstants'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -15,10 +16,14 @@ const Word = ({ word }) => {
   const dispatch = useDispatch()
 
   const wordDelete = useSelector((state) => state.wordDelete)
-  const { error, loading } = wordDelete
+  const { error, loading, success } = wordDelete
 
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  useEffect(() => {
+    if (success) {
+      window.location.reload()
+      dispatch({ type: WORD_DELETE_RESET })
+    }
+  }, [success])
 
   const deleteHandler = () => {
     dispatch(deleteWord(word.id))
