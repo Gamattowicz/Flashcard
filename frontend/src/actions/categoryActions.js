@@ -1,14 +1,17 @@
 import axios from 'axios'
 import {
-  CATEGORY_LIST_REQUEST,
-  CATEGORY_LIST_SUCCESS,
-  CATEGORY_LIST_FAIL,
-  CATEGORY_DETAILS_REQUEST,
-  CATEGORY_DETAILS_SUCCESS,
-  CATEGORY_DETAILS_FAIL,
+  CATEGORY_CREATE_FAIL,
   CATEGORY_CREATE_REQUEST,
   CATEGORY_CREATE_SUCCESS,
-  CATEGORY_CREATE_FAIL,
+  CATEGORY_DELETE_FAIL,
+  CATEGORY_DELETE_REQUEST,
+  CATEGORY_DELETE_SUCCESS,
+  CATEGORY_DETAILS_FAIL,
+  CATEGORY_DETAILS_REQUEST,
+  CATEGORY_DETAILS_SUCCESS,
+  CATEGORY_LIST_FAIL,
+  CATEGORY_LIST_REQUEST,
+  CATEGORY_LIST_SUCCESS,
 } from '../constants/categoryConstants'
 
 export const listCategories =
@@ -82,6 +85,38 @@ export const createCategory = (name, color) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: CATEGORY_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    })
+  }
+}
+
+export const deleteCategory = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: CATEGORY_DELETE_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.delete(`/category/${id}/delete`, config)
+
+    dispatch({
+      type: CATEGORY_DELETE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: CATEGORY_DELETE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
