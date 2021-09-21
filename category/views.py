@@ -1,9 +1,10 @@
-from rest_framework.response import Response
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
+from rest_framework.response import Response
+
 from .models import Category
 from .serializers import CategorySerializer
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class CategoryList(ListAPIView):
@@ -35,5 +36,11 @@ class CategoryDetail(RetrieveAPIView):
 
 
 class CategoryCreate(CreateAPIView):
+    serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticated]
+
+
+class CategoryDelete(DestroyAPIView):
+    queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticated]
