@@ -26,6 +26,7 @@ import {
   categoryDeleteReducer,
   categoryDetailsReducer,
   categoryListReducer,
+  categoryUpdateReducer,
 } from './reducers/categoryReducers'
 import {
   deckAllListReducer,
@@ -65,6 +66,7 @@ const reducer = combineReducers({
   categoryDetails: categoryDetailsReducer,
   categoryCreate: categoryCreateReducer,
   categoryDelete: categoryDeleteReducer,
+  categoryUpdate: categoryUpdateReducer,
   deckList: deckListReducer,
   deckAllList: deckAllListReducer,
   deckDetails: deckDetailsReducer,

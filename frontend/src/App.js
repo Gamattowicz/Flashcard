@@ -15,6 +15,7 @@ import UserScreen from './screens/UserScreen'
 import CategoryListScreen from './screens/CategoryListScreen'
 import CategoryScreen from './screens/CategoryScreen'
 import CreateCategoryScreen from './screens/CreateCategoryScreen'
+import CategoryUpdateScreen from './screens/CategoryUpdateScreen'
 import DecksListScreen from './screens/DecksListScreen'
 import DecksAllListScreen from './screens/DecksAllListScreen'
 import DeckScreen from './screens/DeckScreen'
@@ -49,7 +50,11 @@ function App() {
           <Route path="/admin/user/:id" component={UserScreen} />
           <Switch>
             <Route path="/category/create" component={CreateCategoryScreen} />
-            <Route path="/category/:id" component={CategoryScreen} />
+            <Route path="/category/:id" component={CategoryScreen} exact />
+            <Route
+              path="/category/:id/update"
+              component={CategoryUpdateScreen}
+            />
           </Switch>
 
           <Switch>
