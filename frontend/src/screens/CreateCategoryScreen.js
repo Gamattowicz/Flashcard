@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import React, {useEffect, useState} from 'react'
+import {Button, Col, Form, Row} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import FormContainer from '../components/FormContainer'
-import { createCategory } from '../actions/categoryActions'
-import { CATEGORY_CREATE_RESET } from '../constants/categoryConstants'
-import { ChromePicker } from 'react-color'
+import {createCategory} from '../actions/categoryActions'
+import {CATEGORY_CREATE_RESET} from '../constants/categoryConstants'
+import {ChromePicker} from 'react-color'
 
 const CreateCategoryScreen = ({ history }) => {
   const [name, setName] = useState('')
@@ -68,9 +68,10 @@ const CreateCategoryScreen = ({ history }) => {
           <Button
             type="submit"
             variant="warning my-3"
-            onClick={() =>
+            onClick={(e) => {
+              e.preventDefault()
               setShowColorPicker((showColorPicker) => !showColorPicker)
-            }
+            }}
           >
             {showColorPicker ? 'Close color picker' : 'Pick a color'}
           </Button>
