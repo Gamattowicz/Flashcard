@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import MyTokenObtainPairView, UserList, UserProfileUpdate, UserProfile, UserCreate, UserDetail
+
+from .views import MyTokenObtainPairView, UserList, UserProfileUpdate, UserProfile, UserCreate, UserDetail, UserDelete
 
 urlpatterns = [
     path('', UserList.as_view(), name='users'),
@@ -8,4 +9,5 @@ urlpatterns = [
     path('profile/', UserProfile.as_view(), name='user_profile'),
     path('profile/update/', UserProfileUpdate.as_view(), name='user_profile_update'),
     path('<str:pk>/', UserDetail.as_view(), name='user'),
+    path('<str:pk>/delete', UserDelete.as_view(), name='user_delete'),
 ]
