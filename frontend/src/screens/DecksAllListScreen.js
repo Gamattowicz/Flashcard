@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col } from 'react-bootstrap'
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Col, Row} from 'react-bootstrap'
 import Deck from '../components/Deck'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { listAllDecks } from '../actions/deckActions'
+import {listAllDecks} from '../actions/deckActions'
 import Paginate from '../components/Paginate'
 
 const DecksAllListScreen = ({ history }) => {
@@ -19,7 +19,7 @@ const DecksAllListScreen = ({ history }) => {
   }, [dispatch, history, keyword])
 
   return (
-    <div>
+    <>
       <h1>All Decks</h1>
 
       {loading ? (
@@ -27,8 +27,15 @@ const DecksAllListScreen = ({ history }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <div>
+        <>
           <Row>
+            {decks.length <= 0 && (
+              <div>
+                <h3 className="text-warning fw-bold text-center text-uppercase">
+                  No decks
+                </h3>
+              </div>
+            )}
             {decks.map((deck) => (
               <Col key={deck.id} sm={12} md={6} lg={4} xl={3}>
                 <Deck deck={deck} />
@@ -36,9 +43,9 @@ const DecksAllListScreen = ({ history }) => {
             ))}
           </Row>
           <Paginate pages={pages} page={page} path={'/admin/decks'} />
-        </div>
+        </>
       )}
-    </div>
+    </>
   )
 }
 

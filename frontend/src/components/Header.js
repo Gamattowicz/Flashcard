@@ -32,7 +32,7 @@ const Header = () => {
 
                   <NavDropdown title="WORD" id="word">
                     <LinkContainer to="/words">
-                      <NavDropdown.Item>List of words</NavDropdown.Item>
+                      <NavDropdown.Item>Word list</NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Divider />
                     <LinkContainer to="/words/create">
@@ -42,7 +42,7 @@ const Header = () => {
 
                   <NavDropdown title="DECK" id="deck">
                     <LinkContainer to="/decks">
-                      <NavDropdown.Item>List of decks</NavDropdown.Item>
+                      <NavDropdown.Item>Deck list</NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Divider />
                     <LinkContainer to="/decks/create">

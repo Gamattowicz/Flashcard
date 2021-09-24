@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col } from 'react-bootstrap'
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Col, Row} from 'react-bootstrap'
 import User from '../components/User'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { listUsers } from '../actions/userActions'
+import {listUsers} from '../actions/userActions'
 import Paginate from '../components/Paginate'
 
 const UsersListScreen = ({ history }) => {
@@ -19,7 +19,7 @@ const UsersListScreen = ({ history }) => {
   }, [dispatch, history, keyword])
 
   return (
-    <div>
+    <>
       <h1>Users</h1>
 
       {loading ? (
@@ -27,8 +27,15 @@ const UsersListScreen = ({ history }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <div>
+        <>
           <Row>
+            {users.length <= 0 && (
+              <div>
+                <h3 className="text-warning fw-bold text-center text-uppercase">
+                  No users
+                </h3>
+              </div>
+            )}
             {users.map((user) => (
               <Col key={user.id} sm={12} md={6} lg={4} xl={3}>
                 <User user={user} />
@@ -36,9 +43,9 @@ const UsersListScreen = ({ history }) => {
             ))}
           </Row>
           <Paginate pages={pages} page={page} path={'/admin/usersList'} />
-        </div>
+        </>
       )}
-    </div>
+    </>
   )
 }
 
