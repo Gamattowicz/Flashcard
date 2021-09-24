@@ -30,28 +30,36 @@ const Header = () => {
                     </Nav.Link>
                   </LinkContainer>
 
-                  <NavDropdown title="VOCABULARY" id="vocabulary">
+                  <NavDropdown title="WORD" id="word">
                     <LinkContainer to="/words">
                       <NavDropdown.Item>List of words</NavDropdown.Item>
                     </LinkContainer>
+                    <NavDropdown.Divider />
                     <LinkContainer to="/words/create">
                       <NavDropdown.Item>Create word</NavDropdown.Item>
                     </LinkContainer>
-                    <NavDropdown.Divider />
-                    <LinkContainer to="/category">
-                      <NavDropdown.Item>List of categories</NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to="/category/create">
-                      <NavDropdown.Item>Create category</NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Divider />
+                  </NavDropdown>
+
+                  <NavDropdown title="DECK" id="deck">
                     <LinkContainer to="/decks">
                       <NavDropdown.Item>List of decks</NavDropdown.Item>
                     </LinkContainer>
+                    <NavDropdown.Divider />
                     <LinkContainer to="/decks/create">
                       <NavDropdown.Item>Create deck</NavDropdown.Item>
                     </LinkContainer>
                   </NavDropdown>
+
+                  <NavDropdown title="CATEGORY" id="category">
+                    <LinkContainer to="/category">
+                      <NavDropdown.Item>Category list</NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Divider />
+                    <LinkContainer to="/category/create">
+                      <NavDropdown.Item>Create category</NavDropdown.Item>
+                    </LinkContainer>
+                  </NavDropdown>
+
                   <NavDropdown title={userInfo.username} id="username">
                     <LinkContainer to="/profile">
                       <NavDropdown.Item>Profile</NavDropdown.Item>
@@ -82,12 +90,15 @@ const Header = () => {
                   <LinkContainer to="/admin/usersList">
                     <NavDropdown.Item>Users</NavDropdown.Item>
                   </LinkContainer>
+                  <NavDropdown.Divider />
                   <LinkContainer to="/admin/words">
                     <NavDropdown.Item>Words</NavDropdown.Item>
                   </LinkContainer>
+                  <NavDropdown.Divider />
                   <LinkContainer to="/admin/exercises">
                     <NavDropdown.Item>Exercises</NavDropdown.Item>
                   </LinkContainer>
+                  <NavDropdown.Divider />
                   <LinkContainer to="/admin/decks">
                     <NavDropdown.Item>Decks</NavDropdown.Item>
                   </LinkContainer>
