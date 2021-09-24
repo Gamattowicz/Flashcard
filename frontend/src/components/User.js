@@ -40,7 +40,7 @@ const User = ({ user }) => {
             <Link to={`/admin/user/${user.id}`}>{user.username}</Link>
           </Col>
           <Col md={2}>
-            <Link to={`/users/${user.id}/update`}>
+            <Link to={`/admin/user/${user.id}/update`}>
               <i class="fas fa-edit text-primary"></i>
             </Link>
           </Col>
