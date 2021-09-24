@@ -18,6 +18,9 @@ const Deck = ({ deck }) => {
   const deckDelete = useSelector((state) => state.deckDelete)
   const { error, loading, success } = deckDelete
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
     if (success) {
       window.location.reload()
@@ -34,7 +37,7 @@ const Deck = ({ deck }) => {
     <>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
-      <Card className="my-3 p-3 rounded text-center">
+      <Card className="my-3 p-3 rounded text-start">
         <Row>
           <Col md={8}>
             <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
@@ -73,6 +76,13 @@ const Deck = ({ deck }) => {
             </Modal>
           </Col>
         </Row>
+        {userInfo.is_admin && (
+          <Row>
+            <Link to={`/admin/user/${deck.user_id}`}>
+              <small className="text-start">User: {deck.user_name}</small>
+            </Link>
+          </Row>
+        )}
       </Card>
     </>
   )

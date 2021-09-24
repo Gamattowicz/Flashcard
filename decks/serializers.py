@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from .models import Deck
+
 from words.models import Word
+from .models import Deck
 
 
 class DeckSerializer(serializers.ModelSerializer):
@@ -9,3 +10,9 @@ class DeckSerializer(serializers.ModelSerializer):
     class Meta:
         model = Deck
         fields = ('id', 'name', 'words_id')
+
+    def to_representation(self, instance):
+        rep = super(DeckSerializer, self).to_representation(instance)
+        rep['user_name'] = instance.user.username
+        rep['user_id'] = instance.user.id
+        return rep

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import Exercise
 
 
@@ -13,4 +14,6 @@ class ExerciseSerializer(serializers.ModelSerializer):
         rep = super(ExerciseSerializer, self).to_representation(instance)
         rep['deck'] = instance.deck.name
         rep['deck_id'] = instance.deck.id
+        rep['user_name'] = instance.user.username
+        rep['user_id'] = instance.user.id
         return rep

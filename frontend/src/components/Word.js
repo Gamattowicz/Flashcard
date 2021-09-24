@@ -18,6 +18,9 @@ const Word = ({ word }) => {
   const wordDelete = useSelector((state) => state.wordDelete)
   const { error, loading, success } = wordDelete
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
     if (success) {
       window.location.reload()
@@ -34,7 +37,7 @@ const Word = ({ word }) => {
     <>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
-      <Card className="my-3 p-3 rounded text-center">
+      <Card className="my-3 p-3 rounded text-start">
         <Row>
           <Col md={8}>
             <Link to={`/words/${word.id}`}>{word.question}</Link>
@@ -73,6 +76,13 @@ const Word = ({ word }) => {
             </Modal>
           </Col>
         </Row>
+        {userInfo.is_admin && (
+          <Row>
+            <Link to={`/admin/user/${word.user_id}`}>
+              <small className="text-start">User: {word.user_name}</small>
+            </Link>
+          </Row>
+        )}
       </Card>
     </>
   )
