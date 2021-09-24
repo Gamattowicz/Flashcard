@@ -12,6 +12,8 @@ import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import UserScreen from './screens/UserScreen'
+import UsersListScreen from './screens/UsersListScreen'
+import UserUpdateScreen from './screens/UserUpdateScreen'
 import CategoryListScreen from './screens/CategoryListScreen'
 import CategoryScreen from './screens/CategoryScreen'
 import CreateCategoryScreen from './screens/CreateCategoryScreen'
@@ -28,7 +30,6 @@ import ExercisesListScreen from './screens/ExercisesListScreen'
 import ExercisesAllListScreen from './screens/ExercisesAllListScreen'
 import ExerciseDetailsScreen from './screens/ExerciseDetailsScreen'
 import EndExerciseScreen from './screens/EndExerciseScreen'
-import UsersListScreen from './screens/UsersListScreen'
 
 function App() {
   return (
@@ -47,7 +48,8 @@ function App() {
           <Route path="/register" component={RegisterScreen} />
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/category" component={CategoryListScreen} exact />
-          <Route path="/admin/user/:id" component={UserScreen} />
+          <Route path="/admin/user/:id" component={UserScreen} exact />
+          <Route path="/admin/user/:id/update" component={UserUpdateScreen} />
           <Switch>
             <Route path="/category/create" component={CreateCategoryScreen} />
             <Route path="/category/:id" component={CategoryScreen} exact />
