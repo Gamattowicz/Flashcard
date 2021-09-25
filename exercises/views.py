@@ -1,10 +1,11 @@
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.response import Response
+
+from decks.models import Deck
 from .models import Exercise
 from .serializers import ExerciseSerializer
-from decks.models import Deck
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class ExerciseList(ListAPIView):
@@ -112,4 +113,19 @@ class ExerciseUpdateWrongAnswer(UpdateAPIView):
         if serializer.is_valid():
             self.perform_update(serializer)
 
+        return Response(serializer.data)
+
+
+class ExerciseUpdateTime(UpdateAPIView):
+    queryset = Exercise.objects.all()
+    serializer_class = ExerciseSerializer
+    permission_classes = [IsAuthenticated]
+
+    def partial_update(self, request, *args, **kwargs):
+        exercise = self.get_object()
+        data = request.data
+        exercise.time = data.get('time', exercise.time)
+
+        exercise.save()
+        serializer = self.serializer_class(exercise)
         return Response(serializer.data)
