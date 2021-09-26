@@ -1,5 +1,5 @@
-from rest_framework import serializers
 from django.contrib.auth.models import User
+from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
@@ -13,20 +13,24 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'email', 'name', 'is_admin', 'last_login', 'date_joined']
 
-    def get_is_admin(self, obj):
+    @classmethod
+    def get_is_admin(cls, obj):
         return obj.is_staff
 
-    def get_name(self, obj):
+    @classmethod
+    def get_name(cls, obj):
         name = obj.first_name
         if name == '':
             name = obj.email
         return name
 
-    def get_last_login(self, obj):
+    @classmethod
+    def get_last_login(cls, obj):
         if obj.last_login:
             return obj.last_login.strftime('%d-%m-%Y %a %H:%M:%S')
 
-    def get_date_joined(self, obj):
+    @classmethod
+    def get_date_joined(cls, obj):
         return obj.date_joined.strftime('%d-%m-%Y %a %H:%M:%S')
 
 
@@ -37,6 +41,7 @@ class UserSerializerWithToken(UserSerializer):
         model = User
         fields = ['id', 'username', 'email', 'name', 'is_admin', 'last_login','date_joined', 'token']
 
-    def get_token(self, obj):
+    @classmethod
+    def get_token(cls, obj):
         token = RefreshToken.for_user(obj)
         return str(token.access_token)

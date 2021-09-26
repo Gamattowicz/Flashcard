@@ -1,5 +1,5 @@
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, update_last_login
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, \
@@ -19,6 +19,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         serializer = UserSerializerWithToken(self.user).data
         for k, v in serializer.items():
             data[k] = v
+
+        update_last_login(None, self.user)
 
         return data
 
