@@ -45,6 +45,7 @@ import {
   exerciseCreateReducer,
   exerciseDetailsReducer,
   exerciseListReducer,
+  exerciseUpdateTimeReducer,
 } from './reducers/exerciseReducers'
 
 const reducer = combineReducers({
@@ -83,6 +84,7 @@ const reducer = combineReducers({
   exerciseAddCorrectAnswer: exerciseAddCorrectAnswerReducer,
   exerciseAddWrongAnswer: exerciseAddWrongAnswerReducer,
   exerciseDetails: exerciseDetailsReducer,
+  exerciseUpdateTime: exerciseUpdateTimeReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

@@ -1,23 +1,26 @@
 import {
-  EXERCISE_CREATE_REQUEST,
-  EXERCISE_CREATE_SUCCESS,
-  EXERCISE_CREATE_FAIL,
-  EXERCISE_CREATE_RESET,
+  EXERCISE_ADD_CORRECT_ANSWER_FAIL,
   EXERCISE_ADD_CORRECT_ANSWER_REQUEST,
   EXERCISE_ADD_CORRECT_ANSWER_SUCCESS,
-  EXERCISE_ADD_CORRECT_ANSWER_FAIL,
+  EXERCISE_ADD_WRONG_ANSWER_FAIL,
   EXERCISE_ADD_WRONG_ANSWER_REQUEST,
   EXERCISE_ADD_WRONG_ANSWER_SUCCESS,
-  EXERCISE_ADD_WRONG_ANSWER_FAIL,
-  EXERCISE_LIST_REQUEST,
-  EXERCISE_LIST_SUCCESS,
-  EXERCISE_LIST_FAIL,
+  EXERCISE_ALL_LIST_FAIL,
   EXERCISE_ALL_LIST_REQUEST,
   EXERCISE_ALL_LIST_SUCCESS,
-  EXERCISE_ALL_LIST_FAIL,
+  EXERCISE_CREATE_FAIL,
+  EXERCISE_CREATE_REQUEST,
+  EXERCISE_CREATE_RESET,
+  EXERCISE_CREATE_SUCCESS,
+  EXERCISE_DETAILS_FAIL,
   EXERCISE_DETAILS_REQUEST,
   EXERCISE_DETAILS_SUCCESS,
-  EXERCISE_DETAILS_FAIL,
+  EXERCISE_LIST_FAIL,
+  EXERCISE_LIST_REQUEST,
+  EXERCISE_LIST_SUCCESS,
+  EXERCISE_UPDATE_TIME_FAIL,
+  EXERCISE_UPDATE_TIME_REQUEST,
+  EXERCISE_UPDATE_TIME_SUCCESS,
 } from '../constants/exerciseConstants'
 
 export const exerciseCreateReducer = (state = {}, action) => {
@@ -122,6 +125,22 @@ export const exerciseDetailsReducer = (state = { exercise: {} }, action) => {
       return { loading: false, exercise: action.payload }
 
     case EXERCISE_DETAILS_FAIL:
+      return { loading: false, error: action.payload }
+
+    default:
+      return state
+  }
+}
+
+export const exerciseUpdateTimeReducer = (state = {}, action) => {
+  switch (action.type) {
+    case EXERCISE_UPDATE_TIME_REQUEST:
+      return { loading: true }
+
+    case EXERCISE_UPDATE_TIME_SUCCESS:
+      return { loading: false, success: true, userInfo: action.payload }
+
+    case EXERCISE_UPDATE_TIME_FAIL:
       return { loading: false, error: action.payload }
 
     default:

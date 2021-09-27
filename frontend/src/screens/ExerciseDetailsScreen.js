@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { Row, Col, ListGroup, Card } from 'react-bootstrap'
-import { listExerciseDetails } from '../actions/exerciseActions'
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
+import {Card, Col, ListGroup, Row} from 'react-bootstrap'
+import {listExerciseDetails} from '../actions/exerciseActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import ExerciseChart from '../components/ExerciseChart'
@@ -64,7 +64,9 @@ const ExerciseDetailsScreen = ({ match, history }) => {
                   <Col md={2}>
                     <strong>Start date</strong>
                   </Col>
-                  <Col md={4} className="text-center"></Col>
+                  <Col md={4} className="text-center">
+                    {exercise.created_at}
+                  </Col>
                 </Row>
               </Card.Footer>
             </ListGroup>
