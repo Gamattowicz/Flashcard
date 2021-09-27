@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Button, ProgressBar, Container } from 'react-bootstrap'
-import {
-  drawWord,
-  addExerciseWord,
-  addCorrectAnswerWord,
-  addWrongAnswerWord,
-} from '../actions/wordActions'
+import React, {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Button, Col, Container, ProgressBar, Row} from 'react-bootstrap'
+import {addCorrectAnswerWord, addExerciseWord, addWrongAnswerWord, drawWord,} from '../actions/wordActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import {
-  listExerciseDetails,
-  addCorrectAnswerExercise,
-  addWrongAnswerExercise,
+    addCorrectAnswerExercise,
+    addWrongAnswerExercise,
+    listExerciseDetails,
+    updateExerciseTime,
 } from '../actions/exerciseActions'
 import Flashcard from '../components/Flashcard'
 import Counter from '../components/Counter'
+import Timer from '../components/Timer'
 
 const ExerciseReversedScreen = ({ match, history }) => {
   const [wordsNumber, setWordsNumber] = useState(1)
@@ -23,6 +20,7 @@ const ExerciseReversedScreen = ({ match, history }) => {
   const [reversed, setReversed] = useState(false)
   const [goodAnswers, setGoodAnswers] = useState(0)
   const [badAnswers, setBadAnswers] = useState(0)
+  const [time, setTime] = useState(0)
   const dispatch = useDispatch()
 
   const exerciseDetails = useSelector((state) => state.exerciseDetails)
@@ -50,6 +48,7 @@ const ExerciseReversedScreen = ({ match, history }) => {
     setWordsNumber(wordsNumber + 1)
     setBadAnswers(badAnswers + 1)
     if (wordsNumber === exercise.words_num) {
+      dispatch(updateExerciseTime(exercise, time))
       setTimeout(() => {
         history.push(`/exercises/${exercise.id}/end`)
       }, 800)
@@ -65,6 +64,7 @@ const ExerciseReversedScreen = ({ match, history }) => {
     setWordsNumber(wordsNumber + 1)
     setGoodAnswers(goodAnswers + 1)
     if (wordsNumber === exercise.words_num) {
+      dispatch(updateExerciseTime(exercise, time))
       setTimeout(() => {
         history.push(`/exercises/${exercise.id}/end`)
       }, 800)
@@ -110,30 +110,31 @@ const ExerciseReversedScreen = ({ match, history }) => {
                     reversed={reversed}
                   />
                 ))}
-
-              <Button
-                variant="warning my-3"
-                className={`float-start ${
-                  wordsNumber === exercise.words_num + 1 || reversed
-                    ? 'disabled'
-                    : ''
-                }`}
-                onClick={badAnswer}
-              >
-                BAD
-              </Button>
-
-              <Button
-                variant="success my-3"
-                className={`float-end ${
-                  wordsNumber === exercise.words_num + 1 || reversed
-                    ? 'disabled'
-                    : ''
-                }`}
-                onClick={goodAnswer}
-              >
-                GOOD
-              </Button>
+              <div className="text-center">
+                <Button
+                  variant="warning my-3"
+                  className={`float-start ${
+                    wordsNumber === exercise.words_num + 1 || reversed
+                      ? 'disabled'
+                      : ''
+                  }`}
+                  onClick={badAnswer}
+                >
+                  BAD
+                </Button>
+                <Timer setTime={setTime} time={time} />
+                <Button
+                  variant="success my-3"
+                  className={`float-end ${
+                    wordsNumber === exercise.words_num + 1 || reversed
+                      ? 'disabled'
+                      : ''
+                  }`}
+                  onClick={goodAnswer}
+                >
+                  GOOD
+                </Button>
+              </div>
             </Col>
           )}
         </Row>

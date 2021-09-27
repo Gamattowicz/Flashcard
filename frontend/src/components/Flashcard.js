@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card } from 'react-bootstrap'
+import {Card} from 'react-bootstrap'
 
 const Flashcard = ({ word, reversed, setReversed }) => {
   return (
@@ -32,7 +32,7 @@ const Flashcard = ({ word, reversed, setReversed }) => {
               Category: {word.category}
             </span>
 
-            <span class="badge rounded-pill bg-primary ms-5 text-dark">
+            <span class="float-end badge rounded-pill bg-primary ms-5 text-dark">
               Deck: {word.deck}
             </span>
           </small>

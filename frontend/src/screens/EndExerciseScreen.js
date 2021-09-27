@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, ListGroup, Card, Container } from 'react-bootstrap'
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Card, Col, Container, ListGroup, Row} from 'react-bootstrap'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { listExerciseDetails } from '../actions/exerciseActions'
+import {listExerciseDetails} from '../actions/exerciseActions'
 import ExerciseChart from '../components/ExerciseChart'
 
 const EndExerciseScreen = ({ match }) => {
@@ -30,10 +30,20 @@ const EndExerciseScreen = ({ match }) => {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
-                    <Col>
+                    <Col md={2} className="align-self-center ">
                       <strong>Words number</strong>
                     </Col>
-                    <Col>{exercise.words_num}</Col>
+                    <Col md={4} className="text-center align-self-center">
+                      {exercise.words_num}
+                    </Col>
+                    <Col md={2} className="align-self-center">
+                      <strong>Time</strong>
+                    </Col>
+                    <Col md={4} className="text-center align-self-center">
+                      {new Date(exercise.time * 1000)
+                        .toISOString()
+                        .substr(11, 8)}
+                    </Col>
                   </Row>
                 </ListGroup.Item>
 
@@ -42,13 +52,19 @@ const EndExerciseScreen = ({ match }) => {
                     <Col md={2} className="align-self-center text-success">
                       <strong>Correct answers</strong>
                     </Col>
-                    <Col md={4} className="text-center text-success">
+                    <Col
+                      md={4}
+                      className="text-center text-success align-self-center"
+                    >
                       {exercise.correct_answers}
                     </Col>
                     <Col md={2} className="align-self-center text-warning">
                       <strong>Wrong answers</strong>
                     </Col>
-                    <Col md={4} className="text-center text-warning">
+                    <Col
+                      md={4}
+                      className="text-center text-warning align-self-center"
+                    >
                       {exercise.wrong_answers}
                     </Col>
                   </Row>

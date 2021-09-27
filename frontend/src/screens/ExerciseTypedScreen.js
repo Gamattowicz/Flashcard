@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Button, Form, ProgressBar, Container } from 'react-bootstrap'
-import {
-  drawWord,
-  addExerciseWord,
-  addCorrectAnswerWord,
-  addWrongAnswerWord,
-} from '../actions/wordActions'
+import React, {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Button, Col, Container, Form, ProgressBar, Row} from 'react-bootstrap'
+import {addCorrectAnswerWord, addExerciseWord, addWrongAnswerWord, drawWord,} from '../actions/wordActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import {
-  listExerciseDetails,
-  addCorrectAnswerExercise,
-  addWrongAnswerExercise,
+    addCorrectAnswerExercise,
+    addWrongAnswerExercise,
+    listExerciseDetails,
+    updateExerciseTime,
 } from '../actions/exerciseActions'
 import TypedCard from '../components/TypedCard'
 import Counter from '../components/Counter'
+import Timer from '../components/Timer'
 
 const ExerciseTypedScreen = ({ match, history }) => {
   const [answer, setAnswer] = useState('')
@@ -24,6 +21,7 @@ const ExerciseTypedScreen = ({ match, history }) => {
   const [start, setStart] = useState(false)
   const [goodAnswers, setGoodAnswers] = useState(0)
   const [badAnswers, setBadAnswers] = useState(0)
+  const [time, setTime] = useState(0)
   const dispatch = useDispatch()
 
   const exerciseDetails = useSelector((state) => state.exerciseDetails)
@@ -57,6 +55,7 @@ const ExerciseTypedScreen = ({ match, history }) => {
     }
     setWordsNumber(wordsNumber + 1)
     if (wordsNumber === exercise.words_num) {
+      dispatch(updateExerciseTime(exercise, time))
       setTimeout(() => {
         history.push(`/exercises/${exercise.id}/end`)
       }, 1800)
@@ -114,28 +113,29 @@ const ExerciseTypedScreen = ({ match, history }) => {
                     onChange={(e) => setAnswer(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
-
-                <Button
-                  type="submit"
-                  variant={`success my-3 ${
-                    correctAnswer !== null ? 'disabled' : ''
-                  }`}
-                >
-                  CONFIRM
-                </Button>
-
-                <Button
-                  type="submit"
-                  variant={`primary my-3 float-end ${
-                    correctAnswer === null ||
-                    wordsNumber - 1 === exercise.words_num
-                      ? 'disabled'
-                      : ''
-                  }`}
-                  onClick={nextCardHandler}
-                >
-                  NEXT
-                </Button>
+                <div className="text-center">
+                  <Button
+                    type="submit"
+                    variant={`success my-3 float-start ${
+                      correctAnswer !== null ? 'disabled' : ''
+                    }`}
+                  >
+                    CONFIRM
+                  </Button>
+                  <Timer setTime={setTime} time={time} />
+                  <Button
+                    type="submit"
+                    variant={`primary my-3 float-end ${
+                      correctAnswer === null ||
+                      wordsNumber - 1 === exercise.words_num
+                        ? 'disabled'
+                        : ''
+                    }`}
+                    onClick={nextCardHandler}
+                  >
+                    NEXT
+                  </Button>
+                </div>
               </Form>
               {correctAnswer == true && (
                 <Message variant="success">CORRECT ANSWER</Message>
