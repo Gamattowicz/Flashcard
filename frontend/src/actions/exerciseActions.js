@@ -1,23 +1,26 @@
 import axios from 'axios'
 import {
-  EXERCISE_CREATE_REQUEST,
-  EXERCISE_CREATE_SUCCESS,
-  EXERCISE_CREATE_FAIL,
+  EXERCISE_ADD_CORRECT_ANSWER_FAIL,
   EXERCISE_ADD_CORRECT_ANSWER_REQUEST,
   EXERCISE_ADD_CORRECT_ANSWER_SUCCESS,
-  EXERCISE_ADD_CORRECT_ANSWER_FAIL,
+  EXERCISE_ADD_WRONG_ANSWER_FAIL,
   EXERCISE_ADD_WRONG_ANSWER_REQUEST,
   EXERCISE_ADD_WRONG_ANSWER_SUCCESS,
-  EXERCISE_ADD_WRONG_ANSWER_FAIL,
-  EXERCISE_LIST_REQUEST,
-  EXERCISE_LIST_SUCCESS,
-  EXERCISE_LIST_FAIL,
+  EXERCISE_ALL_LIST_FAIL,
   EXERCISE_ALL_LIST_REQUEST,
   EXERCISE_ALL_LIST_SUCCESS,
-  EXERCISE_ALL_LIST_FAIL,
+  EXERCISE_CREATE_FAIL,
+  EXERCISE_CREATE_REQUEST,
+  EXERCISE_CREATE_SUCCESS,
+  EXERCISE_DETAILS_FAIL,
   EXERCISE_DETAILS_REQUEST,
   EXERCISE_DETAILS_SUCCESS,
-  EXERCISE_DETAILS_FAIL,
+  EXERCISE_LIST_FAIL,
+  EXERCISE_LIST_REQUEST,
+  EXERCISE_LIST_SUCCESS,
+  EXERCISE_UPDATE_TIME_FAIL,
+  EXERCISE_UPDATE_TIME_REQUEST,
+  EXERCISE_UPDATE_TIME_SUCCESS,
 } from '../constants/exerciseConstants'
 
 export const createExercise =
@@ -73,7 +76,7 @@ export const addCorrectAnswerExercise =
         },
       }
 
-      const { data } = await axios.put(
+      const { data } = await axios.patch(
         `/exercises/${exercise.id}/correct-answer/`,
         exercise,
         config
@@ -110,7 +113,7 @@ export const addWrongAnswerExercise =
         },
       }
 
-      const { data } = await axios.put(
+      const { data } = await axios.patch(
         `/exercises/${exercise.id}/wrong-answer/`,
         exercise,
         config
@@ -221,3 +224,40 @@ export const listExerciseDetails = (id) => async (dispatch, getState) => {
     })
   }
 }
+
+export const updateExerciseTime =
+  (exercise, time) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: EXERCISE_UPDATE_TIME_REQUEST })
+
+      const {
+        userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.patch(
+        `/exercises/${exercise.id}/time/`,
+        { time: time, exercise: exercise },
+        config
+      )
+
+      dispatch({
+        type: EXERCISE_UPDATE_TIME_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: EXERCISE_UPDATE_TIME_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      })
+    }
+  }
