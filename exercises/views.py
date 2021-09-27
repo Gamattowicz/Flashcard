@@ -87,15 +87,12 @@ class ExerciseUpdateCorrectAnswer(UpdateAPIView):
     serializer_class = ExerciseSerializer
     permission_classes = [IsAuthenticated]
 
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.correct_answers += 1
-        instance.save()
-        correct_answers = {'correct_answers': instance.correct_answers}
-        serializer = self.serializer_class(request.user, data=correct_answers, partial=True)
-        if serializer.is_valid():
-            self.perform_update(serializer)
+    def partial_update(self, request, *args, **kwargs):
+        exercise = self.get_object()
+        exercise .correct_answers += 1
+        exercise .save()
 
+        serializer = self.serializer_class(exercise)
         return Response(serializer.data)
 
 
@@ -104,15 +101,12 @@ class ExerciseUpdateWrongAnswer(UpdateAPIView):
     serializer_class = ExerciseSerializer
     permission_classes = [IsAuthenticated]
 
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.wrong_answers += 1
-        instance.save()
-        wrong_answers = {'wrong_answers': instance.wrong_answers}
-        serializer = self.serializer_class(request.user, data=wrong_answers, partial=True)
-        if serializer.is_valid():
-            self.perform_update(serializer)
+    def partial_update(self, request, *args, **kwargs):
+        exercise = self.get_object()
+        exercise.wrong_answers += 1
+        exercise.save()
 
+        serializer = self.serializer_class(exercise)
         return Response(serializer.data)
 
 
