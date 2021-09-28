@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { Row, Col, ListGroup, Card } from 'react-bootstrap'
-import { listUserDetails } from '../actions/userActions'
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
+import {Card, Col, ListGroup, Row} from 'react-bootstrap'
+import {listUserDetails} from '../actions/userActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -11,9 +11,16 @@ const UserScreen = ({ match, history }) => {
   const userDetails = useSelector((state) => state.userDetails)
   const { error, loading, user } = userDetails
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
-    dispatch(listUserDetails(match.params.id))
-  }, [dispatch])
+    if (!userInfo.is_admin) {
+      history.push('/login')
+    } else {
+      dispatch(listUserDetails(match.params.id))
+    }
+  }, [dispatch, userInfo, history])
 
   return (
     <div>

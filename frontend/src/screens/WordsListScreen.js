@@ -12,11 +12,18 @@ const WordsListScreen = ({ history }) => {
   const wordList = useSelector((state) => state.wordList)
   const { loading, error, words, pages, page } = wordList
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   let keyword = history.location.search
 
   useEffect(() => {
-    dispatch(listWords(keyword))
-  }, [dispatch, history, keyword])
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listWords(keyword))
+    }
+  }, [dispatch, userInfo, history, keyword])
 
   return (
     <>

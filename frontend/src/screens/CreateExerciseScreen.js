@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import React, {useEffect, useState} from 'react'
+import {Button, Col, Form, Row} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import FormContainer from '../components/FormContainer'
-import { createExercise } from '../actions/exerciseActions'
-import { EXERCISE_CREATE_RESET } from '../constants/exerciseConstants'
-import { listDecks } from '../actions/deckActions'
+import {createExercise} from '../actions/exerciseActions'
+import {EXERCISE_CREATE_RESET} from '../constants/exerciseConstants'
+import {listDecks} from '../actions/deckActions'
 
 const CreateExerciseScreen = ({ history }) => {
   const [wordNumber, setWordNumber] = useState(0)
@@ -24,8 +24,15 @@ const CreateExerciseScreen = ({ history }) => {
   const deckList = useSelector((state) => state.deckList)
   const { decks } = deckList
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
-    dispatch(listDecks())
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listDecks())
+    }
     if (success) {
       setWordNumber(0)
       setDeck('')
@@ -36,7 +43,7 @@ const CreateExerciseScreen = ({ history }) => {
         history.push(`/exercises/${exerciseInfo.id}/update/typed`)
       }
     }
-  }, [dispatch, success])
+  }, [dispatch, history, userInfo, success])
 
   const submitHandler = (e) => {
     e.preventDefault()

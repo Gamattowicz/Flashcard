@@ -12,11 +12,18 @@ const CategoryListScreen = ({ history }) => {
   const categoryList = useSelector((state) => state.categoryList)
   const { error, loading, categories, pages, page } = categoryList
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   let keyword = history.location.search
 
   useEffect(() => {
-    dispatch(listCategories(keyword))
-  }, [dispatch, history, keyword])
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listCategories(keyword))
+    }
+  }, [dispatch, userInfo, history, keyword])
 
   return (
     <>

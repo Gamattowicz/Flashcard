@@ -12,9 +12,16 @@ const ExerciseDetailsScreen = ({ match, history }) => {
   const exerciseDetails = useSelector((state) => state.exerciseDetails)
   const { error, loading, exercise } = exerciseDetails
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
-    dispatch(listExerciseDetails(match.params.id))
-  }, [dispatch])
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listExerciseDetails(match.params.id))
+    }
+  }, [dispatch, userInfo, history])
 
   return (
     <div>

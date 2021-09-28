@@ -29,9 +29,16 @@ const ExerciseReversedScreen = ({ match, history }) => {
   const wordDraw = useSelector((state) => state.wordDraw)
   const { error, loading, words } = wordDraw
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
-    dispatch(listExerciseDetails(match.params.id))
-  }, [dispatch, exercise.correct_answers])
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listExerciseDetails(match.params.id))
+    }
+  }, [dispatch, userInfo, history, exercise.correct_answers])
 
   const startHandler = (e) => {
     e.preventDefault()

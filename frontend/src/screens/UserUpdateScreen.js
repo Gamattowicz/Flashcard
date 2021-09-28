@@ -27,7 +27,7 @@ const UserUpdateScreen = ({ match, history }) => {
   const { success: successUserUpdate } = userUpdate
 
   useEffect(() => {
-    if (!userInfo) {
+    if (!userInfo.is_admin) {
       history.push('/login')
     }
     if (successUserUpdate) {

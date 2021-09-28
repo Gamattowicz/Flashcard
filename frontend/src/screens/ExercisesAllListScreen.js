@@ -12,11 +12,18 @@ const ExercisesAllListScreen = ({ history }) => {
   const exerciseAllList = useSelector((state) => state.exerciseAllList)
   const { error, loading, exercises, pages, page } = exerciseAllList
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   let keyword = history.location.search
 
   useEffect(() => {
-    dispatch(listAllExercises(keyword))
-  }, [dispatch, history, keyword])
+    if (!userInfo.is_admin) {
+      history.push('/login')
+    } else {
+      dispatch(listAllExercises(keyword))
+    }
+  }, [dispatch, history, userInfo, keyword])
 
   return (
     <>

@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { Row, Col, ListGroup, Card } from 'react-bootstrap'
-import { listWordDetails } from '../actions/wordActions'
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
+import {Card, Col, ListGroup, Row} from 'react-bootstrap'
+import {listWordDetails} from '../actions/wordActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -11,9 +11,16 @@ const WordScreen = ({ match, history }) => {
   const wordDetails = useSelector((state) => state.wordDetails)
   const { error, loading, word } = wordDetails
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
-    dispatch(listWordDetails(match.params.id))
-  }, [dispatch])
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listWordDetails(match.params.id))
+    }
+  }, [dispatch, userInfo, history])
 
   return (
     <div>

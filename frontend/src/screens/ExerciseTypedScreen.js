@@ -30,9 +30,16 @@ const ExerciseTypedScreen = ({ match, history }) => {
   const wordDraw = useSelector((state) => state.wordDraw)
   const { error, loading, words } = wordDraw
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
-    dispatch(listExerciseDetails(match.params.id))
-  }, [dispatch])
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listExerciseDetails(match.params.id))
+    }
+  }, [dispatch, userInfo, history])
 
   const startHandler = (e) => {
     e.preventDefault()

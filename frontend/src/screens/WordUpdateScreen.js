@@ -31,7 +31,13 @@ const WordUpdateScreen = ({ match, history }) => {
   const deckList = useSelector((state) => state.deckList)
   const { decks } = deckList
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
+    if (!userInfo) {
+      history.push('/login')
+    }
     if (successWordUpdate) {
       dispatch({ type: WORD_UPDATE_RESET })
       setLoaded(false)
@@ -49,7 +55,7 @@ const WordUpdateScreen = ({ match, history }) => {
         setDeck(word.deck)
       }
     }
-  }, [dispatch, word, success, successWordUpdate])
+  }, [dispatch, userInfo, history, word, success, successWordUpdate])
 
   const submitHandler = (e) => {
     e.preventDefault()

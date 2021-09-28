@@ -24,21 +24,28 @@ const CategoryUpdateScreen = ({ match, history }) => {
   const categoryUpdate = useSelector((state) => state.categoryUpdate)
   const { success: successCategoryUpdate } = categoryUpdate
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
-    if (successCategoryUpdate) {
-      dispatch({ type: CATEGORY_UPDATE_RESET })
-      setLoaded(false)
-      history.push('/category')
+    if (!userInfo.is_admin) {
+      history.push('/login')
     } else {
-      if (!success || !loaded) {
-        dispatch(listCategoryDetails(match.params.id))
-        setLoaded(true)
+      if (successCategoryUpdate) {
+        dispatch({ type: CATEGORY_UPDATE_RESET })
+        setLoaded(false)
+        history.push('/category')
       } else {
-        setName(category.name)
-        setColor(category.color)
+        if (!success || !loaded) {
+          dispatch(listCategoryDetails(match.params.id))
+          setLoaded(true)
+        } else {
+          setName(category.name)
+          setColor(category.color)
+        }
       }
     }
-  }, [dispatch, category, success, successCategoryUpdate])
+  }, [dispatch, history, userInfo, category, success, successCategoryUpdate])
 
   const updateHandler = (e) => {
     e.preventDefault()

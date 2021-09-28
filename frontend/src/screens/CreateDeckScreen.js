@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import React, {useEffect, useState} from 'react'
+import {Button, Col, Form, Row} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import FormContainer from '../components/FormContainer'
-import { createDeck } from '../actions/deckActions'
-import { DECK_CREATE_RESET } from '../constants/deckConstants'
+import {createDeck} from '../actions/deckActions'
+import {DECK_CREATE_RESET} from '../constants/deckConstants'
 
 const CreateDeckScreen = ({ history }) => {
   const [name, setName] = useState('')
@@ -16,7 +16,13 @@ const CreateDeckScreen = ({ history }) => {
   const deckCreate = useSelector((state) => state.deckCreate)
   const { error, loading, success } = deckCreate
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
+    if (!userInfo) {
+      history.push('/login')
+    }
     if (success) {
       setName('')
       dispatch({ type: DECK_CREATE_RESET })

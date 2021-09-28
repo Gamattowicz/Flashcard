@@ -19,14 +19,20 @@ const CreateCategoryScreen = ({ history }) => {
   const categoryCreate = useSelector((state) => state.categoryCreate)
   const { error, loading, success } = categoryCreate
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
+    if (!userInfo) {
+      history.push('/login')
+    }
     if (success) {
       setName('')
       setColor('')
       dispatch({ type: CATEGORY_CREATE_RESET })
       history.push('/category')
     }
-  }, [dispatch, success])
+  }, [dispatch, history, userInfo, success])
 
   const submitHandler = (e) => {
     e.preventDefault()

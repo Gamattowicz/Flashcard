@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { Row, Col, ListGroup, Card } from 'react-bootstrap'
-import { listCategoryDetails } from '../actions/categoryActions'
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
+import {Card, Col, ListGroup, Row} from 'react-bootstrap'
+import {listCategoryDetails} from '../actions/categoryActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -11,9 +11,16 @@ const CategoryScreen = ({ match, history }) => {
   const categoryDetails = useSelector((state) => state.categoryDetails)
   const { error, loading, category } = categoryDetails
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
-    dispatch(listCategoryDetails(match.params.id))
-  }, [dispatch])
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listCategoryDetails(match.params.id))
+    }
+  }, [dispatch, history, userInfo])
 
   return (
     <div>

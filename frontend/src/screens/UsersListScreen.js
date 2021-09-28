@@ -12,11 +12,18 @@ const UsersListScreen = ({ history }) => {
   const userList = useSelector((state) => state.userList)
   const { error, loading, users, pages, page } = userList
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   let keyword = history.location.search
 
   useEffect(() => {
-    dispatch(listUsers(keyword))
-  }, [dispatch, history, keyword])
+    if (!userInfo.is_admin) {
+      history.push('/login')
+    } else {
+      dispatch(listUsers(keyword))
+    }
+  }, [dispatch, history, userInfo, keyword])
 
   return (
     <>

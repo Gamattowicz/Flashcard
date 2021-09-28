@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { Row, Col, ListGroup, Card } from 'react-bootstrap'
-import { listDeckDetails } from '../actions/deckActions'
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
+import {Card, Col, ListGroup, Row} from 'react-bootstrap'
+import {listDeckDetails} from '../actions/deckActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { listWordsDeck } from '../actions/wordActions'
+import {listWordsDeck} from '../actions/wordActions'
 import Paginate from '../components/Paginate'
 
 const DeckScreen = ({ match, history }) => {
@@ -16,12 +16,19 @@ const DeckScreen = ({ match, history }) => {
   const wordListDeck = useSelector((state) => state.wordListDeck)
   const { loadingWords, errorWords, words, pages, page } = wordListDeck
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   let keyword = history.location.search
 
   useEffect(() => {
-    dispatch(listDeckDetails(match.params.id))
-    dispatch(listWordsDeck(keyword, match.params.id))
-  }, [dispatch, history, keyword])
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listDeckDetails(match.params.id))
+      dispatch(listWordsDeck(keyword, match.params.id))
+    }
+  }, [dispatch, history, userInfo, keyword])
 
   return (
     <div>

@@ -12,11 +12,18 @@ const DecksListScreen = ({ history }) => {
   const deckList = useSelector((state) => state.deckList)
   const { error, loading, decks, pages, page } = deckList
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   let keyword = history.location.search
 
   useEffect(() => {
-    dispatch(listDecks(keyword))
-  }, [dispatch, history, keyword])
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listDecks(keyword))
+    }
+  }, [dispatch, history, userInfo, keyword])
 
   return (
     <>

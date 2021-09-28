@@ -13,11 +13,18 @@ const ExercisesListScreen = ({ history }) => {
   const exerciseList = useSelector((state) => state.exerciseList)
   const { error, loading, exercises, pages, page } = exerciseList
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   let keyword = history.location.search
 
   useEffect(() => {
-    dispatch(listExercises(keyword))
-  }, [dispatch, history, keyword])
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listExercises(keyword))
+    }
+  }, [dispatch, userInfo, history, keyword])
 
   return (
     <div>

@@ -12,11 +12,18 @@ const DecksAllListScreen = ({ history }) => {
   const deckAllList = useSelector((state) => state.deckAllList)
   const { error, loading, decks, pages, page } = deckAllList
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   let keyword = history.location.search
 
   useEffect(() => {
-    dispatch(listAllDecks(keyword))
-  }, [dispatch, history, keyword])
+    if (!userInfo.is_admin) {
+      history.push('/login')
+    } else {
+      dispatch(listAllDecks(keyword))
+    }
+  }, [dispatch, history, userInfo, keyword])
 
   return (
     <>

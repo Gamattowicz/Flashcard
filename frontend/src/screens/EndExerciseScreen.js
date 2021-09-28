@@ -6,15 +6,22 @@ import Message from '../components/Message'
 import {listExerciseDetails} from '../actions/exerciseActions'
 import ExerciseChart from '../components/ExerciseChart'
 
-const EndExerciseScreen = ({ match }) => {
+const EndExerciseScreen = ({ match, history }) => {
   const dispatch = useDispatch()
 
   const exerciseDetails = useSelector((state) => state.exerciseDetails)
   const { loading, error, exercise } = exerciseDetails
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
-    dispatch(listExerciseDetails(match.params.id))
-  }, [dispatch])
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listExerciseDetails(match.params.id))
+    }
+  }, [dispatch, history, userInfo])
 
   return (
     <Container>

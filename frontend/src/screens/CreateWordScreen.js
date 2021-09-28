@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import React, {useEffect, useState} from 'react'
+import {Button, Col, Form, Row} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import FormContainer from '../components/FormContainer'
-import { createWord } from '../actions/wordActions'
-import { WORD_CREATE_RESET } from '../constants/wordConstants'
-import { listCategories } from '../actions/categoryActions'
-import { listDecks } from '../actions/deckActions'
+import {createWord} from '../actions/wordActions'
+import {WORD_CREATE_RESET} from '../constants/wordConstants'
+import {listCategories} from '../actions/categoryActions'
+import {listDecks} from '../actions/deckActions'
 
 const CreateWordScreen = ({ history }) => {
   const [question, setQuestion] = useState('')
@@ -27,9 +27,16 @@ const CreateWordScreen = ({ history }) => {
   const deckList = useSelector((state) => state.deckList)
   const { decks } = deckList
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
-    dispatch(listCategories())
-    dispatch(listDecks())
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listCategories())
+      dispatch(listDecks())
+    }
     if (success) {
       setQuestion('')
       setAnswer('')
@@ -38,7 +45,7 @@ const CreateWordScreen = ({ history }) => {
       dispatch({ type: WORD_CREATE_RESET })
       history.push('/words')
     }
-  }, [dispatch, success])
+  }, [dispatch, history, userInfo, success])
 
   const submitHandler = (e) => {
     e.preventDefault()
