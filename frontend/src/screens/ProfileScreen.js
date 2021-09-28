@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
+import React, {useEffect, useState} from 'react'
+import {Button, Col, Form, Row} from 'react-bootstrap'
+import {useDispatch, useSelector} from 'react-redux'
 import Exercise from '../components/Exercise'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { listUserDetails, updateUserProfile } from '../actions/userActions'
-import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
-import { listExercises } from '../actions/exerciseActions'
+import {updateUserProfile} from '../actions/userActions'
+import {USER_UPDATE_PROFILE_RESET} from '../constants/userConstants'
+import {listExercises} from '../actions/exerciseActions'
 import Paginate from '../components/Paginate'
 
 const ProfileScreen = ({ history }) => {
@@ -18,11 +18,8 @@ const ProfileScreen = ({ history }) => {
 
   const dispatch = useDispatch()
 
-  const userDetails = useSelector((state) => state.userDetails)
-  const { error, loading, user } = userDetails
-
   const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  const { error, loading, userInfo } = userLogin
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
@@ -37,16 +34,15 @@ const ProfileScreen = ({ history }) => {
     if (!userInfo) {
       history.push('/login')
     } else {
-      if (!user || !user.name || success) {
+      if (success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET })
-        dispatch(listUserDetails('profile'))
       } else {
-        setUsername(user.username)
-        setEmail(user.email)
+        setUsername(userInfo.username)
+        setEmail(userInfo.email)
       }
     }
     dispatch(listExercises(keyword))
-  }, [dispatch, history, userInfo, user, success, keyword])
+  }, [dispatch, history, userInfo, success, keyword])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -55,7 +51,7 @@ const ProfileScreen = ({ history }) => {
     } else {
       dispatch(
         updateUserProfile({
-          id: user.id,
+          id: userInfo.id,
           username: username,
           email: email,
           password: password,
