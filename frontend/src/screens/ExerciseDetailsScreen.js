@@ -38,6 +38,23 @@ const ExerciseDetailsScreen = ({ match, history }) => {
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <Row>
+                  <Col md={2} className="align-self-center ">
+                    <strong>Words number</strong>
+                  </Col>
+                  <Col md={4} className="text-center align-self-center">
+                    {exercise.words_num}
+                  </Col>
+                  <Col md={2} className="align-self-center">
+                    <strong>Time</strong>
+                  </Col>
+                  <Col md={4} className="text-center align-self-center">
+                    {new Date(exercise.time * 1000).toISOString().substr(11, 8)}
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                <Row>
                   <Col md={2} className="align-self-center text-success">
                     <strong>Correct answers</strong>
                   </Col>
@@ -83,12 +100,12 @@ const ExerciseDetailsScreen = ({ match, history }) => {
       <ExerciseChart
         data={[
           {
-            name: 'GOOD ANSWERS',
+            name: 'Correct answers',
             value: exercise.correct_answers,
           },
-          { name: 'BAD ANSWERS', value: exercise.wrong_answers },
+          { name: 'Wrong answers', value: exercise.wrong_answers },
         ]}
-        colors={['#00C49F', '#FF8042']}
+        colors={['#2aa198', '#cb4b16']}
       />
     </div>
   )

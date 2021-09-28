@@ -81,12 +81,12 @@ const EndExerciseScreen = ({ match, history }) => {
             <ExerciseChart
               data={[
                 {
-                  name: 'GOOD ANSWERS',
+                  name: 'Correct answers',
                   value: exercise.correct_answers,
                 },
-                { name: 'BAD ANSWERS', value: exercise.wrong_answers },
+                { name: 'Wrong answers', value: exercise.wrong_answers },
               ]}
-              colors={['#00C49F', '#FF8042']}
+              colors={['#2aa198', '#cb4b16']}
             />
           </Col>
         )}
