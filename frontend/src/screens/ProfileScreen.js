@@ -22,11 +22,16 @@ const ProfileScreen = ({ history }) => {
   const { error, loading, userInfo } = userLogin
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
-  const { success } = userUpdateProfile
+  const { error: errorUpdate, success } = userUpdateProfile
 
   const exerciseList = useSelector((state) => state.exerciseList)
-  const { errorExercises, loadingExercises, exercises, pages, page } =
-    exerciseList
+  const {
+    error: errorExercises,
+    loading: loadingExercises,
+    exercises,
+    pages,
+    page,
+  } = exerciseList
 
   let keyword = history.location.search
 
@@ -34,8 +39,8 @@ const ProfileScreen = ({ history }) => {
     if (!userInfo) {
       history.push('/login')
     } else {
+      dispatch({ type: USER_UPDATE_PROFILE_RESET })
       if (success) {
-        dispatch({ type: USER_UPDATE_PROFILE_RESET })
       } else {
         setUsername(userInfo.username)
         setEmail(userInfo.email)
@@ -66,9 +71,11 @@ const ProfileScreen = ({ history }) => {
       <Col md={4} className="mx-4">
         <h2>USER PROFILE</h2>
 
-        {message && <Message variant="danger">{message}</Message>}
-        {(error || errorExercises) && (
-          <Message variant="danger">{error}</Message>
+        {message && <Message variant="warning">{message}</Message>}
+        {(error || errorExercises || errorUpdate) && (
+          <Message variant="warning">
+            {error || errorExercises || errorUpdate}
+          </Message>
         )}
         {(loading || loadingExercises) && <Loader />}
 

@@ -52,12 +52,16 @@ class UserProfileUpdate(UpdateAPIView):
     permission_classes = [IsAuthenticated]
 
     def update(self, request, *args, **kwargs):
-        user = request.user
         data = request.data
+
+        user = request.user
         user.username = data['username']
         user.email = data['email']
         if data['password'] != '':
             user.password = make_password(data['password'])
+        elif User.objects.filter(username=data['username']).first():
+            message = {'detail': f'User with "{data["username"]}" username already exists'}
+            return Response(message, status=status.HTTP_400_BAD_REQUEST)
         user.save()
         serializer = self.serializer_class(user, data=data, partial=True, many=False)
         if serializer.is_valid():
