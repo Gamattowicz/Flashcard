@@ -48,7 +48,11 @@ const ExerciseDetailsScreen = ({ match, history }) => {
                     <strong>Time</strong>
                   </Col>
                   <Col md={4} className="text-center align-self-center">
-                    {new Date(exercise.time * 1000).toISOString().substr(11, 8)}
+                    {exercise.time > 0
+                      ? new Date(exercise.time * 1000)
+                          .toISOString()
+                          .substr(11, 8)
+                      : `00:00:00`}
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -76,7 +80,6 @@ const ExerciseDetailsScreen = ({ match, history }) => {
                     <strong>Deck</strong>
                   </Col>
                   <Col md={4} className="text-center">
-                    {' '}
                     <Link
                       to={`/decks/${exercise.deck_id}`}
                       style={{ color: '#839496' }}
