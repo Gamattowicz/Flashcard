@@ -1,10 +1,10 @@
-import data as data
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, DestroyAPIView, RetrieveUpdateAPIView
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.response import Response
+
 from .models import Deck
 from .serializers import DeckSerializer
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class DeckList(ListAPIView):
@@ -15,7 +15,7 @@ class DeckList(ListAPIView):
         queryset = Deck.objects.filter(user=user.id).order_by('id')
 
         page = request.query_params.get('page')
-        paginator = Paginator(queryset, 2)
+        paginator = Paginator(queryset, 16)
         try:
             queryset = paginator.page(page)
         except PageNotAnInteger:
@@ -39,7 +39,7 @@ class DeckAllList(ListAPIView):
         queryset = self.filter_queryset(self.get_queryset())
 
         page = request.query_params.get('page')
-        paginator = Paginator(queryset, 2)
+        paginator = Paginator(queryset, 12)
         try:
             queryset = paginator.page(page)
         except PageNotAnInteger:

@@ -89,7 +89,7 @@ class UserList(ListAPIView):
         queryset = self.filter_queryset(self.get_queryset())
 
         page = request.query_params.get('page')
-        paginator = Paginator(queryset, 2)
+        paginator = Paginator(queryset, 12)
         try:
             queryset = paginator.page(page)
         except PageNotAnInteger:

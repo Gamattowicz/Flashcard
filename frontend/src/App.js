@@ -30,6 +30,7 @@ import ExercisesListScreen from './screens/ExercisesListScreen'
 import ExercisesAllListScreen from './screens/ExercisesAllListScreen'
 import ExerciseDetailsScreen from './screens/ExerciseDetailsScreen'
 import EndExerciseScreen from './screens/EndExerciseScreen'
+import HomeScreen from './screens/HomeScreen'
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
       <main className="py-4">
         <Container>
           <Switch>
+            <Route path="/" component={HomeScreen} exact />
             <Route path="/words" component={WordsListScreen} exact />
             <Route path="/admin/words/" component={WordsAllListScreen} />
             <Route path="/words/create" component={CreateWordScreen} />
