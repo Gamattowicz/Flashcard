@@ -16,7 +16,7 @@ const Timer = ({ setTime, time }) => {
     setInterval(() => {
       setTime(counterRef.current + 1)
     }, 1000)
-  }, [])
+  }, [setTime])
 
   return (
     <Button variant="light my-3" className="float-none disabled fw-bold">

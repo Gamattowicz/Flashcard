@@ -21,7 +21,7 @@ const EndExerciseScreen = ({ match, history }) => {
     } else {
       dispatch(listExerciseDetails(match.params.id))
     }
-  }, [dispatch, history, userInfo])
+  }, [dispatch, history, userInfo, match.params.id])
 
   return (
     <Container>

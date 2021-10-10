@@ -55,7 +55,16 @@ const WordUpdateScreen = ({ match, history }) => {
         setDeck(word.deck)
       }
     }
-  }, [dispatch, userInfo, history, word, success, successWordUpdate])
+  }, [
+    dispatch,
+    userInfo,
+    history,
+    word,
+    success,
+    successWordUpdate,
+    loaded,
+    match.params.id,
+  ])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -74,7 +83,7 @@ const WordUpdateScreen = ({ match, history }) => {
     <FormContainer>
       <Row>
         <Col md={8}>
-          <h1>CREATE NEW WORD</h1>
+          <h1>UPDATE WORD</h1>
         </Col>
         <Col md={4} className="align-self-center">
           <Link

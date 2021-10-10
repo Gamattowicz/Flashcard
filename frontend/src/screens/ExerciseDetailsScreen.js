@@ -21,7 +21,7 @@ const ExerciseDetailsScreen = ({ match, history }) => {
     } else {
       dispatch(listExerciseDetails(match.params.id))
     }
-  }, [dispatch, userInfo, history])
+  }, [dispatch, userInfo, history, match.params.id])
 
   return (
     <div>

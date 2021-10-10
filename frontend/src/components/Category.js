@@ -26,7 +26,7 @@ const Category = ({ category }) => {
       window.location.reload()
       dispatch({ type: CATEGORY_DELETE_RESET })
     }
-  }, [success])
+  }, [success, dispatch])
 
   const deleteHandler = () => {
     dispatch(deleteCategory(category.id))

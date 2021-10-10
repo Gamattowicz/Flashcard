@@ -26,7 +26,7 @@ const Deck = ({ deck }) => {
       window.location.reload()
       dispatch({ type: DECK_DELETE_RESET })
     }
-  }, [success])
+  }, [success, dispatch])
 
   const deleteHandler = () => {
     dispatch(deleteDeck(deck.id))

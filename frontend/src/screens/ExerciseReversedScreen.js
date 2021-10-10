@@ -38,7 +38,7 @@ const ExerciseReversedScreen = ({ match, history }) => {
     } else {
       dispatch(listExerciseDetails(match.params.id))
     }
-  }, [dispatch, userInfo, history, exercise.correct_answers])
+  }, [dispatch, userInfo, history, exercise.correct_answers, match.params.id])
 
   const startHandler = (e) => {
     e.preventDefault()

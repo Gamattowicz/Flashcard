@@ -23,7 +23,7 @@ const User = ({ user }) => {
       window.location.reload()
       dispatch({ type: USER_DELETE_RESET })
     }
-  }, [success])
+  }, [success, dispatch])
 
   const deleteHandler = () => {
     dispatch(deleteUser(user.id))

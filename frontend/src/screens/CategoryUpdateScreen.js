@@ -45,7 +45,16 @@ const CategoryUpdateScreen = ({ match, history }) => {
         }
       }
     }
-  }, [dispatch, history, userInfo, category, success, successCategoryUpdate])
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    category,
+    success,
+    successCategoryUpdate,
+    loaded,
+    match.params.id,
+  ])
 
   const updateHandler = (e) => {
     e.preventDefault()

@@ -20,7 +20,7 @@ const WordScreen = ({ match, history }) => {
     } else {
       dispatch(listWordDetails(match.params.id))
     }
-  }, [dispatch, userInfo, history])
+  }, [dispatch, userInfo, history, match.params.id])
 
   return (
     <div>

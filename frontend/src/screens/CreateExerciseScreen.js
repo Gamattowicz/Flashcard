@@ -11,8 +11,8 @@ import {listDecks} from '../actions/deckActions'
 
 const CreateExerciseScreen = ({ history }) => {
   const [wordNumber, setWordNumber] = useState(0)
-  const [correctAnswers, setCorrectAnswers] = useState(0)
-  const [wrongAnswers, setWrongAnswers] = useState(0)
+  const [correctAnswers] = useState(0)
+  const [wrongAnswers] = useState(0)
   const [deck, setDeck] = useState('')
   const [mode, setMode] = useState('')
 
@@ -43,7 +43,7 @@ const CreateExerciseScreen = ({ history }) => {
         history.push(`/exercises/${exerciseInfo.id}/update/typed`)
       }
     }
-  }, [dispatch, history, userInfo, success])
+  }, [dispatch, history, userInfo, success, mode])
 
   const submitHandler = (e) => {
     e.preventDefault()

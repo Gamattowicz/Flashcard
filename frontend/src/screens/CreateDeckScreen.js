@@ -28,7 +28,7 @@ const CreateDeckScreen = ({ history }) => {
       dispatch({ type: DECK_CREATE_RESET })
       history.push('/decks')
     }
-  }, [dispatch, success])
+  }, [dispatch, success, history, userInfo])
 
   const submitHandler = (e) => {
     e.preventDefault()

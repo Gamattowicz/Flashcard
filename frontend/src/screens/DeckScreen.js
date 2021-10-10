@@ -28,7 +28,7 @@ const DeckScreen = ({ match, history }) => {
       dispatch(listDeckDetails(match.params.id))
       dispatch(listWordsDeck(keyword, match.params.id))
     }
-  }, [dispatch, history, userInfo, keyword])
+  }, [dispatch, history, userInfo, keyword, match.params.id])
 
   return (
     <div>

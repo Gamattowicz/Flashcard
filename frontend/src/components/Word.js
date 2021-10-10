@@ -26,7 +26,7 @@ const Word = ({ word }) => {
       window.location.reload()
       dispatch({ type: WORD_DELETE_RESET })
     }
-  }, [success])
+  }, [success, dispatch])
 
   const deleteHandler = () => {
     dispatch(deleteWord(word.id))

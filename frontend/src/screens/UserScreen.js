@@ -20,7 +20,7 @@ const UserScreen = ({ match, history }) => {
     } else {
       dispatch(listUserDetails(match.params.id))
     }
-  }, [dispatch, userInfo, history])
+  }, [dispatch, userInfo, history, match.params.id])
 
   return (
     <div>

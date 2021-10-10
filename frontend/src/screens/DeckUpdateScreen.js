@@ -39,7 +39,16 @@ const DeckUpdateScreen = ({ match, history }) => {
         setName(deck.name)
       }
     }
-  }, [dispatch, history, userInfo, deck, success, successDeckUpdate])
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    deck,
+    success,
+    successDeckUpdate,
+    loaded,
+    match.params.id,
+  ])
 
   const submitHandler = (e) => {
     e.preventDefault()

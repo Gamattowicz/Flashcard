@@ -20,7 +20,7 @@ const CategoryScreen = ({ match, history }) => {
     } else {
       dispatch(listCategoryDetails(match.params.id))
     }
-  }, [dispatch, history, userInfo])
+  }, [dispatch, history, userInfo, match.params.id])
 
   return (
     <div>

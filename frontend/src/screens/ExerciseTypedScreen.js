@@ -39,7 +39,7 @@ const ExerciseTypedScreen = ({ match, history }) => {
     } else {
       dispatch(listExerciseDetails(match.params.id))
     }
-  }, [dispatch, userInfo, history])
+  }, [dispatch, userInfo, history, match.params.id])
 
   const startHandler = (e) => {
     e.preventDefault()
@@ -144,10 +144,10 @@ const ExerciseTypedScreen = ({ match, history }) => {
                   </Button>
                 </div>
               </Form>
-              {correctAnswer == true && (
+              {correctAnswer === true && (
                 <Message variant="success">CORRECT ANSWER</Message>
               )}
-              {correctAnswer == false && (
+              {correctAnswer === false && (
                 <Message variant="warning">
                   WRONG. CORRECT ANSWER IS:
                   {words[0] &&

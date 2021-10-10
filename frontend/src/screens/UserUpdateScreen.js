@@ -12,7 +12,7 @@ const UserUpdateScreen = ({ match, history }) => {
   const [email, setEmail] = useState('')
   const [isAdmin, setIsAdmin] = useState(true)
 
-  const [message, setMessage] = useState('')
+  const [message] = useState('')
   const [loaded, setLoaded] = useState(false)
 
   const dispatch = useDispatch()
@@ -44,7 +44,16 @@ const UserUpdateScreen = ({ match, history }) => {
         setIsAdmin(user.is_admin)
       }
     }
-  }, [dispatch, history, userInfo, user, success, successUserUpdate])
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    user,
+    success,
+    successUserUpdate,
+    match.params.id,
+    loaded,
+  ])
 
   const submitHandler = (e) => {
     e.preventDefault()
