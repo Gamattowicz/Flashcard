@@ -68,8 +68,8 @@ const ProfileScreen = ({ history }) => {
 
   return (
     <Row>
-      <Col md={4} className="mx-4">
-        <h2>USER PROFILE</h2>
+      <Col xs={10} md={5} className="mx-4">
+        <h2 className="text-center">USER PROFILE</h2>
 
         {message && <Message variant="warning">{message}</Message>}
         {(error || errorExercises || errorUpdate) && (
@@ -128,7 +128,7 @@ const ProfileScreen = ({ history }) => {
         </Form>
       </Col>
 
-      <Col md={6} className="mx-4 text-center">
+      <Col xs={10} md={5} className="mx-4 text-center">
         <h2>MY EXERCISES</h2>
 
         <Row>

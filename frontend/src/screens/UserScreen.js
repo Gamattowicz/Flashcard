@@ -37,10 +37,10 @@ const UserScreen = ({ match, history }) => {
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <Row>
-                  <Col md={4} className="align-self-center">
+                  <Col xs={4} className="align-self-center">
                     <strong>Username</strong>
                   </Col>
-                  <Col md={8} className="text-center">
+                  <Col xs={8} className="text-center">
                     {user.username}
                   </Col>
                 </Row>
@@ -48,10 +48,10 @@ const UserScreen = ({ match, history }) => {
 
               <ListGroup.Item>
                 <Row>
-                  <Col md={4} className="align-self-center">
+                  <Col xs={4} className="align-self-center">
                     <strong>Email</strong>
                   </Col>
-                  <Col md={8} className="text-center">
+                  <Col xs={8} className="text-center">
                     {user.email}
                   </Col>
                 </Row>
@@ -59,10 +59,10 @@ const UserScreen = ({ match, history }) => {
 
               <ListGroup.Item>
                 <Row>
-                  <Col md={4} className="align-self-center">
+                  <Col xs={4} className="align-self-center">
                     <strong>Last login</strong>
                   </Col>
-                  <Col md={8} className="text-center">
+                  <Col xs={8} className="text-center">
                     {user.last_login && user.last_login}
                   </Col>
                 </Row>
@@ -70,10 +70,10 @@ const UserScreen = ({ match, history }) => {
 
               <ListGroup.Item>
                 <Row>
-                  <Col md={4} className="align-self-center">
+                  <Col xs={4} className="align-self-center">
                     <strong>Date joined</strong>
                   </Col>
-                  <Col md={8} className="text-center">
+                  <Col xs={8} className="text-center">
                     {user.date_joined}
                   </Col>
                 </Row>
@@ -81,10 +81,10 @@ const UserScreen = ({ match, history }) => {
 
               <ListGroup.Item>
                 <Row>
-                  <Col md={4} className="align-self-center">
+                  <Col xs={4} className="align-self-center">
                     <strong>Admin</strong>
                   </Col>
-                  <Col md={8} className="text-center">
+                  <Col xs={8} className="text-center">
                     {user.is_admin ? `Yes` : `No`}
                   </Col>
                 </Row>

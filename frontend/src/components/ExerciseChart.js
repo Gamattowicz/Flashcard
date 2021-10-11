@@ -1,5 +1,5 @@
 import React from 'react'
-import {Cell, Pie, PieChart, Tooltip} from 'recharts'
+import {Cell, Pie, PieChart, ResponsiveContainer, Tooltip} from 'recharts'
 
 const RADIAN = Math.PI / 180
 const renderCustomizedLabel = ({
@@ -29,24 +29,35 @@ const renderCustomizedLabel = ({
 }
 const ExerciseChart = ({ data = [], colors = [] }) => {
   return (
-    <PieChart width={1000} height={400}>
-      <Pie
-        dataKey="value"
-        isAnimationActive={true}
-        data={data}
-        cx={250}
-        cy={200}
-        outerRadius={100}
-        stroke="none"
-        label={renderCustomizedLabel}
-        labelLine={false}
-      >
-        {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-        ))}
-      </Pie>
-      <Tooltip />
-    </PieChart>
+    <ResponsiveContainer width="100%" height={400}>
+      <PieChart>
+        <Pie
+          dataKey="value"
+          isAnimationActive={true}
+          data={data}
+          outerRadius={100}
+          stroke="none"
+          label={renderCustomizedLabel}
+          labelLine={false}
+          className="align-self-center"
+          margin={{
+            top: 5,
+            right: 30,
+            left: 30,
+            bottom: 5,
+          }}
+        >
+          {data.map((entry, index) => (
+            <Cell
+              key={`cell-${index}`}
+              fill={colors[index % colors.length]}
+              className="align-self-center"
+            />
+          ))}
+        </Pie>
+        <Tooltip />
+      </PieChart>
+    </ResponsiveContainer>
   )
 }
 

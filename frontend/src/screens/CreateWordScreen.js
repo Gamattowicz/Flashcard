@@ -55,10 +55,10 @@ const CreateWordScreen = ({ history }) => {
   return (
     <FormContainer>
       <Row>
-        <Col md={8}>
+        <Col xs={8}>
           <h1>CREATE NEW WORD</h1>
         </Col>
-        <Col md={4} className="align-self-center">
+        <Col xs={4} className="align-self-center">
           <Link
             to={`/words/`}
             className="btn btn-outline-primary text-uppercase fw-bold float-end"

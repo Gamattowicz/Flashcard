@@ -39,15 +39,15 @@ const Deck = ({ deck }) => {
       {loading && <Loader />}
       <Card className="my-3 p-3 rounded text-start">
         <Row>
-          <Col md={8}>
+          <Col xs={8}>
             <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
           </Col>
-          <Col md={2}>
+          <Col xs={2}>
             <Link to={`/decks/${deck.id}/update`}>
               <i class="fas fa-edit text-primary"></i>
             </Link>
           </Col>
-          <Col md={2}>
+          <Col xs={2}>
             <i class="fas fa-trash text-warning" onClick={handleShow}></i>
             <Modal show={show} onHide={handleClose}>
               <Modal.Header>

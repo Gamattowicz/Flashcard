@@ -31,22 +31,22 @@ const EndExerciseScreen = ({ match, history }) => {
         ) : error ? (
           <Message variant="danger">{error}</Message>
         ) : (
-          <Col md={5}>
+          <Col xs={5}>
             <h4>Your exercise session has ended.</h4>
             <Card className="mt-3">
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
-                    <Col md={2} className="align-self-center ">
+                    <Col xs={2} className="align-self-center ">
                       <strong>Words number</strong>
                     </Col>
-                    <Col md={4} className="text-center align-self-center">
+                    <Col xs={4} className="text-center align-self-center">
                       {exercise.words_num}
                     </Col>
-                    <Col md={2} className="align-self-center">
+                    <Col xs={2} className="align-self-center">
                       <strong>Time</strong>
                     </Col>
-                    <Col md={4} className="text-center align-self-center">
+                    <Col xs={4} className="text-center align-self-center">
                       {new Date(exercise.time * 1000)
                         .toISOString()
                         .substr(11, 8)}
@@ -56,20 +56,20 @@ const EndExerciseScreen = ({ match, history }) => {
 
                 <ListGroup.Item>
                   <Row>
-                    <Col md={2} className="align-self-center text-success">
+                    <Col xs={2} className="align-self-center text-success">
                       <strong>Correct answers</strong>
                     </Col>
                     <Col
-                      md={4}
+                      xs={4}
                       className="text-center text-success align-self-center"
                     >
                       {exercise.correct_answers}
                     </Col>
-                    <Col md={2} className="align-self-center text-warning">
+                    <Col xs={2} className="align-self-center text-warning">
                       <strong>Wrong answers</strong>
                     </Col>
                     <Col
-                      md={4}
+                      xs={4}
                       className="text-center text-warning align-self-center"
                     >
                       {exercise.wrong_answers}

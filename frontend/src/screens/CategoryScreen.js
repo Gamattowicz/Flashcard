@@ -32,15 +32,15 @@ const CategoryScreen = ({ match, history }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Col md={4}>
+        <Col xs={12} md={7}>
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <Row>
-                  <Col md={5} className="align-self-center">
+                  <Col xs={5} md={2} className="align-self-center">
                     <strong>Name</strong>
                   </Col>
-                  <Col md={7} className="text-center">
+                  <Col xs={7} md={10} className="text-center">
                     {category.name}
                   </Col>
                 </Row>
@@ -48,11 +48,12 @@ const CategoryScreen = ({ match, history }) => {
 
               <ListGroup.Item>
                 <Row>
-                  <Col md={5} className="align-self-center">
+                  <Col xs={5} md={2} className="align-self-center">
                     <strong>Color</strong>
                   </Col>
                   <Col
-                    md={7}
+                    xs={7}
+                    md={10}
                     className="text-center"
                     style={{ backgroundColor: category.color }}
                   ></Col>

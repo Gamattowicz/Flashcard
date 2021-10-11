@@ -40,15 +40,15 @@ const DeckScreen = ({ match, history }) => {
       ) : error || errorWords ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Col md={7}>
+        <Col xs={12} md={7}>
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <Row>
-                  <Col md={2} className="align-self-center">
+                  <Col xs={5} md={2} className="align-self-center">
                     <strong>Name</strong>
                   </Col>
-                  <Col md={10} className="text-center">
+                  <Col xs={7} md={10} className="text-center">
                     {deck.name}
                   </Col>
                 </Row>
@@ -56,10 +56,10 @@ const DeckScreen = ({ match, history }) => {
 
               <ListGroup.Item>
                 <Row>
-                  <Col md={2} className="align-self-center">
+                  <Col xs={5} md={2} className="align-self-center">
                     <strong>Word list</strong>
                   </Col>
-                  <Col md={10} className="text-center">
+                  <Col xs={7} md={10} className="text-center">
                     <ListGroup variant="flush">
                       {words &&
                         words.map((word) => (

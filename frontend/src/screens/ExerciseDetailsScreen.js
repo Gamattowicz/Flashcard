@@ -33,21 +33,21 @@ const ExerciseDetailsScreen = ({ match, history }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Col md={6}>
+        <Col xs={12} md={7}>
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <Row>
-                  <Col md={2} className="align-self-center ">
+                  <Col xs={3} className="align-self-center ">
                     <strong>Words number</strong>
                   </Col>
-                  <Col md={4} className="text-center align-self-center">
+                  <Col xs={3} className="text-center align-self-center">
                     {exercise.words_num}
                   </Col>
-                  <Col md={2} className="align-self-center">
+                  <Col xs={3} className="align-self-center">
                     <strong>Time</strong>
                   </Col>
-                  <Col md={4} className="text-center align-self-center">
+                  <Col xs={3} className="text-center align-self-center">
                     {exercise.time > 0
                       ? new Date(exercise.time * 1000)
                           .toISOString()
@@ -59,16 +59,16 @@ const ExerciseDetailsScreen = ({ match, history }) => {
 
               <ListGroup.Item>
                 <Row>
-                  <Col md={2} className="align-self-center text-success">
+                  <Col xs={3} className="align-self-center text-success">
                     <strong>Correct answers</strong>
                   </Col>
-                  <Col md={4} className="text-center text-success">
+                  <Col xs={3} className="text-center text-success">
                     {exercise.correct_answers}
                   </Col>
-                  <Col md={2} className="align-self-center text-warning">
+                  <Col xs={3} className="align-self-center text-warning">
                     <strong>Wrong answers</strong>
                   </Col>
-                  <Col md={4} className="text-center text-warning">
+                  <Col xs={3} className="text-center text-warning">
                     {exercise.wrong_answers}
                   </Col>
                 </Row>
@@ -76,10 +76,10 @@ const ExerciseDetailsScreen = ({ match, history }) => {
 
               <Card.Footer className="text-muted">
                 <Row>
-                  <Col md={2}>
+                  <Col xs={3}>
                     <strong>Deck</strong>
                   </Col>
-                  <Col md={4} className="text-center">
+                  <Col xs={3} className="text-center">
                     <Link
                       to={`/decks/${exercise.deck_id}`}
                       style={{ color: '#839496' }}
@@ -88,28 +88,28 @@ const ExerciseDetailsScreen = ({ match, history }) => {
                       {exercise.deck}
                     </Link>
                   </Col>
-                  <Col md={2}>
+                  <Col xs={3}>
                     <strong>Start date</strong>
                   </Col>
-                  <Col md={4} className="text-center">
+                  <Col xs={3} className="text-center">
                     {exercise.created_at}
                   </Col>
                 </Row>
               </Card.Footer>
             </ListGroup>
           </Card>
+          <ExerciseChart
+            data={[
+              {
+                name: 'Correct answers',
+                value: exercise.correct_answers,
+              },
+              { name: 'Wrong answers', value: exercise.wrong_answers },
+            ]}
+            colors={['#2aa198', '#cb4b16']}
+          />
         </Col>
       )}
-      <ExerciseChart
-        data={[
-          {
-            name: 'Correct answers',
-            value: exercise.correct_answers,
-          },
-          { name: 'Wrong answers', value: exercise.wrong_answers },
-        ]}
-        colors={['#2aa198', '#cb4b16']}
-      />
     </div>
   )
 }
