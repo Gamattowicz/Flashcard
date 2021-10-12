@@ -13,6 +13,7 @@ const CategoryUpdateScreen = ({ match, history }) => {
   const [name, setName] = useState('')
   const [color, setColor] = useState('#fff')
   const [showColorPicker, setShowColorPicker] = useState(true)
+  const [message, setMessage] = useState('')
 
   const [loaded, setLoaded] = useState(false)
 
@@ -34,7 +35,11 @@ const CategoryUpdateScreen = ({ match, history }) => {
       if (successCategoryUpdate) {
         dispatch({ type: CATEGORY_UPDATE_RESET })
         setLoaded(false)
-        history.push('/category')
+        setMessage('Updated')
+        history.push({
+          pathname: '/category',
+          state: { message: message },
+        })
       } else {
         if (!success || !loaded) {
           dispatch(listCategoryDetails(match.params.id))
@@ -59,6 +64,7 @@ const CategoryUpdateScreen = ({ match, history }) => {
   const updateHandler = (e) => {
     e.preventDefault()
     dispatch(updateCategory({ id: category.id, name, color }))
+    setMessage('Updated')
   }
 
   return (

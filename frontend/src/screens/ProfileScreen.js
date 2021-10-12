@@ -62,7 +62,7 @@ const ProfileScreen = ({ history }) => {
           password: password,
         })
       )
-      setMessage('')
+      setMessage('Profile has been updated successfully.')
     }
   }
 
@@ -70,8 +70,7 @@ const ProfileScreen = ({ history }) => {
     <Row>
       <Col xs={10} md={5} className="mx-4">
         <h2 className="text-center">USER PROFILE</h2>
-
-        {message && <Message variant="warning">{message}</Message>}
+        {message && <Message variant="success">{message}</Message>}
         {(error || errorExercises || errorUpdate) && (
           <Message variant="warning">
             {error || errorExercises || errorUpdate}

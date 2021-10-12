@@ -7,7 +7,7 @@ import Message from '../components/Message'
 import {listCategories} from '../actions/categoryActions'
 import Paginate from '../components/Paginate'
 
-const CategoryListScreen = ({ history }) => {
+const CategoryListScreen = ({ history, message }) => {
   const dispatch = useDispatch()
   const categoryList = useSelector((state) => state.categoryList)
   const { error, loading, categories, pages, page } = categoryList
@@ -28,7 +28,7 @@ const CategoryListScreen = ({ history }) => {
   return (
     <>
       <h1>Categories</h1>
-
+      {message && <Message variant="success">{message}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
