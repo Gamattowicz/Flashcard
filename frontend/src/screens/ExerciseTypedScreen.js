@@ -86,7 +86,7 @@ const ExerciseTypedScreen = ({ match, history }) => {
           ) : error ? (
             <Message variant="danger">{error}</Message>
           ) : (
-            <Col xs={5}>
+            <Col xs={12} md={7}>
               <Counter
                 correctAnswers={goodAnswers}
                 wrongAnswers={badAnswers}

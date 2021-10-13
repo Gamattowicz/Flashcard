@@ -32,15 +32,15 @@ const WordScreen = ({ match, history }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Col xs={8}>
+        <Col xs={12} md={8}>
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <Row>
-                  <Col xs={2} className="align-self-center">
+                  <Col xs={4} className="align-self-center">
                     <strong>Question</strong>
                   </Col>
-                  <Col xs={10} className="text-center">
+                  <Col xs={8} className="text-center">
                     {word.question}
                   </Col>
                 </Row>
@@ -48,10 +48,10 @@ const WordScreen = ({ match, history }) => {
 
               <ListGroup.Item>
                 <Row>
-                  <Col xs={2} className="align-self-center">
+                  <Col xs={4} className="align-self-center">
                     <strong>Answer</strong>
                   </Col>
-                  <Col xs={10} className="text-center">
+                  <Col xs={8} className="text-center">
                     {word.answer}
                   </Col>
                 </Row>
@@ -59,16 +59,16 @@ const WordScreen = ({ match, history }) => {
 
               <ListGroup.Item>
                 <Row>
-                  <Col xs={2} className="align-self-center text-success">
+                  <Col xs={4} md={3} className="align-self-center text-success">
                     <strong>Correct answers</strong>
                   </Col>
-                  <Col xs={4} className="text-center text-success">
+                  <Col xs={8} md={3} className="text-center text-success">
                     {word.correct_answers}
                   </Col>
-                  <Col xs={2} className="align-self-center text-warning">
+                  <Col xs={4} md={3} className="align-self-center text-warning">
                     <strong>Wrong answers</strong>
                   </Col>
-                  <Col xs={4} className="text-center text-warning">
+                  <Col xs={8} md={3} className="text-center text-warning">
                     {word.wrong_answers}
                   </Col>
                 </Row>
@@ -76,10 +76,10 @@ const WordScreen = ({ match, history }) => {
 
               <Card.Footer className="text-muted">
                 <Row>
-                  <Col xs={2}>
+                  <Col xs={4} md={3}>
                     <strong>Category</strong>
                   </Col>
-                  <Col xs={4} className="text-center">
+                  <Col xs={8} md={3} className="text-center">
                     <Link
                       to={`/category/${word.category_id}`}
                       style={{ color: '#839496' }}
@@ -88,10 +88,10 @@ const WordScreen = ({ match, history }) => {
                       {word.category}
                     </Link>
                   </Col>
-                  <Col xs={2}>
+                  <Col xs={4} md={3}>
                     <strong>Deck</strong>
                   </Col>
-                  <Col xs={4} className="text-center">
+                  <Col xs={8} md={3} className="text-center">
                     <Link
                       to={`/decks/${word.deck_id}`}
                       style={{ color: '#839496' }}

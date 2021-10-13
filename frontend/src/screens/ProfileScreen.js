@@ -121,7 +121,7 @@ const ProfileScreen = ({ history }) => {
             ></Form.Control>
           </Form.Group>
 
-          <Button type="submit" variant="primary mt-3">
+          <Button type="submit" variant="primary my-3">
             UPDATE
           </Button>
         </Form>

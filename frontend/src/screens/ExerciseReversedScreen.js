@@ -87,12 +87,14 @@ const ExerciseReversedScreen = ({ match, history }) => {
           ) : error ? (
             <Message variant="danger">{error}</Message>
           ) : (
-            <Col xs={5}>
-              <Counter
-                correctAnswers={goodAnswers}
-                wrongAnswers={badAnswers}
-                totalAnswers={exercise.words_num}
-              />
+            <Col xs={12} md={7}>
+              <Row>
+                <Counter
+                  correctAnswers={goodAnswers}
+                  wrongAnswers={badAnswers}
+                  totalAnswers={exercise.words_num}
+                />
+              </Row>
               <ProgressBar className="my-3">
                 <ProgressBar
                   animated

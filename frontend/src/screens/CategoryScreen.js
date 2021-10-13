@@ -32,7 +32,7 @@ const CategoryScreen = ({ match, history }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Col xs={12} md={7}>
+        <Col xs={12} md={8}>
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>

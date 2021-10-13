@@ -32,7 +32,7 @@ const UserScreen = ({ match, history }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Col md={6}>
+        <Col xs={12} md={8}>
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
