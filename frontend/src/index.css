@@ -21,6 +21,10 @@ i.fa-trash:hover {
   color: #2aa198;
 }
 
+.home {
+  color: RGB(181, 137, 0);
+}
+
 .word {
   display: flex;
   justify-content: center;

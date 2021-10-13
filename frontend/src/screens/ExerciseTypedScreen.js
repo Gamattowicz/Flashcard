@@ -87,11 +87,13 @@ const ExerciseTypedScreen = ({ match, history }) => {
             <Message variant="danger">{error}</Message>
           ) : (
             <Col xs={12} md={7}>
-              <Counter
-                correctAnswers={goodAnswers}
-                wrongAnswers={badAnswers}
-                totalAnswers={exercise.words_num}
-              />
+              <Row>
+                <Counter
+                  correctAnswers={goodAnswers}
+                  wrongAnswers={badAnswers}
+                  totalAnswers={exercise.words_num}
+                />
+              </Row>
               <ProgressBar className="my-3">
                 <ProgressBar
                   animated
