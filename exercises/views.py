@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
@@ -70,6 +71,13 @@ class ExerciseCreate(CreateAPIView):
         deck = Deck.objects.get(id=pk)
         data = request.data
 
+        if int(data['wordNumber']) > len(deck.word_set.all()):
+            message = {'detail': 'There are fewer words in the selected deck than the number of words you '
+                                 'have chosen to practice. Please choose fewer words to practice or add more words.'}
+            return Response(message, status=status.HTTP_400_BAD_REQUEST)
+        elif int(data['wordNumber']) <= 0:
+            message = {'detail': 'Number of words must be greater than 0.'}
+            return Response(message, status=status.HTTP_400_BAD_REQUEST)
         exercise = Exercise.objects.create(
             user=user,
             words_num=data['wordNumber'],
