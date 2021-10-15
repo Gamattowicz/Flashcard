@@ -154,7 +154,7 @@ const WordUpdateScreen = ({ match, history }) => {
         </Form.Group>
 
         <Button type="submit" variant="primary mt-3">
-          CREATE
+          UPDATE
         </Button>
       </Form>
     </FormContainer>
