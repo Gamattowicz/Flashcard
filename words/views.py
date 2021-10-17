@@ -1,8 +1,14 @@
 from random import sample
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, \
-    RetrieveUpdateAPIView
+from rest_framework.generics import (
+    ListAPIView,
+    RetrieveAPIView,
+    CreateAPIView,
+    UpdateAPIView,
+    DestroyAPIView,
+    RetrieveUpdateAPIView,
+)
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
@@ -19,9 +25,9 @@ class WordList(ListAPIView):
 
     def list(self, request, *args, **kwargs):
         user = request.user
-        queryset = Word.objects.filter(user=user.id).order_by('created_at')
+        queryset = Word.objects.filter(user=user.id).order_by("created_at")
 
-        page = request.query_params.get('page')
+        page = request.query_params.get("page")
         paginator = Paginator(queryset, 12)
         try:
             queryset = paginator.page(page)
@@ -34,18 +40,20 @@ class WordList(ListAPIView):
         page = int(page)
 
         serializer = self.get_serializer(queryset, many=True)
-        return Response({'words': serializer.data, 'page': page, 'pages': paginator.num_pages})
+        return Response(
+            {"words": serializer.data, "page": page, "pages": paginator.num_pages}
+        )
 
 
 class WordAllList(ListAPIView):
-    queryset = Word.objects.all().order_by('created_at')
+    queryset = Word.objects.all().order_by("created_at")
     serializer_class = WordSerializer
     permission_classes = [IsAdminUser]
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
 
-        page = request.query_params.get('page')
+        page = request.query_params.get("page")
         paginator = Paginator(queryset, 12)
         try:
             queryset = paginator.page(page)
@@ -58,7 +66,9 @@ class WordAllList(ListAPIView):
         page = int(page)
 
         serializer = self.get_serializer(queryset, many=True)
-        return Response({'words': serializer.data, 'page': page, 'pages': paginator.num_pages})
+        return Response(
+            {"words": serializer.data, "page": page, "pages": paginator.num_pages}
+        )
 
 
 class WordDetail(RetrieveAPIView):
@@ -73,9 +83,9 @@ class WordDeckList(ListAPIView):
     def list(self, request, pk, *args, **kwargs):
         user = request.user
         deck = Deck.objects.get(id=pk)
-        queryset = Word.objects.filter(user=user.id, deck=deck).order_by('created_at')
+        queryset = Word.objects.filter(user=user.id, deck=deck).order_by("created_at")
 
-        page = request.query_params.get('page')
+        page = request.query_params.get("page")
         paginator = Paginator(queryset, 2)
         try:
             queryset = paginator.page(page)
@@ -88,7 +98,9 @@ class WordDeckList(ListAPIView):
         page = int(page)
 
         serializer = self.get_serializer(queryset, many=True)
-        return Response({'words': serializer.data, 'page': page, 'pages': paginator.num_pages})
+        return Response(
+            {"words": serializer.data, "page": page, "pages": paginator.num_pages}
+        )
 
 
 class WordCreate(CreateAPIView):
@@ -103,10 +115,10 @@ class WordCreate(CreateAPIView):
 
         word = Word.objects.create(
             user=user,
-            question=data['question'],
-            answer=data['answer'],
+            question=data["question"],
+            answer=data["answer"],
             category=category,
-            deck=deck
+            deck=deck,
         )
 
         serializer = self.get_serializer(word, many=False)
@@ -123,7 +135,7 @@ class WordDraw(ListAPIView):
     serializer_class = WordSerializer
     permission_classes = [IsAuthenticated]
 
-    def list(self, request, pk,*args, **kwargs):
+    def list(self, request, pk, *args, **kwargs):
         deck_id = Exercise.objects.get(id=pk).deck_id
         words = list(Word.objects.filter(deck=deck_id))
         queryset = sample(words, 1)
@@ -182,10 +194,12 @@ class WordUpdate(RetrieveUpdateAPIView):
     def partial_update(self, request, *args, **kwargs):
         word = self.get_object()
         data = request.data
-        word.question = data.get('question', word.question)
-        word.answer = data.get('answer', word.answer)
-        word.category = Category.objects.get(name=data.get('category', word.category.name))
-        word.deck = Deck.objects.get(name=data.get('deck', word.deck.name))
+        word.question = data.get("question", word.question)
+        word.answer = data.get("answer", word.answer)
+        word.category = Category.objects.get(
+            name=data.get("category", word.category.name)
+        )
+        word.deck = Deck.objects.get(name=data.get("deck", word.deck.name))
 
         word.save()
         serializer = self.serializer_class(word)

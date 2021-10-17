@@ -1,5 +1,11 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, DestroyAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import (
+    ListAPIView,
+    RetrieveAPIView,
+    CreateAPIView,
+    DestroyAPIView,
+    RetrieveUpdateAPIView,
+)
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
@@ -8,13 +14,13 @@ from .serializers import CategorySerializer
 
 
 class CategoryList(ListAPIView):
-    queryset = Category.objects.all().order_by('created_at')
+    queryset = Category.objects.all().order_by("created_at")
     serializer_class = CategorySerializer
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
 
-        page = request.query_params.get('page')
+        page = request.query_params.get("page")
         paginator = Paginator(queryset, 12)
         try:
             queryset = paginator.page(page)
@@ -27,7 +33,9 @@ class CategoryList(ListAPIView):
         page = int(page)
 
         serializer = self.get_serializer(queryset, many=True)
-        return Response({'categories': serializer.data, 'page': page, 'pages': paginator.num_pages})
+        return Response(
+            {"categories": serializer.data, "page": page, "pages": paginator.num_pages}
+        )
 
 
 class CategoryDetail(RetrieveAPIView):
@@ -54,8 +62,8 @@ class CategoryUpdate(RetrieveUpdateAPIView):
     def partial_update(self, request, *args, **kwargs):
         category = self.get_object()
         data = request.data
-        category.name = data.get('name', category.name)
-        category.color = data.get('color', category.color)
+        category.name = data.get("name", category.name)
+        category.color = data.get("color", category.color)
 
         category.save()
         serializer = self.serializer_class(category)

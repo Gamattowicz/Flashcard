@@ -11,7 +11,15 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'name', 'is_admin', 'last_login', 'date_joined']
+        fields = [
+            "id",
+            "username",
+            "email",
+            "name",
+            "is_admin",
+            "last_login",
+            "date_joined",
+        ]
 
     @classmethod
     def get_is_admin(cls, obj):
@@ -20,18 +28,18 @@ class UserSerializer(serializers.ModelSerializer):
     @classmethod
     def get_name(cls, obj):
         name = obj.first_name
-        if name == '':
+        if name == "":
             name = obj.email
         return name
 
     @classmethod
     def get_last_login(cls, obj):
         if obj.last_login:
-            return obj.last_login.strftime('%d-%m-%Y %a %H:%M:%S')
+            return obj.last_login.strftime("%d-%m-%Y %a %H:%M:%S")
 
     @classmethod
     def get_date_joined(cls, obj):
-        return obj.date_joined.strftime('%d-%m-%Y %a %H:%M:%S')
+        return obj.date_joined.strftime("%d-%m-%Y %a %H:%M:%S")
 
 
 class UserSerializerWithToken(UserSerializer):
@@ -39,7 +47,16 @@ class UserSerializerWithToken(UserSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'name', 'is_admin', 'last_login','date_joined', 'token']
+        fields = [
+            "id",
+            "username",
+            "email",
+            "name",
+            "is_admin",
+            "last_login",
+            "date_joined",
+            "token",
+        ]
 
     @classmethod
     def get_token(cls, obj):

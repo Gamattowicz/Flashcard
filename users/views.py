@@ -2,8 +2,14 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User, update_last_login
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework import status
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, \
-    RetrieveUpdateAPIView
+from rest_framework.generics import (
+    ListAPIView,
+    RetrieveAPIView,
+    CreateAPIView,
+    UpdateAPIView,
+    DestroyAPIView,
+    RetrieveUpdateAPIView,
+)
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -36,14 +42,14 @@ class UserCreate(CreateAPIView):
         data = request.data
         try:
             user = User.objects.create(
-                username=data['username'],
-                email=data['email'],
-                password=make_password(data['password'])
+                username=data["username"],
+                email=data["email"],
+                password=make_password(data["password"]),
             )
             serializer = self.get_serializer(user, many=False)
             return Response(serializer.data)
         except:
-            message = {'detail': 'User with this email already exists'}
+            message = {"detail": "User with this email already exists"}
             return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -55,12 +61,14 @@ class UserProfileUpdate(UpdateAPIView):
         data = request.data
 
         user = request.user
-        user.username = data['username']
-        user.email = data['email']
-        if data['password'] != '':
-            user.password = make_password(data['password'])
-        elif User.objects.filter(username=data['username']).first():
-            message = {'detail': f'User with "{data["username"]}" username already exists'}
+        user.username = data["username"]
+        user.email = data["email"]
+        if data["password"] != "":
+            user.password = make_password(data["password"])
+        elif User.objects.filter(username=data["username"]).first():
+            message = {
+                "detail": f'User with "{data["username"]}" username already exists'
+            }
             return Response(message, status=status.HTTP_400_BAD_REQUEST)
         user.save()
         serializer = self.serializer_class(user, data=data, partial=True, many=False)
@@ -81,14 +89,14 @@ class UserProfile(ListAPIView):
 
 
 class UserList(ListAPIView):
-    queryset = User.objects.all().order_by('date_joined')
+    queryset = User.objects.all().order_by("date_joined")
     serializer_class = UserSerializer
     permission_classes = [IsAdminUser]
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
 
-        page = request.query_params.get('page')
+        page = request.query_params.get("page")
         paginator = Paginator(queryset, 12)
         try:
             queryset = paginator.page(page)
@@ -101,7 +109,9 @@ class UserList(ListAPIView):
         page = int(page)
 
         serializer = self.get_serializer(queryset, many=True)
-        return Response({'users': serializer.data, 'page': page, 'pages': paginator.num_pages})
+        return Response(
+            {"users": serializer.data, "page": page, "pages": paginator.num_pages}
+        )
 
 
 class UserDetail(RetrieveAPIView):
@@ -128,9 +138,9 @@ class UserUpdate(RetrieveUpdateAPIView):
     def partial_update(self, request, *args, **kwargs):
         user = self.get_object()
         data = request.data
-        user.username = data.get('username', user.username)
-        user.email = data.get('email', user.email)
-        user.is_staff = data.get('is_admin', user.is_staff)
+        user.username = data.get("username", user.username)
+        user.email = data.get("email", user.email)
+        user.is_staff = data.get("is_admin", user.is_staff)
 
         user.save()
         serializer = self.serializer_class(user)

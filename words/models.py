@@ -1,5 +1,6 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+
 from category.models import Category
 from decks.models import Deck
 
@@ -16,7 +17,7 @@ class Word(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{str(self.question)}'
+        return f"{str(self.question)}"
 
     class Meta:
-        ordering = ['question']
+        ordering = ["question"]
