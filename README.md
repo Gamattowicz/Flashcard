@@ -15,7 +15,7 @@
 * [Contact](#contact)
 
 ## General info
- **Flashcard** application created in **Django** and **React** to learn how to combine backend and frontend.
+ **Flashcard** is a full-stack web application created in **Django REST Framework** and **ReactJS**. It will help you memorize the most important vocabulary in a quick and easy way.
 
 ## Technologies
 * Python 3.9.x
@@ -33,7 +33,8 @@ Check app demo [here.](https://flashcard-gamattowicz.herokuapp.com/)
 
 ## Setup & Installation
 
-###Backend configuration
+**Backend configuration**
+
 Make sure you have the latest version of Python and pip installed
 
 Clone the repository using the following command
@@ -64,7 +65,8 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-###Frontend configuration
+**Frontend configuration**
+
 [Install Node.js](https://nodejs.org/en/) and Node Modules:
 
 
